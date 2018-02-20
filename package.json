@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server/index.js",
-    "client": "parcel src/client/index.html -d dist/client",
+    "server:dev": "npm run server:build && npm start",
+    "client:dev": "parcel src/client/index.html -d dist/client",
     "client:build": "parcel build src/client/index.html -d dist/client",
     "server:build": "babel src/server -d dist/server -s",
     "build": "npm run client:build && npm run server:build"
@@ -17,6 +18,7 @@
     "parcel-bundler": "^1.6.2"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
   }
 }

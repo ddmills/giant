@@ -1,3 +1,7 @@
-import Message from './Message';
+import io from 'socket.io-client';
 
-console.log('[client.js]', ...Message);
+const socket = io();
+const send = (message) => socket.emit('command', message);
+
+send('hello');
+send('this is a client');
