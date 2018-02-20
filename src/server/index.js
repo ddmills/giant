@@ -1,3 +1,4 @@
+import config from 'config';
 import express from 'express';
 import path from 'path';
 import {Server} from 'http';
@@ -25,4 +26,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen('8080', () => console.log(`listening 8080`));
+server.listen(config.server.port, () => console.log(`${config.server.protocol}://${config.server.host}:${config.server.port}`));
