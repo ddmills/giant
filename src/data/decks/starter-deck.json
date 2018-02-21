@@ -1,0 +1,14 @@
+[
+  {
+    "typeId": "tax-collector",
+    "count": 6
+  },
+  {
+    "typeId": "monk",
+    "count": 2
+  },
+  {
+    "typeId": "thief",
+    "count": 2
+  }
+]

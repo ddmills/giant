@@ -3,6 +3,11 @@ import express from 'express';
 import path from 'path';
 import {Server} from 'http';
 import SocketIO from 'socket.io';
+import {create as createGameContext} from './domain/factories/GameContextFactory';
+
+const game = createGameContext('player1', 'player2');
+
+console.log(game);
 
 const app = express();
 const server = Server(app);

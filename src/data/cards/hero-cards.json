@@ -1,0 +1,23 @@
+[
+  {
+    "typeId": "tax-collector",
+    "name": "Tax Collector",
+    "cost": 0,
+    "value": 1,
+    "attack": 0
+  },
+  {
+    "typeId": "monk",
+    "name": "Monk",
+    "cost": 0,
+    "value": 1,
+    "attack": 0
+  },
+  {
+    "typeId": "thief",
+    "name": "Thief",
+    "cost": 0,
+    "value": 0,
+    "attack": 1
+  }
+]

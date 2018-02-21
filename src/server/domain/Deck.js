@@ -26,19 +26,19 @@ export default class Deck extends Model {
     return this.cards.includes(card);
   }
 
-  forEachCard(callback) {
+  forEach(callback) {
     return this.cards.forEach(callback);
   }
 
-  mapCards(callback) {
+  map(callback) {
     return this.cards.map(callback);
   }
 
-  reduceCards(callback, initialValue) {
+  reduce(callback, initialValue) {
     return this.cards.reduce(callback, initialValue);
   }
 
-  filterCards(callback) {
+  filter(callback) {
     return this.cards.filter(callback);
   }
 

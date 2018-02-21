@@ -1,6 +1,6 @@
 import RandomJS from 'random-js';
 
-generator = new RandomJS;
+const generator = new RandomJS;
 
 export function integer(min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER) {
   return generator.integer(min, max);

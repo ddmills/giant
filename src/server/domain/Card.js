@@ -5,6 +5,7 @@ export default class Card extends Model {
     return {
       id: -1,
       name: 'no name',
+      typeId: 'no-type',
       cost: 0,
       value: 0,
       attack: 0,

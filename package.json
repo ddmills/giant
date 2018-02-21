@@ -23,6 +23,7 @@
   "dependencies": {
     "config": "^1.29.4",
     "express": "^4.16.2",
+    "random-js": "^1.0.8",
     "socket.io": "^2.0.4"
   }
 }
