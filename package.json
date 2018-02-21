@@ -1,11 +1,12 @@
 {
   "name": "giant",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server/index.js",
   "scripts": {
     "start": "node dist/server/index.js",
-    "server:dev": "npm run server:build && npm start",
-    "client:dev": "parcel src/client/index.html -d dist/client",
+    "watch": "concurrently \"npm run server:watch\" \"nodemon -w dist/server\"",
+    "server:watch": "nodemon --exec \"npm run server:build\" -w src/server",
+    "client:watch": "parcel src/client/index.html -d dist/client",
     "client:build": "parcel build src/client/index.html -d dist/client",
     "server:build": "babel src/server -d dist/server -s",
     "build": "npm run client:build && npm run server:build"
@@ -14,7 +15,9 @@
     "babel-cli": "^6.26.0",
     "babel-preset-node8": "^1.2.0",
     "babel-preset-stage-3": "^6.24.1",
+    "concurrently": "^3.5.1",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.15.1",
     "parcel-bundler": "^1.6.2"
   },
   "dependencies": {
