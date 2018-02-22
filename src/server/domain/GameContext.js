@@ -6,7 +6,7 @@ import {shuffle} from '../utility/Random';
 export default class GameContext extends Model {
   static get defaults() {
     return {
-      id: -1,
+      id: null,
       players: [],
       heroDeck: Deck.create(),
       heroRow: Deck.create(),
@@ -31,7 +31,7 @@ export default class GameContext extends Model {
     this.blueprintDeck.shuffle()
 
     this.heroRow.drawFrom(this.heroDeck, 5);
-    this.buildingRow.drawFrom(this.blueprintDeck, 5);
+    this.blueprintRow.drawFrom(this.blueprintDeck, 5);
 
     this.players.forEach((player) => player.deck.shuffle());
     this.players.forEach((player) => player.draw(5));
@@ -48,7 +48,7 @@ export default class GameContext extends Model {
   }
 
   endTurn() {
-    this.currentPlayer.endTurn();
+    this.currentPlayer.onEndTurn();
     this.blueprintRow.drawFrom(this.blueprintDeck, 5 - this.blueprintRow.count);
     this.heroRow.drawFrom(this.heroDeck, 5 - this.heroRow.count);
     this.currentTurn++;

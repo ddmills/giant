@@ -39,7 +39,7 @@ export default class Player extends Model {
     return card.cost <= this.currentValue;
   }
 
-  canPurchaseBuilding(card) {
+  canPurchaseBlueprint(card) {
     return card.cost <= this.currentValue;
   }
 
@@ -48,7 +48,7 @@ export default class Player extends Model {
     this.discardDeck.add(card);
   }
 
-  purchaseBuilding(card) {
+  purchaseBlueprint(card) {
     this.spentValue += card.cost;
     card.disable();
     this.buildingDeck.add(card);

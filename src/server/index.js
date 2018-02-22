@@ -4,10 +4,9 @@ import path from 'path';
 import {Server} from 'http';
 import SocketIO from 'socket.io';
 import {create as createGameContext} from './domain/factories/GameContextFactory';
-
-const game = createGameContext('player1', 'player2');
-
-console.log(game);
+import {save as saveGameContext} from './repositories/GameContextRepository';
+import {create as createCommand} from './commands/CommandFactory';
+import {log, json} from './utility/Logger';
 
 const app = express();
 const server = Server(app);
@@ -32,3 +31,20 @@ io.on('connection', (socket) => {
 });
 
 server.listen(config.server.port, () => console.log(`${config.server.protocol}://${config.server.host}:${config.server.port}`));
+
+const game = createGameContext('player1', 'player2');
+
+log('before', game.id);
+saveGameContext(game);
+log('after', game.id);
+
+game.setup();
+
+const p1 = game.players[0];
+const p2 = game.players[1];
+
+const endTurn = createCommand(game.id, p1.id, 'END_TURN');
+
+if (endTurn.authorize()) {
+  endTurn.execute();
+}
