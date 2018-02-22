@@ -1,4 +1,4 @@
-import {die, pick, uuid} from '../../utility/Random';
+import {die, pick, uuid} from '../../utilities/Random';
 import Card from '../Card';
 
 const names = [

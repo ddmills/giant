@@ -1,5 +1,5 @@
 import Model from './Model';
-import {shuffle} from '../utility/Random';
+import {shuffle} from '../utilities/Random';
 
 export default class Deck extends Model {
   static get defaults() {

@@ -1,7 +1,7 @@
 import {getHero} from '../../repositories/CardRepository';
 import starterDeckData from '../../../data/decks/starter-deck.json';
-import {repeat} from '../../utility/Array';
-import {uuid} from '../../utility/Random';
+import {repeat} from '../../utilities/Array';
+import {uuid} from '../../utilities/Random';
 import Deck from '../../domain/Deck';
 
 export function create() {

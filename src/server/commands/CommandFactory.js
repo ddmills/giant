@@ -3,7 +3,7 @@ import {create as createPurchaseBlueprintCommand} from './factories/PurchaseBlue
 import {create as createPurchaseHeroCommand} from './factories/PurchaseHeroCommandFactory';
 import {create as createEndTurnCommand} from './factories/EndTurnCommandFactory';
 import {get as getGameContext} from '../repositories/GameContextRepository';
-import {warn} from '../utility/Logger';
+import {warn} from '../utilities/Logger';
 
 const commandTypeMap = {
   [END_TURN]: createEndTurnCommand,

@@ -1,7 +1,7 @@
 import heroData from '../../data/cards/hero-cards.json';
 import buildingData from '../../data/cards/building-cards.json';
 import Card from '../domain/Card';
-import {uuid} from '../utility/Random';
+import {uuid} from '../utilities/Random';
 
 export function getHero(typeId) {
   const data = heroData.find((data) => data.typeId === typeId);

@@ -5,8 +5,8 @@ import {Server} from 'http';
 import SocketIO from 'socket.io';
 import {create as createGameContext} from './domain/factories/GameContextFactory';
 import {save as saveGameContext} from './repositories/GameContextRepository';
-import {create as createCommand} from './commands/CommandFactory';
-import {log, json} from './utility/Logger';
+import {handle as handleRequest} from './commands/CommandHandler';
+import {log, info, warn, json} from './utilities/Logger';
 
 const app = express();
 const server = Server(app);
@@ -18,33 +18,26 @@ app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
 });
 
-io.on('connection', (socket) => {
-  console.log('[connect]');
+const game = createGameContext('player1', 'player2');
 
-  socket.on('command', (command) => {
-    console.log('[command]', command);
+saveGameContext(game);
+
+game.setup();
+
+json(game.heroRow);
+
+io.on('connection', (socket) => {
+  log('[connect]');
+
+  socket.on('command', (request) => {
+    handleRequest(game.id, game.currentPlayerId, request);
   });
 
   socket.on('disconnect', () => {
-    console.log('[disconnect]');
+    log('[disconnect]');
   });
 });
 
 server.listen(config.server.port, () => console.log(`${config.server.protocol}://${config.server.host}:${config.server.port}`));
 
-const game = createGameContext('player1', 'player2');
 
-log('before', game.id);
-saveGameContext(game);
-log('after', game.id);
-
-game.setup();
-
-const p1 = game.players[0];
-const p2 = game.players[1];
-
-const endTurn = createCommand(game.id, p1.id, 'END_TURN');
-
-if (endTurn.authorize()) {
-  endTurn.execute();
-}

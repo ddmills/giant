@@ -1,7 +1,9 @@
 import io from 'socket.io-client';
 
 const socket = io();
-const send = (message) => socket.emit('command', message);
+const cmd = (type, parameters) => socket.emit('command', {type, parameters});
 
-send('hello');
-send('this is a client');
+window.cmd = cmd;
+window.endTurn = () => cmd('END_TURN');
+window.buyHero = (id) => cmd('PURCHASE_HERO', {cardId : id});
+window.buyBlueprint = (id) => cmd('PURCHASE_BLUEPRINT', {cardId : id});

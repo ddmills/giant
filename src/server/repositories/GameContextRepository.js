@@ -1,4 +1,4 @@
-import {uuid} from '../utility/Random';
+import {uuid} from '../utilities/Random';
 
 const gameContexts = {};
 

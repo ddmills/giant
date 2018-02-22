@@ -1,7 +1,7 @@
 import Model from './Model';
 import Deck from './Deck';
 import Registry from './Registry';
-import {shuffle} from '../utility/Random';
+import {shuffle} from '../utilities/Random';
 
 export default class GameContext extends Model {
   static get defaults() {
