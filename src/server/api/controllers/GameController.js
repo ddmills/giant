@@ -14,4 +14,3 @@ export function getAll(request, response) {
   log('hello');
   response.send(request.session);
 }
-

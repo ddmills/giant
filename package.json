@@ -23,6 +23,7 @@
   "dependencies": {
     "chalk": "^2.3.1",
     "config": "^1.29.4",
+    "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "random-js": "^1.0.8",

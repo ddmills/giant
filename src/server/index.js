@@ -9,12 +9,9 @@ import ApiRouter from './routes/ApiRouter';
 const app = express();
 const server = Server(app);
 
-app.use(session({
-  secret: config.session.secret
-}));
+app.use(session(config.session));
 app.use('/', WebRouter);
 app.use('/api', ApiRouter);
 app.use('/client', express.static(path.join(__dirname, '..', 'client')));
-
 
 server.listen(config.server.port, () => console.log(`${config.server.protocol}://${config.server.host}:${config.server.port}`));
