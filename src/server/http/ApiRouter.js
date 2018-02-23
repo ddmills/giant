@@ -1,6 +1,6 @@
 import path from 'path';
 import {Router} from 'express';
-import * as GameController from '../api/controllers/GameController';
+import * as GameController from './controllers/api/GameController';
 
 const router = Router();
 

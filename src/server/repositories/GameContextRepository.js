@@ -13,3 +13,7 @@ export function save(gameContext) {
 export function get(gameContextId) {
   return gameContexts[gameContextId];
 }
+
+export function getAll() {
+  return Object.values(gameContexts);
+}

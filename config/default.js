@@ -9,9 +9,9 @@ module.exports = {
   "session": {
     "secret": process.env.APP_SESSION_SECRET,
     "resave": false,
-    "saveUninitialized": false
+    "saveUninitialized": true
   },
   "steam": {
     "key": process.env.STEAM_API_KEY
   }
-}
+};
