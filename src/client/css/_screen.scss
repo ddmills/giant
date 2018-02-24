@@ -1,0 +1,37 @@
+@mixin size($size) {
+  @if $size == 'sm' {
+    @media (min-width: $screen-sm) {
+      @content;
+    }
+  }
+
+  @if $size == 'md' {
+    @media (min-width: $screen-md) {
+      @content;
+    }
+  }
+
+  @if $size == 'lg' {
+    @media (min-width: $screen-lg) {
+      @content;
+    }
+  }
+}
+
+@mixin size-util($name, $size) {
+  .hide-below-#{$name} {
+    @media (max-width: ($size - 1)) {
+      display: none !important;
+    }
+  }
+
+  .hide-above-#{$name} {
+    @media (min-width: $size) {
+      display: none !important;
+    }
+  }
+}
+
+@include size-util(sm, $screen-sm);
+@include size-util(md, $screen-md);
+@include size-util(lg, $screen-lg);

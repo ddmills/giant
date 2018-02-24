@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  margin: 15px auto;
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include clearfix();
+
+  @include size(sm) {
+    width: 500px;
+  }
+
+  @include size(md) {
+    width: 600px;
+  }
+
+  @media (min-width: $screen-lg) {
+    margin: 25px auto;
+    width: 720px;
+  }
+}

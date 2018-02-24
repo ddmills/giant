@@ -1,4 +1,4 @@
-import {log} from '../../../utilities/Logger';
+import {log, json} from '../../../utilities/Logger';
 
 export function login(request, response) {
   log('sign in', request.sessionID);
@@ -12,6 +12,7 @@ export function logout(request, response) {
 
   if (request.session.authenticated) {
     request.session.authenticated = false;
-    response.redirect('back');
   }
+
+   response.redirect('back');
 }

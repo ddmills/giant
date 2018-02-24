@@ -1,14 +1,15 @@
 import path from 'path';
 import {Router} from 'express';
-import * as AuthenticationController from './controllers/web/AuthenticationController';
+import {login, logout} from './controllers/web/AuthenticationController';
+import {client} from '../utilities/Path';
 
 const router = Router();
 
 router.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, '..', '..', 'client', 'index.html'));
+  response.sendFile(client('index.html'));
 });
 
-router.post('/login', AuthenticationController.login);
-router.post('/logout', AuthenticationController.logout);
+router.post('/login', login);
+router.post('/logout', logout);
 
 export default router;

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>giant</title
+    <title>giant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -10,19 +10,21 @@
     <link rel="stylesheet" media="all" href="css/app.scss">
   </head>
   <body>
-    <h1>yoz</h1>
-    <form action="login" method="post">
-      <button>sign in</button>
-    </form>
-    <form action="logout" method="post">
-      <button>sign out</button>
-    </form>
-    <form action="api/game" method="post">
-      <button>create game context</button>
-    </form>
-    <form action="api/game" method="get">
-      <button>get all contexts</button>
-    </form>
+    <h1 class="title">giant</h1>
+    <div class="container typography">
+      <form action="login" method="post">
+        <button class="btn">sign in</button>
+      </form>
+      <form action="logout" method="post">
+        <button class="btn">sign out</button>
+      </form>
+      <form action="api/game" method="post">
+        <button class="btn">create game context</button>
+      </form>
+      <form action="api/game" method="get">
+        <button class="btn">get all contexts</button>
+      </form>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
