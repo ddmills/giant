@@ -20,7 +20,8 @@
     "preact": "^8.2.7",
     "preact-router": "^2.6.0",
     "random-js": "^1.0.8",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "source-map-support": "^0.5.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

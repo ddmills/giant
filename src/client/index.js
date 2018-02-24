@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import {h, render} from 'preact';
 import RootComponent from './RootComponent';
 
