@@ -1,9 +1,7 @@
 import io from 'socket.io-client';
+import {h, render} from 'preact';
+import RootComponent from './RootComponent';
 
-const socket = io();
-const cmd = (type, parameters) => socket.emit('command', {type, parameters});
+const app = document.getElementById('app');
 
-window.cmd = cmd;
-window.endTurn = () => cmd('END_TURN');
-window.buyHero = (id) => cmd('PURCHASE_HERO', {cardId : id});
-window.buyBlueprint = (id) => cmd('PURCHASE_BLUEPRINT', {cardId : id});
+render(<RootComponent/>, app, app.lastChild);

@@ -1,6 +1,7 @@
 {
   "presets": [
     "env",
+    "preact",
     "stage-3"
   ]
 }
