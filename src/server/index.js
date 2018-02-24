@@ -14,9 +14,9 @@ const io = SocketIO(server);
 const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
 
 app.use(session(config.session));
-app.use('/', WebRouter);
 app.use('/api', ApiRouter);
 app.use('/client', express.static(path.join(__dirname, '..', 'client')));
+app.use('/*', WebRouter);
 
 io.on('connection', (socket) => {
   log('[connect]');
