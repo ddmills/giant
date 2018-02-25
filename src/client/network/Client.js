@@ -1,5 +1,5 @@
 import Store from '../store/Store';
-import {CONNECTED, DICSCONNECTED, SERVER_LATENCY} from '../store/actions/ActionTypes';
+import {SERVER_CONNECTED, SERVER_DISCONNECTED, SERVER_LATENCY} from '../store/actions/ActionTypes';
 
 export function listen(socket) {
   const getLatency = () => {
@@ -14,9 +14,9 @@ export function listen(socket) {
     });
   };
 
-  socket.on('disconnect', () => Store.dispatch({type: DICSCONNECTED}));
+  socket.on('disconnect', () => Store.dispatch({type: SERVER_DISCONNECTED}));
   socket.on('connect', () => {
     getLatency();
-    Store.dispatch({type: CONNECTED});
+    Store.dispatch({type: SERVER_CONNECTED});
   });
 }

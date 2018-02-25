@@ -1,6 +1,6 @@
 import {compose, createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
-import {CONNECTED, DICSCONNECTED, SERVER_LATENCY, INCREMENT, DECREMENT} from './actions/ActionTypes';
+import {SERVER_CONNECTED, SERVER_DISCONNECTED, SERVER_LATENCY, INCREMENT, DECREMENT} from './actions/ActionTypes';
 import DefaultState from './DefaultState';
 
 const initialState = JSON.parse(localStorage.getItem('store')) || DefaultState;
@@ -23,13 +23,13 @@ const store = createStore((
         ...state,
         count: state.count - 1,
       };
-    case CONNECTED:
+    case SERVER_CONNECTED:
       return {
         ...state,
         connected: true,
         latency: 0,
       };
-    case DICSCONNECTED:
+    case SERVER_DISCONNECTED:
       return {
         ...state,
         connected: false,
