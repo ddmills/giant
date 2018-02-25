@@ -1,6 +1,6 @@
 import {h, render} from 'preact';
-import RootComponent from './RootComponent';
+import Root from './Root';
 
 const app = document.getElementById('app');
 
-render(<RootComponent/>, app, app.lastChild);
+render(<Root/>, app, app.lastChild);

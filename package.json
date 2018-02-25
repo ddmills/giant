@@ -6,8 +6,8 @@
     "start": "node dist/server/index.js",
     "watch": "concurrently \"npm run client:watch\" \"npm run server:watch\" \"nodemon -w dist/server\"",
     "server:watch": "nodemon --exec \"npm run server:build\" -w src/server",
-    "client:watch": "parcel src/client/index.html -d dist/client --public-url client",
-    "client:build": "parcel build src/client/index.html -d dist/client --public-url client",
+    "client:watch": "parcel src/client/index.html -d dist/client --public-url /client",
+    "client:build": "parcel build src/client/index.html -d dist/client --public-url /client",
     "server:build": "babel src/server -d dist/server -s",
     "build": "npm run client:build && npm run server:build"
   },
@@ -18,8 +18,11 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "preact": "^8.2.7",
+    "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
     "random-js": "^1.0.8",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "socket.io": "^2.0.4",
     "source-map-support": "^0.5.3"
   },

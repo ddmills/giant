@@ -1,5 +1,4 @@
-import {h, Component} from 'preact';
-import {greet} from './network/Client';
+import {h} from 'preact';
 import Router from 'preact-router';
 import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
