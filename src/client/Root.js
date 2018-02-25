@@ -2,7 +2,10 @@ import {h, Component} from 'preact';
 import {Provider} from 'preact-redux';
 import Store from './store/Store';
 import Router from './Router';
-import './network/Client';
+import {listen} from './network/Client';
+import Socket from './network/Socket';
+
+listen(Socket);
 
 export default (props) => {
   return (

@@ -1,11 +1,12 @@
 import {compose, createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
-import {CONNECTED, DICSCONNECTED, INCREMENT, DECREMENT} from './actions/ActionTypes';
+import {CONNECTED, DICSCONNECTED, SERVER_LATENCY, INCREMENT, DECREMENT} from './actions/ActionTypes';
 import DefaultState from './DefaultState';
 
 const initialState = JSON.parse(localStorage.getItem('store')) || DefaultState;
 
 initialState.connected = false;
+initialState.latency = 0;
 
 const store = createStore((
   state = initialState,
@@ -26,11 +27,18 @@ const store = createStore((
       return {
         ...state,
         connected: true,
+        latency: 0,
       };
     case DICSCONNECTED:
       return {
         ...state,
         connected: false,
+        latency: 0,
+      };
+    case SERVER_LATENCY:
+      return {
+        ...state,
+        latency: action.latency,
       };
     default:
       return {

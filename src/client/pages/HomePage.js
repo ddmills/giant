@@ -11,7 +11,8 @@ import {
 const mapStateToProps = (state) => {
   return {
     count: state.count,
-    connected: state.connected
+    connected: state.connected,
+    latency: state.latency,
   };
 };
 
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const HomePage = ({count, connected, onIncrement, onDecrement}) => {
+const HomePage = ({count, connected, latency, onIncrement, onDecrement}) => {
   return (
     <div>
       <h1>Home {count}</h1>
@@ -36,6 +37,7 @@ const HomePage = ({count, connected, onIncrement, onDecrement}) => {
       />
       <ConnectionStatus
         connected={connected}
+        latency={latency}
       />
     </div>
   );

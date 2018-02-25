@@ -28,6 +28,8 @@ io.on('connection', (socket) => {
     socket.emit('greet');
   });
 
+  socket.on('latency', (fn) => fn());
+
   socket.on('disconnect', () => {
     log('[disconnect]');
     socket.emit('disconnected');
