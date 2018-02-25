@@ -1,9 +1,6 @@
-import io from 'socket.io-client';
+import Socket from './Socket';
+import Store from '../store/Store';
+import {CONNECTED, DICSCONNECTED} from '../store/actions/ActionTypes';
 
-const socket = io();
-
-socket.on('greet', () => console.log('server: greet'));
-
-export const greet = () => socket.emit('greet');
-export const send = (type, parameters) => socket.emit('command', {type, parameters});
-
+Socket.on('disconnect', () => Store.dispatch({type: DICSCONNECTED}));
+Socket.on('connect', () => Store.dispatch({type: CONNECTED}));

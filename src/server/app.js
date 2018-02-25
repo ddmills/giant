@@ -21,6 +21,7 @@ app.use('/*', WebRouter);
 
 io.on('connection', (socket) => {
   log('[connect]');
+  socket.emit('connected');
 
   socket.on('greet', (request) => {
     log('[greet]');
@@ -29,6 +30,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     log('[disconnect]');
+    socket.emit('disconnected');
   });
 });
 
