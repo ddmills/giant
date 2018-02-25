@@ -1,9 +1,15 @@
 import {h} from 'preact';
 import {route} from 'preact-router';
+import {unsignedRequest} from '../network/Request';
 
 function signIn() {
-  console.log('sign in!');
-  route('/');
+  unsignedRequest({
+    url: '/auth/sign-in',
+    method: 'post',
+  }, (error, data) => {
+    console.log(error, data);
+    route('/');
+  });
 }
 
 export default (props) => {

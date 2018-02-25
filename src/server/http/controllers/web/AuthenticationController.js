@@ -1,18 +1,19 @@
+import jwt from 'jsonwebtoken';
+import config from 'config';
 import {log, json} from '../../../utilities/Logger';
 
 export function signIn(request, response) {
-  log('sign in', request.sessionID);
+  // todo: authenticate
+  const profile = {
+    username: 'ddmills',
+    id: '1234567890',
+  };
 
-  request.session.authenticated = true;
-  response.redirect('back');
-}
+  const token = jwt.sign(profile, config.jwt.secret, {
+    expiresIn: config.jwt.expiry
+  });
 
-export function signOut(request, response) {
-  log('sign out', request.sessionID);
-
-  if (request.session.authenticated) {
-    request.session.authenticated = false;
-  }
-
-   response.redirect('back');
+  response.json({
+    token
+  });
 }

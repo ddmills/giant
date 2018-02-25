@@ -5,8 +5,10 @@ import session from 'express-session';
 import {Server} from 'http';
 import WebRouter from './http/WebRouter';
 import ApiRouter from './http/ApiRouter';
+import AuthRouter from './http/AuthRouter';
 import SocketIO from 'socket.io';
 import {log} from './utilities/Logger';
+import {client} from './utilities/Path';
 
 const app = express();
 const server = Server(app);
@@ -16,7 +18,8 @@ const url = `${config.server.protocol}://${config.server.host}:${config.server.p
 app.disable('x-powered-by');
 app.use(session(config.session));
 app.use('/api', ApiRouter);
-app.use('/client', express.static(path.join(__dirname, '..', 'client')));
+app.use('/client', express.static(client()));
+app.use('/auth', AuthRouter);
 app.use('/*', WebRouter);
 
 io.on('connection', (socket) => {
