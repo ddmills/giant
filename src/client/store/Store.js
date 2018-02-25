@@ -1,6 +1,13 @@
 import {compose, createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
-import {SERVER_CONNECTED, SERVER_DISCONNECTED, SERVER_LATENCY, INCREMENT, DECREMENT} from './actions/ActionTypes';
+import {
+  RECIEVE_JWT_TOKEN,
+  SERVER_CONNECTED,
+  SERVER_DISCONNECTED,
+  SERVER_LATENCY,
+  INCREMENT,
+  DECREMENT
+} from './actions/ActionTypes';
 import DefaultState from './DefaultState';
 
 const initialState = JSON.parse(localStorage.getItem('store')) || DefaultState;
@@ -22,6 +29,14 @@ const store = createStore((
       return {
         ...state,
         count: state.count - 1,
+      };
+    case RECIEVE_JWT_TOKEN:
+      const data = JSON.parse(atob(action.token.split('.')[1]));
+
+      return {
+        ...state,
+        token: action.token,
+        tokenData: data,
       };
     case SERVER_CONNECTED:
       return {

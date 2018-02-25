@@ -1,12 +1,12 @@
 import {Router} from 'express';
 import {signIn, signOut} from './controllers/web/AuthenticationController';
+import passport from 'passport';
+import config from 'config';
 
 const router = Router();
 
-router.post('/sign-in', signIn);
+router.get('/sign-in', passport.authenticate('steam'));
 
-router.get('/sign-in', (request, response) => {
-  response.json({'test': 'test'});
-});
+router.get('/sign-in/return', passport.authenticate('steam', { failureRedirect: '/auth/sign-in' }), signIn);
 
 export default router;

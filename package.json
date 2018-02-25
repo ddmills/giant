@@ -19,6 +19,8 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.1",
+    "passport": "^0.4.0",
+    "passport-steam": "^1.0.8",
     "preact": "^8.2.7",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
