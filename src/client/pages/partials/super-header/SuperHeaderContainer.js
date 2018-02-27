@@ -3,8 +3,6 @@ import SuperHeader from './SuperHeader';
 
 const mapStateToProps = (state) => {
   return {
-    connected: state.connected,
-    latency: state.latency,
   };
 };
 
