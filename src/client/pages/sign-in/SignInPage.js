@@ -1,11 +1,12 @@
 import {h} from 'preact';
 import {route} from 'preact-router';
+import BasicPage from '../layout/BasicPage';
 
 export default (props) => {
   return (
-    <div>
+    <BasicPage>
       <h1>Sign in</h1>
       <a href="auth/sign-in">Sign in with Steam</a>
-    </div>
+    </BasicPage>
   );
 }

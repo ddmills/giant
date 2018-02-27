@@ -3,11 +3,13 @@
 * { box-sizing: border-box; }
 
 @import 'variables';
-@import 'clearfix';
+@import 'utilities/clearfix';
+@import 'utilities/pull';
 @import 'screen';
 @import 'containers';
 @import 'buttons';
 @import 'typography';
+@import 'icon';
 
 body {
   font-family: sans-serif;

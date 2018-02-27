@@ -1,6 +1,7 @@
 .container {
+  position: relative;
   width: 100%;
-  margin: 15px auto;
+  margin: 0 auto;
 
   padding-left: 15px;
   padding-right: 15px;
@@ -12,11 +13,10 @@
   }
 
   @include size(md) {
-    width: 600px;
+    width: 720px;
   }
 
-  @media (min-width: $screen-lg) {
-    margin: 25px auto;
-    width: 720px;
+  @include size(lg) {
+    width: 1012px;
   }
 }

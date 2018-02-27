@@ -1,0 +1,14 @@
+.icon {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em;
+  fill: currentColor;
+  padding: 0 .25em;
+
+  & > svg {
+    width: 1em;
+    height: 1em;
+  }
+}

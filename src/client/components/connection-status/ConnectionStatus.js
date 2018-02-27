@@ -1,5 +1,5 @@
 import {h} from 'preact';
-import '../css/components/connection-status-component.scss';
+import './connection-status-component.scss';
 
 function addModifier(baseClassName, modifier) {
   return `${baseClassName} ${baseClassName}--${modifier}`;

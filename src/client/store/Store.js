@@ -1,5 +1,6 @@
 import {compose, createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
+import {decode as decodeJWT} from 'jsonwebtoken';
 import {
   RECIEVE_JWT_TOKEN,
   SERVER_CONNECTED,
@@ -9,6 +10,8 @@ import {
   DECREMENT
 } from './actions/ActionTypes';
 import DefaultState from './DefaultState';
+import {listen} from '../network/Client';
+import Socket from '../network/Socket';
 
 const initialState = JSON.parse(localStorage.getItem('store')) || DefaultState;
 
@@ -31,12 +34,12 @@ const store = createStore((
         count: state.count - 1,
       };
     case RECIEVE_JWT_TOKEN:
-      const data = JSON.parse(atob(action.token.split('.')[1]));
+      const user = decodeJWT(action.token);
 
       return {
         ...state,
         token: action.token,
-        tokenData: data,
+        user,
       };
     case SERVER_CONNECTED:
       return {
@@ -65,5 +68,7 @@ const store = createStore((
 store.subscribe(() => {
   localStorage.setItem('store', JSON.stringify(store.getState()))
 });
+
+listen(Socket);
 
 export default store;

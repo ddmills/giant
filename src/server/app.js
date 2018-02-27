@@ -17,10 +17,7 @@ const server = Server(app);
 const io = SocketIO(server);
 const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
 
-passport.serializeUser((user, done) => {
-
-  done(undefined, user);
-});
+passport.serializeUser((user, done) => done(undefined, user));
 passport.deserializeUser((user, done) => done(undefined, user));
 
 passport.use(new SteamStrategy({

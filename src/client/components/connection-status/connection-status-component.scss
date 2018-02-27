@@ -1,13 +1,21 @@
 .connection-status {
   $c: &;
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  display: inline-block;
+  font-size: 1em;
+  height: 1em;
+
+  &-info {
+    display: inline-block;
+    font-size: 1em;
+    font-family: monospace;
+    font-weight: bold;
+    margin-right: 0.3em;
+  }
 
   &-indicator {
-    display: block;
-    width: 8px;
-    height: 8px;
+    display: inline-block;
+    width: .7em;
+    height: .7em;
     border-radius: 100%;
 
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.29);
@@ -21,15 +29,5 @@
       background-color: rgba(0, 255, 5, 0.690196);
       border: 1px solid rgba(17, 30, 93, 0.59);
     }
-  }
-
-  &-info {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 11px;
-    line-height: 10px;
-    font-family: monospace;
-    font-weight: bold;
   }
 }
