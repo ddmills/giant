@@ -9,7 +9,7 @@
     font-size: 1em;
     font-family: monospace;
     font-weight: bold;
-    margin-right: 0.3em;
+    margin-right: 0.5em;
   }
 
   &-indicator {
@@ -20,14 +20,43 @@
 
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.29);
 
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
     #{$c}--disconnected & {
-      background-color: rgba(255, 0, 0, 0.93);
+      background-color: rgb(255, 0, 0);
       border: 1px solid rgba(60, 21, 66, 0.68);
+      animation-name: pulse-red;
     }
 
     #{$c}--connected & {
-      background-color: rgba(0, 255, 5, 0.690196);
+      background-color: rgb(0, 255, 5);
       border: 1px solid rgba(17, 30, 93, 0.59);
+      animation-name: pulse-green;
     }
+  }
+}
+
+@keyframes pulse-red {
+  0% {
+    background-color: rgb(255, 0, 0);
+  }
+  80% {
+    background-color: rgb(255, 150, 150);
+  }
+  100% {
+    background-color: rgb(255, 0, 0);
+  }
+}
+
+@keyframes pulse-green {
+  0% {
+    background-color: rgb(0, 255, 5);
+  }
+  80% {
+    background-color: rgb(118, 255, 121);
+  }
+  100% {
+    background-color: rgb(0, 255, 5);
   }
 }
