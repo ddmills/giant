@@ -3,4 +3,5 @@ export const INCREMENT = 'INCREMENT';
 export const SERVER_CONNECTED = 'SERVER_CONNECTED';
 export const SERVER_DISCONNECTED = 'SERVER_DISCONNECTED';
 export const SERVER_LATENCY = 'SERVER_LATENCY';
-export const RECIEVE_JWT_TOKEN = 'RECIEVE_JWT_TOKEN';
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';

@@ -1,8 +1,8 @@
 import {compose, createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk';
-import {decode as decodeJWT} from 'jsonwebtoken';
 import {
-  RECIEVE_JWT_TOKEN,
+  SIGN_IN,
+  SIGN_OUT,
   SERVER_CONNECTED,
   SERVER_DISCONNECTED,
   SERVER_LATENCY,
@@ -33,13 +33,17 @@ const store = createStore((
         ...state,
         count: state.count - 1,
       };
-    case RECIEVE_JWT_TOKEN:
-      const user = decodeJWT(action.token);
-
+    case SIGN_IN:
       return {
         ...state,
         token: action.token,
-        user,
+        user: action.user,
+      };
+    case SIGN_OUT:
+      return {
+        ...state,
+        user: undefined,
+        token: undefined,
       };
     case SERVER_CONNECTED:
       return {

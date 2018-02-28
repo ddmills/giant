@@ -3,6 +3,7 @@ import SuperHeader from './SuperHeader';
 
 const mapStateToProps = (state) => {
   return {
+    displayName: state.user ? state.user.displayName : ''
   };
 };
 

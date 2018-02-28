@@ -1,10 +1,4 @@
 import {h} from 'preact';
-import {Link} from 'preact-router/match';
-import Counter from '../../components/Counter';
-import {
-  INCREMENT,
-  DECREMENT
-} from '../../store/actions/ActionTypes';
 import BasicPage from '../layout/BasicPage';
 
 export default ({user}) => {

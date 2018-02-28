@@ -7,7 +7,8 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    count: state.count
+    authenticated: Boolean(state.user),
+    count: state.count,
   };
 };
 
