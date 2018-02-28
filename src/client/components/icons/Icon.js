@@ -3,7 +3,7 @@ import '../../css/_icon.scss';
 
 export default class Icon extends Component {
   componentDidMount() {
-    this.base.innerHTML = this.svg;
+    this.base.innerHTML = this.props.svg;
   }
 
   render() {

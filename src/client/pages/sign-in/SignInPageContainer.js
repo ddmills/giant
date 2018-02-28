@@ -4,6 +4,7 @@ import SignInPage from './SignInPage';
 
 const mapStateToProps = (state) => {
   return {
+    isAlreadySignedIn: Boolean(state.user)
   };
 };
 
