@@ -4,13 +4,13 @@ import BasicPage from '../layout/BasicPage';
 
 export default class SignInPage extends Component {
   componentWillMount() {
-    if (this.props.isAlreadySignedIn) {
-      route('/', true);
+    if (this.props.authenticated) {
+      route('/');
     }
   }
 
-  render() {
-    if (this.props.isAlreadySignedIn) {
+  render({authenticated}) {
+    if (authenticated) {
       return null;
     }
 

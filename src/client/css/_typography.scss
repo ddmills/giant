@@ -98,3 +98,13 @@ body {
 .center-text {
   text-align: center;
 }
+
+.code {
+  font-family: monospace;
+  background-color: #fbfbfb;
+  overflow-x: auto;
+  padding: 16px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  color: #545050;
+}

@@ -3,9 +3,9 @@ import PageHeader from '../partials/page-header/PageHeaderContainer';
 
 export default ({children}) => {
   return (
-    <div>
+    <div class="basic-page">
       <PageHeader/>
-      <div className="container">
+      <div class="container">
         {children}
       </div>
     </div>

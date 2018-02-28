@@ -7,6 +7,6 @@ export default class TokenPage extends Component {
   componentWillMount() {
     Store.dispatch(SetToken(this.props.token));
 
-    route('/sign-in');
+    route('/sign-in', true);
   }
 }
