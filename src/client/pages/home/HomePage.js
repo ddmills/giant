@@ -1,6 +1,7 @@
 import {h} from 'preact';
 import {Link} from 'preact-router/match';
 import Counter from '../../components/Counter';
+import Subheader from '../../components/subheader/Subheader';
 import {
   INCREMENT,
   DECREMENT
@@ -35,7 +36,7 @@ function renderAuthenticationLinks(authenticated) {
 export default ({authenticated, count, connected, latency, onIncrement, onDecrement}) => {
   return (
     <BasicPage>
-      <h1>Home {count}</h1>
+      <Subheader description="This is a subheader component">Welcome to game {count}</Subheader>
       <ul>
         {renderAuthenticationLinks(authenticated)}
       </ul>

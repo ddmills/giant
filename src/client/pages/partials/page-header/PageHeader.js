@@ -25,7 +25,7 @@ export default ({connected, latency, user}) => {
     <div>
       <SuperHeader/>
       <header class="page-header">
-        <div class="container d-flex">
+        <div class="container">
           <span class="pull-right">
             {renderUser(user)}
           </span>

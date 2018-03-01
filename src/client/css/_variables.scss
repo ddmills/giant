@@ -1,7 +1,31 @@
-$primary: #bb1c1c;
-$anchor-color: orange;
-$font-size: 16px;
-$line-height: 1.42857143em;
+$primary: #465461;
+$secondary: #bb1c1c;
+$anchor-color: $primary;
+
+$base-font-size: 14px;
+$base-line-height: 1.42857143em;
+$base-font-color: $primary;
+
 $screen-sm: 481px;
 $screen-md: 740px;
 $screen-lg: 993px;
+
+$btn-primary-background-col: #D3F18C;
+$btn-primary-border-col: #CFDCCE;
+$btn-primary-font-col: #3B5A08;
+
+$btn-info-background-col: #EBF2F9;
+$btn-info-border-col: #DAD3D3;
+$btn-info-font-col: #2D6292;
+
+$btn-default-background-col: #fff;
+$btn-default-border-col: #D9D3DC;
+$btn-default-font-col: #463644;
+
+$btn-danger-background-col: #ffffff;
+$btn-danger-border-col: #DAD3D3;
+$btn-danger-font-col: #B92C08;
+
+$btn-warning-background-col: #F7EFD1;
+$btn-warning-border-col: #DAD3D3;
+$btn-warning-font-col: #9E6335;

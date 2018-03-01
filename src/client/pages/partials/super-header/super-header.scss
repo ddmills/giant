@@ -1,8 +1,9 @@
+@import './variables';
+
 .super-header {
   z-index: 1;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding: 4px 0;
   font-size: .7rem;
-  color: rgba(255,255,255,0.75);
-  background-color: #11151a;
+  color: #fbfbfb;
+  background-color: $primary;
 }

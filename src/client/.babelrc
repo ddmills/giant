@@ -3,5 +3,8 @@
     "env",
     "preact",
     "stage-3"
+  ],
+  "plugins": [
+    "transform-class-properties"
   ]
 }

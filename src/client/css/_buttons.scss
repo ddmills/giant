@@ -1,4 +1,5 @@
 @mixin btn-reset() {
+  display: inline-block;
   background: none;
   background-color: none;
   border: none;
@@ -7,7 +8,6 @@
   cursor: pointer;
   margin: 0;
   padding: 0;
-  display: inline-block;
   appearance: none;
   touch-action: manipulation;
   text-decoration: none;
@@ -23,11 +23,24 @@
   @include btn-reset;
 
   padding: 6px 12px;
-  font-size: $font-size;
+  font-size: $base-font-size;
+  font-weight: 600;
   border-radius: 3px;
+  border: 1px solid transparent;
+
+  &:focus, &.focus {
+    border-color: $secondary;
+  }
 
   &--primary {
-    color: white;
-    background-color: $primary;
+    background-color: $btn-primary-background-col;
+    border-color: $btn-primary-border-col;
+    color: $btn-primary-font-col;
+  }
+
+  &--danger {
+    background-color: $btn-danger-background-col;
+    border-color: $btn-danger-border-col;
+    color: $btn-danger-font-col;
   }
 }

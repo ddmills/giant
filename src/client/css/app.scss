@@ -10,6 +10,7 @@
 @import 'buttons';
 @import 'typography';
 @import 'icon';
+@import 'forms';
 
 body {
   font-family: sans-serif;
@@ -18,5 +19,5 @@ body {
 .title {
   text-transform: uppercase;
   letter-spacing: .1em;
-  font-size: 1.2rem;
+  font-size: $base-font-size;
 }

@@ -19,6 +19,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.1",
+    "linkstate": "^1.1.1",
     "parcel-plugin-inlinesvg": "0.0.12",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.8",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-node8": "^1.2.0",
     "babel-preset-preact": "^1.1.0",
     "babel-preset-stage-3": "^6.24.1",

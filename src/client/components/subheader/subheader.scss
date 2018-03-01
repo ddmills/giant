@@ -1,0 +1,21 @@
+.subheader {
+  display: flex;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px #e1e4e8 solid;
+  flex-flow: row wrap;
+
+  &-heading {
+    font-size: 24px;
+    font-weight: normal;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+  }
+
+  &-description {
+    font-size: 14px;
+    color: #586069;
+    flex: 1 100%;
+    margin: .4rem 0;
+  }
+}

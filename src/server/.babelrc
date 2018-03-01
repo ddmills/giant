@@ -1,5 +1,8 @@
 {
   "presets": [
     "node8"
+  ],
+  "plugins": [
+    "transform-class-properties"
   ]
 }
