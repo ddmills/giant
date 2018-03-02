@@ -6,21 +6,27 @@
 
 .form-note {
   display: block;
+  width: 100%;
+
+  order: 3;
+
   font-size: .75rem;
   color: #737373;
-
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .form-label {
   display: block;
-  width: 100%;
+  margin-bottom: 4px;
+
+  flex: 1 1 auto;
+  order: 1;
+
   font-size: 1rem;
   font-weight: 600;
 }
 
-.form-control {
+.form-control:not([type='radio']) {
   display: block;
   position: relative;
 
@@ -30,6 +36,8 @@
 
   margin: 0;
   padding: 6px 10px;
+
+  order: 3;
 
   font-size: 1rem;
 
@@ -55,11 +63,14 @@
       inset 0 1px 1px rgba(0, 0, 0, 0.075),
       0 0 8px rgba(189, 102, 233, 0.28)
   }
+}
 
-  &[type='radio'] {
-    float  : left;
-    margin : 2px 0 0 -20px;
+.form-control[type='radio'] {
+  display: inline-block;
+  order: 0;
+  flex: 0 0 auto;
+  width: auto;
+  margin-right: 8px;
 
-    vertical-align : middle;
-  }
+  vertical-align: middle;
 }

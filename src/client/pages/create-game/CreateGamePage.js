@@ -16,7 +16,7 @@ export default class CreateGamePage extends Component {
 
   render() {
     return (
-      <BasicPage>
+      <BasicPage size="mini">
         <Subheader description="This is a subheader component">Create new game</Subheader>
         <CreateGameForm onSubmit={this.onSubmitCreateGameForm}/>
       </BasicPage>

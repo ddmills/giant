@@ -6,13 +6,22 @@ export default class Select extends Component {
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
+  getValue(option) {
+    return option.hasOwnProperty('value') ? option.value : option;
+  }
+
+  getLabel(option) {
+    return option.hasOwnProperty('label') ? option.label : option;
+  }
+
   handleOnChange(e) {
     e.preventDefault();
 
     const index = e.target.value;
     const option = this.props.options[index];
+    const value = this.getValue(option);
 
-    this.props.onChange && this.props.onChange(option);
+    this.props.onChange && this.props.onChange(value);
   }
 
   renderOptions(options) {
@@ -21,17 +30,18 @@ export default class Select extends Component {
         <option
           value={index}
         >
-          {option.hasOwnProperty('label') ? option.label : option}
+          {this.getLabel(option)}
         </option>
       );
     });
   }
 
   render({options, value}) {
-    const selected = options.indexOf(value);
+    const selected = options.find((option) => this.getValue(option) === value);
+    const index = options.indexOf(selected);
 
     return (
-      <select onChange={this.handleOnChange} value={selected}>
+      <select onChange={this.handleOnChange} value={index} class={this.props.class}>
         {this.renderOptions(options)}
       </select>
     );
