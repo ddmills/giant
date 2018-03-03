@@ -3,11 +3,13 @@ import {connect} from 'preact-redux';
 import TokenPage from './TokenPage';
 import SignIn from '../../store/actions/SignInAction';
 import {store} from '../../store/Store';
-import {push as GoToLocation} from 'react-router-redux';
+import {replace as GoToLocation} from 'react-router-redux';
 
 const mapStateToProps = (state, props) => {
+  const targetUri = props.match.params.target ? decodeURIComponent(props.match.params.target) : '/';
+
   return {
-    targetUri: '/',
+    targetUri,
     token: props.match.params.token
   };
 };
@@ -17,8 +19,8 @@ const mapDispatchToProps = (dispatch) => {
     signIn: (token) => {
       store.dispatch(SignIn(token));
     },
-    redirect: (url) => {
-      store.dispatch(GoToLocation(url));
+    redirect: (uri) => {
+      store.dispatch(GoToLocation(uri));
     }
   };
 };

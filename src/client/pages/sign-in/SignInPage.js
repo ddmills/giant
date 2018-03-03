@@ -1,25 +1,21 @@
 import {h, Component} from 'preact';
 import BasicPage from '../layout/BasicPage';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, Route} from 'react-router-dom';
 
 export default class SignInPage extends Component {
   componentWillMount() {
     if (this.props.authenticated) {
-      // route('/');
+      this.props.redirect(this.props.targetUri);
+    } else {
+      window.location.href = `/auth/sign-in?target=${encodeURIComponent(this.props.targetUri)}`;
     }
   }
 
-  render({authenticated}) {
+  render({authenticated, component: Component, ...props}) {
     if (authenticated) {
-      return null;
+      return <Redirect to='/'/>;
+    } else {
+      return <h1>Loading&hellip;</h1>;
     }
-
-    return (
-      <BasicPage>
-        <h1>Sign in</h1>
-        <Link to="/">Home</Link>
-        <a href="auth/sign-in">Sign in with Steam</a>
-      </BasicPage>
-    );
   }
 }

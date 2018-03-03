@@ -13,10 +13,10 @@ function renderUser(user) {
     );
   } else {
     return (
-      <a href="/auth/sign-in" class="btn btn--primary">
+      <Link to="/sign-in" class="btn btn--primary">
         Sign in with Steam
         <SteamIcon/>
-      </a>
+      </Link>
     )
   }
 }

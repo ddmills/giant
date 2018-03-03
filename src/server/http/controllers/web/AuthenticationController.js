@@ -8,5 +8,7 @@ export function signIn(request, response) {
     expiresIn: config.jwt.expiry
   });
 
-  response.redirect(`/token/${token}`);
+  const targetUri = encodeURIComponent(request.session.targetUri || '/');
+
+  response.redirect(`/token/${token}/${targetUri}`);
 }

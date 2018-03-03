@@ -3,7 +3,7 @@ import CreateGamePage from './CreateGamePage';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.auth.user,
   };
 };
 

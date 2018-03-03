@@ -13,6 +13,7 @@ module.exports = {
   session: {
     secret: process.env.APP_SESSION_SECRET,
     resave: false,
+    unset: 'destroy',
     saveUninitialized: true
   },
   steam: {

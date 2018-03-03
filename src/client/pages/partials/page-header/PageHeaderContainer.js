@@ -3,13 +3,8 @@ import PageHeader from './PageHeader';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.auth.user,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);
+export default connect(mapStateToProps)(PageHeader);

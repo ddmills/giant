@@ -4,10 +4,9 @@ import Subheader from '../../components/subheader/Subheader';
 
 export default class LobbyPage extends Component {
   render({id}) {
-    console.log('lobby', id);
     return (
       <BasicPage>
-        <Subheader description="Yall rdy?">Game lobby</Subheader>
+        <Subheader description="Yall rdy?">Game lobby {id}</Subheader>
       </BasicPage>
     );
   }
