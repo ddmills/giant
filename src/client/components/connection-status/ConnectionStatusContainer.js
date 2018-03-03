@@ -3,14 +3,9 @@ import ConnectionStatus from './ConnectionStatus';
 
 const mapStateToProps = (state) => {
   return {
-    connected: state.connected,
-    latency: state.latency,
+    connected: state.server.connected,
+    latency: state.server.latency,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectionStatus);
+export default connect(mapStateToProps)(ConnectionStatus);

@@ -1,5 +1,7 @@
-import Store from '../store/Store';
-import {SERVER_CONNECTED, SERVER_DISCONNECTED, SERVER_LATENCY} from '../store/actions/ActionTypes';
+import {store} from '../store/Store';
+import ServerLatency from '../store/actions/server/ServerLatencyAction';
+import ServerConnected from '../store/actions/server/ServerConnectedAction';
+import ServerDisconnected from '../store/actions/server/ServerDisconnectedAction';
 
 export function listen(socket) {
   let latencyTimeout;
@@ -8,25 +10,18 @@ export function listen(socket) {
     const start = Date.now();
 
     socket.emit('latency', () => {
-      Store.dispatch({
-        type: SERVER_LATENCY,
-        latency: Date.now() - start
-      });
-      latencyTimeout = setTimeout(getLatency, 2000);
+      store.dispatch(ServerLatency(Date.now() - start));
+      latencyTimeout = setTimeout(getLatency, 10000);
     });
   };
 
   socket.on('disconnect', () => {
     clearTimeout(latencyTimeout);
-    Store.dispatch({
-      type: SERVER_DISCONNECTED
-    });
+    store.dispatch(ServerDisconnected());
   });
 
   socket.on('connect', () => {
     getLatency();
-    Store.dispatch({
-      type: SERVER_CONNECTED
-    });
+    store.dispatch(ServerConnected());
   });
 }

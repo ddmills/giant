@@ -1,10 +1,9 @@
 import {h, Component} from 'preact';
-import {route} from 'preact-router';
 
 export default class RequireAuthentication extends Component {
   componentWillMount() {
     if (!this.props.authenticated) {
-      route('/sign-in', true);
+      // route('/sign-in', true);
     }
   }
 

@@ -4,7 +4,7 @@ import SignInPage from './SignInPage';
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: Boolean(state.user)
+    authenticated: Boolean(state.auth.user)
   };
 };
 

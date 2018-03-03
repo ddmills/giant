@@ -12,6 +12,7 @@ export default class CreateGamePage extends Component {
 
   onSubmitCreateGameForm(props) {
     console.log('submit', props);
+    // route('lobby/1234');
   }
 
   render() {

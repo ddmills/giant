@@ -1,23 +1,18 @@
 import {h} from 'preact';
-import {Link} from 'preact-router/match';
-import Counter from '../../components/Counter';
+import {Link} from 'react-router-dom';
 import Subheader from '../../components/subheader/Subheader';
-import {
-  INCREMENT,
-  DECREMENT
-} from '../../store/actions/ActionTypes';
 import BasicPage from '../layout/BasicPage';
 
 function renderAuthenticationLinks(authenticated) {
   if (authenticated) {
     return [
       <li>
-        <Link href="/sign-out">
+        <Link to="/sign-out">
           Sign out
         </Link>
       </li>,
       <li>
-        <Link href="/create-game">
+        <Link to="/create-game">
           Create game
         </Link>
       </li>,
@@ -26,25 +21,20 @@ function renderAuthenticationLinks(authenticated) {
 
   return (
     <li>
-      <Link href="/sign-in">
+      <Link to="sign-in">
         Sign in
       </Link>
     </li>
   );
 }
 
-export default ({authenticated, count, connected, latency, onIncrement, onDecrement}) => {
+export default ({authenticated}) => {
   return (
     <BasicPage>
-      <Subheader description="This is a subheader component">Welcome to game {count}</Subheader>
+      <Subheader description="This is a subheader component">Welcome to game</Subheader>
       <ul>
         {renderAuthenticationLinks(authenticated)}
       </ul>
-      <Counter
-        count={count}
-        onIncrement={onIncrement}
-        onDecrement={onDecrement}
-      />
     </BasicPage>
   );
 };

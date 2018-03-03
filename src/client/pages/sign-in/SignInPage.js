@@ -1,11 +1,11 @@
 import {h, Component} from 'preact';
-import {route} from 'preact-router';
 import BasicPage from '../layout/BasicPage';
+import {Link} from 'react-router-dom';
 
 export default class SignInPage extends Component {
   componentWillMount() {
     if (this.props.authenticated) {
-      route('/');
+      // route('/');
     }
   }
 
@@ -17,6 +17,7 @@ export default class SignInPage extends Component {
     return (
       <BasicPage>
         <h1>Sign in</h1>
+        <Link to="/">Home</Link>
         <a href="auth/sign-in">Sign in with Steam</a>
       </BasicPage>
     );

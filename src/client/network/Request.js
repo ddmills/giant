@@ -1,12 +1,12 @@
 import axios from 'axios';
-import Store from '../store/Store';
+import {store} from '../store/Store';
 
 export function request(config, callback) {
   return axios({
     ...config,
     params: {
       ...config.params,
-      token: Store.token,
+      token: store.token,
     }
   }).then((response) => {
     callback(undefined, response.data, response);

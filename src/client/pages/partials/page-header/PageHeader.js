@@ -4,6 +4,7 @@ import Avatar from '../../../components/avatar/Avatar';
 import './page-header.scss';
 import SteamIcon from '../../../components/icons/SteamIcon';
 import SuperHeader from '../super-header/SuperHeaderContainer';
+import {Link} from 'react-router-dom';
 
 function renderUser(user) {
   if (user) {
@@ -20,7 +21,7 @@ function renderUser(user) {
   }
 }
 
-export default ({connected, latency, user}) => {
+export default ({user}) => {
   return (
     <div>
       <SuperHeader/>
@@ -30,7 +31,9 @@ export default ({connected, latency, user}) => {
             {renderUser(user)}
           </span>
           <h2 class="title">
-            Giant
+            <Link to="/">
+              Giant
+            </Link>
           </h2>
         </div>
       </header>

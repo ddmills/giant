@@ -7,4 +7,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(RequireAuthentication);
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  console.log(ownProps);
+  return stateProps;
+}
+
+export default connect(mapStateToProps, () => {}, mergeProps)(RequireAuthentication);

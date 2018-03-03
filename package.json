@@ -18,15 +18,18 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "history": "^4.7.2",
     "jsonwebtoken": "^8.1.1",
     "linkstate": "^1.1.1",
     "parcel-plugin-inlinesvg": "0.0.12",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.8",
     "preact": "^8.2.7",
+    "preact-compat": "^3.18.0",
     "preact-redux": "^2.0.3",
-    "preact-router": "^2.6.0",
     "random-js": "^1.0.8",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "socket.io": "^2.0.4",
@@ -34,6 +37,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-module-resolver": "^3.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-node8": "^1.2.0",
     "babel-preset-preact": "^1.1.0",
@@ -41,6 +45,10 @@
     "concurrently": "^3.5.1",
     "node-sass": "^4.7.2",
     "nodemon": "^1.15.1",
-    "parcel-bundler": "^1.6.2"
+    "parcel-bundler": "../parcel"
+  },
+  "alias": {
+    "react": "preact-compat",
+    "react-dom": "preact-compat"
   }
 }

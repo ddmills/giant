@@ -1,21 +1,14 @@
 import {connect} from 'preact-redux';
 import HomePage from './HomePage';
-import {
-  INCREMENT,
-  DECREMENT
-} from '../../store/actions/ActionTypes';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    authenticated: Boolean(state.user),
-    count: state.count,
+    authenticated: Boolean(state.auth.user),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrement: () => dispatch({ type: INCREMENT }),
-    onDecrement: () => dispatch({ type: DECREMENT }),
   };
 };
 
