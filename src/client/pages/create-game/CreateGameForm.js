@@ -106,7 +106,6 @@ export default class CreateGameForm extends Component {
 
         <label class="form-group">
           <span class="form-label">Number of players</span>
-          <span class="form-note">You choose who can see this game</span>
           <Select
             class="form-control"
             options={[2, 3, 4, 5]}

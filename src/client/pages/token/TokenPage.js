@@ -1,5 +1,6 @@
 import {h, Component} from 'preact';
 import {Redirect} from 'react-router-dom';
+import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 
 export default class TokenPage extends Component {
   componentWillMount() {
@@ -8,6 +9,6 @@ export default class TokenPage extends Component {
   }
 
   render() {
-    return null;
+    return <LoadingIndicator container/>;
   }
 }

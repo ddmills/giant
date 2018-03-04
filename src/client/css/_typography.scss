@@ -7,64 +7,67 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: $base-font-stack;
   font-size: $base-font-size;
   color: $base-font-color;
   line-height: $base-line-height;
 }
 
-.typography {
-  a {
-    text-decoration: none;
-    color: $anchor-color;
-    font-weight: bold;
+a {
+  text-decoration: none;
+  color: $anchor-color;
+  font-weight: bold;
 
-    &:hover {
-      color: darken($anchor-color, 15%);
-    }
+  &:hover {
+    color: darken($anchor-color, 15%);
   }
+}
 
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-family: $display-font-stack;
+}
+
+h1 {
+  font-size: 2em;
+
+  @include size(md) {
+    font-size: 2.4em;
+  }
+}
+
+h2 {
+  font-size: 1.54em;
+
+  @include size(md) {
+    font-size: 1.8em;
+  }
+}
+
+h3 {
+  font-size: 1.25em;
+
+  @include size(md) {
+    font-size: 1.6em;
+  }
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1.1em;
+}
+
+h5 {
+  font-size: 1.0em;
+}
+
+.typography {
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.2;
     margin-top: 0;
     margin-bottom: .86em;
-    font-family: sans-serif;
-  }
-
-  h1 {
-    font-size: 2em;
-
-    @include size(md) {
-      font-size: 2.4em;
-    }
-  }
-
-  h2 {
-    font-size: 1.54em;
-
-    @include size(md) {
-      font-size: 1.8em;
-    }
-  }
-
-  h3 {
-    font-size: 1.25em;
-
-    @include size(md) {
-      font-size: 1.6em;
-    }
-  }
-
-  h4 {
-    font-size: 1.2em;
-  }
-
-  h5 {
-    font-size: 1.1em;
-  }
-
-  h5 {
-    font-size: 1.0em;
   }
 
   p {

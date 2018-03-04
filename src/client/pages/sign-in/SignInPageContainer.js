@@ -1,7 +1,7 @@
 import preact from 'preact';
 import {connect} from 'preact-redux';
 import SignInPage from './SignInPage';
-import {push as GoToLocation} from 'react-router-redux';
+import {replace as GoToLocation} from 'react-router-redux';
 import {store} from '../../store/Store';
 
 const mapStateToProps = (state, props) => {

@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 import BasicPage from '../layout/BasicPage';
 import {Link, Redirect, Route} from 'react-router-dom';
+import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 
 export default class SignInPage extends Component {
   componentWillMount() {
@@ -15,7 +16,7 @@ export default class SignInPage extends Component {
     if (authenticated) {
       return <Redirect to='/'/>;
     } else {
-      return <h1>Loading&hellip;</h1>;
+      return <LoadingIndicator container/>;
     }
   }
 }

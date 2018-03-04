@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Montserrat:500,600,700');
 @import 'reset';
 
 * { box-sizing: border-box; }
@@ -11,10 +12,6 @@
 @import 'typography';
 @import 'icon';
 @import 'forms';
-
-body {
-  font-family: sans-serif;
-}
 
 .title {
   text-transform: uppercase;
