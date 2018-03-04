@@ -1,14 +1,21 @@
 import io from 'socket.io-client';
 
-const socket = io();
-const oldHandler = socket.onevent;
+export const createSocket = (token) => {
+  const socket = io.connect('', {
+    query: {
+      token
+    }
+  });
 
-socket.onevent = (packet) => {
-  const args = packet.data || [];
+  const oldHandler = socket.onevent;
 
-  oldHandler.call(socket, packet);
-  packet.data = ['*'].concat(args);
-  oldHandler.call(socket, packet);
+  socket.onevent = (packet) => {
+    const args = packet.data || [];
+
+    oldHandler.call(socket, packet);
+    packet.data = ['*'].concat(args);
+    oldHandler.call(socket, packet);
+  }
+
+  return socket;
 }
-
-export default socket;

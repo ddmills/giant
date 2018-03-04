@@ -3,6 +3,7 @@ import BasicPage from '../layout/BasicPage';
 import Subheader from '../../components/subheader/Subheader';
 import CreateGameForm from './CreateGameForm';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
+import {request} from '../../network/Request';
 
 export default class CreateGamePage extends Component {
   state = {
@@ -21,7 +22,15 @@ export default class CreateGamePage extends Component {
       loading: true
     });
     console.log('submit', props);
-    // route('lobby/1234');
+    request({
+      method: 'post',
+      url: '/api/game'
+    }, (error, response) => {
+      this.setState({
+        loading: false,
+      });
+      console.log('response', response);
+    });
   }
 
   renderCreateGameForm() {

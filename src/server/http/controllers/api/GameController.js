@@ -7,10 +7,14 @@ import {
 import {log, json} from '../../../utilities/Logger';
 
 export function create(request, response) {
-  const context = createGameContext(request.session.userId);
-  saveGameContext(context);
+  log('CREATE GAME');
 
-  response.json(context);
+  json(request.user);
+  // const context = createGameContext(request.session.userId);
+  // saveGameContext(context);
+
+  // response.json(context);
+  response.json({ hello: 'world' });
 }
 
 export function get(request, response) {

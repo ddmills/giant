@@ -1,11 +1,10 @@
-import {SIGN_OUT} from './ActionTypes';
 import {push as GoToLocation} from 'react-router-redux';
+import {disconnect} from '../../network/Client';
+import Unauthenticate from './UnauthenticateAction';
 
 export default () => {
   return (dispatch) => {
-    dispatch({
-      type: SIGN_OUT,
-    });
+    dispatch(Unauthenticate());
     dispatch(GoToLocation('/'));
   };
 };

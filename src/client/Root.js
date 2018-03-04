@@ -5,6 +5,10 @@ import {Router, Route, Switch} from 'react-router-dom';
 import {ConnectedRouter} from 'react-router-redux';
 import {history} from './store/History';
 
+import Unauthenticate from './store/actions/UnauthenticateAction';
+import SignIn from './store/actions/SignInAction';
+import {isExpired} from './utilities/Token';
+
 import AuthenticatedRoute from './pages/authenticated-route/AuthenticatedRouteContainer';
 import HomePage from './pages/home/HomePageContainer';
 import SignInPage from './pages/sign-in/SignInPageContainer';
@@ -12,6 +16,16 @@ import SignOutPage from './pages/sign-out/SignOutPage';
 import TokenPage from './pages/token/TokenPageContainer';
 import CreateGamePage from './pages/create-game/CreateGamePageContainer';
 import LobbyPage from './pages/lobby/LobbyPageContainer';
+
+const token = localStorage.getItem('token');
+
+if (token) {
+  if (isExpired(token)) {
+    store.dispatch(Unauthenticate());
+  } else {
+    store.dispatch(SignIn(token));
+  }
+}
 
 export default (props) => {
   return (

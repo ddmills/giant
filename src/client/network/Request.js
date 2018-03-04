@@ -6,7 +6,7 @@ export function request(config, callback) {
     ...config,
     params: {
       ...config.params,
-      token: store.token,
+      token: store.getState().auth.token,
     }
   }).then((response) => {
     callback(undefined, response.data, response);

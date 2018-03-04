@@ -2,8 +2,19 @@ import {store} from '../store/Store';
 import ServerLatency from '../store/actions/server/ServerLatencyAction';
 import ServerConnected from '../store/actions/server/ServerConnectedAction';
 import ServerDisconnected from '../store/actions/server/ServerDisconnectedAction';
+import Unauthenticate from '../store/actions/UnauthenticateAction';
+import {createSocket} from './Socket';
+import {isExpired} from '../utilities/Token';
 
-export function listen(socket) {
+let socket = null;
+
+export const connect = (token) => {
+  if (socket) {
+    return socket;
+  }
+
+  socket = createSocket(token);
+
   let latencyTimeout;
 
   const getLatency = () => {
@@ -11,7 +22,12 @@ export function listen(socket) {
 
     socket.emit('latency', () => {
       store.dispatch(ServerLatency(Date.now() - start));
-      latencyTimeout = setTimeout(getLatency, 3000);
+
+      if (isExpired(token)) {
+        store.dispatch(Unauthenticate());
+      } else {
+        latencyTimeout = setTimeout(getLatency, 3000);
+      }
     });
   };
 
@@ -24,4 +40,15 @@ export function listen(socket) {
     getLatency();
     store.dispatch(ServerConnected());
   });
+
+  return socket;
+}
+
+export const disconnect = () => {
+  if (!socket) {
+    return;
+  }
+
+  socket.disconnect();
+  socket = null;
 }

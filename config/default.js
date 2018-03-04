@@ -8,7 +8,7 @@ module.exports = {
   },
   jwt: {
     secret: process.env.JWT_SECRET,
-    expiry: 60 * 5
+    expiry: 60 * 2 // 2 minutes
   },
   session: {
     secret: process.env.APP_SESSION_SECRET,
