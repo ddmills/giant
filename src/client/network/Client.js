@@ -11,7 +11,7 @@ export function listen(socket) {
 
     socket.emit('latency', () => {
       store.dispatch(ServerLatency(Date.now() - start));
-      latencyTimeout = setTimeout(getLatency, 10000);
+      latencyTimeout = setTimeout(getLatency, 3000);
     });
   };
 

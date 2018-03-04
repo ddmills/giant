@@ -1,15 +1,12 @@
 import {connect} from 'preact-redux';
 import SuperHeader from './SuperHeader';
+import {store} from '../../../store/Store';
+import SignOut from '../../../store/actions/SignOutAction';
 
 const mapStateToProps = (state) => {
   return {
-    displayName: state.user ? state.user.displayName : ''
+    displayName: state.auth.user ? state.auth.user.displayName : ''
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SuperHeader);
+export default connect(mapStateToProps)(SuperHeader);

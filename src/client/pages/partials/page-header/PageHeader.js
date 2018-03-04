@@ -30,11 +30,11 @@ export default ({user}) => {
           <span class="pull-right">
             {renderUser(user)}
           </span>
-          <h2 class="title">
-            <Link to="/">
+          <Link to="/">
+            <h2 class="page-header-title">
               Giant
-            </Link>
-          </h2>
+            </h2>
+          </Link>
         </div>
       </header>
     </div>

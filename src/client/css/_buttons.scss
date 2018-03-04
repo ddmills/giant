@@ -32,6 +32,15 @@
     border-color: $secondary;
   }
 
+  &--xs {
+    font-size: .7rem;
+    padding: 2px;
+  }
+
+  &--link {
+    color: $secondary;
+  }
+
   &--primary {
     background-color: $btn-primary-background-col;
     border-color: $btn-primary-border-col;

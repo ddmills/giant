@@ -7,8 +7,7 @@ import {history} from './History';
 import Socket from '../network/Socket';
 import reducer from './reducers/RootReducer';
 
-// JSON.parse(localStorage.getItem('store')) || DefaultState
-const initialState = DefaultState;
+const initialState = JSON.parse(localStorage.getItem('store')) || DefaultState
 
 const middleware = applyMiddleware(
   ReduxThunk,
@@ -17,9 +16,9 @@ const middleware = applyMiddleware(
 
 export const store = createStore(reducer, initialState, middleware);
 
-// store.subscribe(() => {
-  // localStorage.setItem('store', JSON.stringify(store.getState()))
-// });
+store.subscribe(() => {
+  localStorage.setItem('store', JSON.stringify(store.getState()))
+});
 
 listen(Socket);
 
