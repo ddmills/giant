@@ -3,7 +3,6 @@ import ConnectionStatus from '../../../components/connection-status/ConnectionSt
 import Avatar from '../../../components/avatar/Avatar';
 import './page-header.scss';
 import SteamIcon from '../../../components/icons/SteamIcon';
-import SuperHeader from '../super-header/SuperHeaderContainer';
 import {Link} from 'react-router-dom';
 
 function renderUser(user) {
@@ -23,20 +22,17 @@ function renderUser(user) {
 
 export default ({user}) => {
   return (
-    <div>
-      <SuperHeader/>
-      <header class="page-header">
-        <div class="container">
-          <span class="pull-right">
-            {renderUser(user)}
-          </span>
-          <Link to="/">
-            <h2 class="page-header-title">
-              Giant
-            </h2>
-          </Link>
-        </div>
-      </header>
-    </div>
+    <header class="page-header">
+      <div class="container">
+        <span class="pull-right">
+          {renderUser(user)}
+        </span>
+        <Link to="/">
+          <h2 class="page-header-title">
+            Giant
+          </h2>
+        </Link>
+      </div>
+    </header>
   );
 }

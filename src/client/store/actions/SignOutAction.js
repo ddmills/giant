@@ -1,7 +1,11 @@
 import {SIGN_OUT} from './ActionTypes';
+import {push as GoToLocation} from 'react-router-redux';
 
 export default () => {
-  return {
-    type: SIGN_OUT,
+  return (dispatch) => {
+    dispatch({
+      type: SIGN_OUT,
+    });
+    dispatch(GoToLocation('/'));
   };
 };

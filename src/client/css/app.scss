@@ -13,6 +13,18 @@
 @import 'icon';
 @import 'forms';
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
 .title {
   text-transform: uppercase;
   letter-spacing: .1em;

@@ -27,12 +27,13 @@
   font-weight: 600;
   border-radius: 3px;
   border: 1px solid transparent;
+  color: inherit;
 
   &:focus, &.focus {
     border-color: $secondary;
   }
 
-  &--xs {
+  &--sm {
     font-size: .7rem;
     padding: 2px;
   }
@@ -46,7 +47,7 @@
     border-color: #465461;
     color: #fff;
     background-image: linear-gradient(to left top,rgba(255, 255, 255, 0) 0,#91a9bf 100%);
-    box-shadow: 1px 1px 1px #ced4da inset;
+    box-shadow: 1px 1px 1px #c0c2c3 inset;
     text-shadow: 0 0 2px #000;
 
     &:hover {
