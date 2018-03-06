@@ -2,13 +2,13 @@ require('dotenv').config();
 
 module.exports = {
   server: {
-    host: "127.0.0.1",
+    host: '127.0.0.1',
     port: 8080,
-    protocol: "http"
+    protocol: 'http'
   },
   jwt: {
     secret: process.env.JWT_SECRET,
-    expiry: 60 * 2 // 2 minutes
+    expiry: (60 * 60 * 60) * 5 // seconds
   },
   session: {
     secret: process.env.APP_SESSION_SECRET,

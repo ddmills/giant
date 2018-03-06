@@ -6,16 +6,17 @@ import {Server} from 'http';
 import WebRouter from './http/WebRouter';
 import ApiRouter from './http/ApiRouter';
 import AuthRouter from './http/AuthRouter';
-import SocketIO from 'socket.io';
 import {log} from './utilities/Logger';
 import {client} from './utilities/Path';
 import passport from 'passport';
 import SteamStrategy from 'passport-steam';
+import * as SocketServer from './SocketServer';
 
 const app = express();
 const server = Server(app);
-const io = SocketIO(server);
 const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
+
+SocketServer.listen(server);
 
 passport.serializeUser((user, done) => done(undefined, user));
 passport.deserializeUser((user, done) => done(undefined, user));
@@ -43,22 +44,5 @@ app.use('/api', ApiRouter);
 app.use('/client', express.static(client()));
 app.use('/auth', AuthRouter);
 app.use('/*', WebRouter);
-
-io.on('connection', (socket) => {
-  log('[connect]');
-  socket.emit('connected');
-
-  socket.on('greet', (request) => {
-    log('[greet]');
-    socket.emit('greet');
-  });
-
-  socket.on('latency', (fn) => fn());
-
-  socket.on('disconnect', () => {
-    log('[disconnect]');
-    socket.emit('disconnected');
-  });
-});
 
 export default server;
