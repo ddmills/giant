@@ -7,7 +7,7 @@ import SignIn from '../store/actions/SignInAction';
 import {createSocket, refreshSocketToken} from './Socket';
 import {isExpired} from '../utilities/Token';
 
-let socket = null;
+export let socket = null;
 
 export const connect = (token) => {
   if (socket) {

@@ -3,3 +3,4 @@ export const SERVER_DISCONNECTED = 'SERVER_DISCONNECTED';
 export const SERVER_LATENCY = 'SERVER_LATENCY';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
+export const GAME_CREATED = 'GAME_CREATED';

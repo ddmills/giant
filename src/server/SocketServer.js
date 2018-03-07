@@ -3,6 +3,7 @@ import SocketIO from 'socket.io';
 import {authorize as authorizeSocket} from 'socketio-jwt';
 import {log} from './utilities/Logger';
 import {refreshToken} from './utilities/Token';
+import {createGame, joinGame} from './services/GameService';
 
 export const listen = (server) => {
   const io = SocketIO(server);
@@ -13,19 +14,30 @@ export const listen = (server) => {
   }));
 
   io.on('connection', (socket) => {
-    log('[connect]');
-
-    socket.on('greet', (request) => {
-      log('[greet]');
-      socket.emit('greet');
-    });
+    log('[connection]');
 
     socket.on('latency', (fn) => {
       fn();
     });
 
+    socket.on('game:create', (properties, fn) => {
+      log('[game:create]');
+      createGame(socket.decoded_token, properties, (error, game) => {
+        socket.join(`game-${game.id}`);
+
+        fn(error, game);
+      });
+    });
+
+    socket.on('game:join', (id, fn) => {
+      log('[game:join]');
+      joinGame(socket.decoded_token, id, (error, game) => {
+        socket.join(`game-${game.id}`);
+        fn();
+      });
+    });
+
     socket.on('token', (token, fn) => {
-      log('refresh request', token);
       refreshToken(token, (newToken) => {
         fn({
           token: newToken

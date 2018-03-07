@@ -4,10 +4,12 @@ import Subheader from '../../components/subheader/Subheader';
 import CreateGameForm from './CreateGameForm';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import {request} from '../../network/Request';
+import {createGame} from '../../network/Api';
 
 export default class CreateGamePage extends Component {
   state = {
     loading: false,
+    error: undefined,
   }
 
   constructor(props) {
@@ -17,23 +19,34 @@ export default class CreateGamePage extends Component {
     this.renderCreateGameForm = this.renderCreateGameForm.bind(this);
   }
 
-  onSubmitCreateGameForm(props) {
+  onSubmitCreateGameForm(properties) {
     this.setState({
       loading: true
     });
-    console.log('submit', props);
-    request({
-      method: 'post',
-      url: '/api/game'
-    }, (error, response) => {
+
+    createGame(properties, (error, game) => {
       this.setState({
         loading: false,
+        error
       });
-      console.log('response', response);
+      console.log(game);
+      if (!error) {
+        this.props.onGameCreated(game);
+      }
     });
   }
 
   renderCreateGameForm() {
+    if (this.state.error) {
+      return (
+        <code>
+          <pre class="code">
+            {this.state.error}
+          </pre>
+        </code>
+      );
+    }
+
     if (this.state.loading) {
       return <LoadingIndicator container/>;
     }

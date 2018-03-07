@@ -43,16 +43,16 @@
   }
 
   &--primary {
-    background-color: #465461;
-    border-color: #465461;
+    background-color: #901f1f;
+    border-color: #932121;
     color: #fff;
-    background-image: linear-gradient(to left top,rgba(255, 255, 255, 0) 0,#91a9bf 100%);
-    box-shadow: 1px 1px 1px #c0c2c3 inset;
-    text-shadow: 0 0 2px #000;
+    background-image: linear-gradient(to left top, rgba(255, 255, 255, 0) 0, #d07a7a 100%);
+    box-shadow: 1px 1px 1px #eb7e7e inset;
+    text-shadow: 0 0 2px #2b0000;
 
     &:hover {
       color: #fff;
-      background-color: #5f6d79;
+      background-color: #6b1515;
     }
   }
 
