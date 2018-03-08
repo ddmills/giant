@@ -29,6 +29,8 @@ export default class LobbyPage extends Component {
           players={lobby.players}
           ownerId={lobby.ownerId}
           userId={user.id}
+          onKick={(userId) => console.log('kick', userId)}
+          onLeave={() => console.log('leave')}
         />
         <button
           class="btn btn--primary pull-right"
