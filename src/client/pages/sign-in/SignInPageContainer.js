@@ -1,7 +1,7 @@
 import preact from 'preact';
 import {connect} from 'preact-redux';
 import SignInPage from './SignInPage';
-import {replace as GoToLocation} from 'react-router-redux';
+import RedirectToLocation from '../../store/actions/router/RedirectToLocationAction';
 import {store} from '../../store/Store';
 
 const mapStateToProps = (state, props) => {
@@ -14,7 +14,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     redirect: (uri) => {
-      store.dispatch(GoToLocation(uri))
+      store.dispatch(RedirectToLocation(uri))
     }
   };
 };

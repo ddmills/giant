@@ -14,8 +14,8 @@ import HomePage from './pages/home/HomePageContainer';
 import SignInPage from './pages/sign-in/SignInPageContainer';
 import SignOutPage from './pages/sign-out/SignOutPage';
 import TokenPage from './pages/token/TokenPageContainer';
-import CreateGamePage from './pages/create-game/CreateGamePageContainer';
 import LobbyPage from './pages/lobby/LobbyPageContainer';
+import LobbyCreatePage from './pages/lobby-create/LobbyCreatePageContainer';
 
 const token = localStorage.getItem('token');
 
@@ -36,7 +36,7 @@ export default (props) => {
           <Route path="/sign-in" component={SignInPage}/>
           <Route path="/sign-out" component={SignOutPage}/>
           <Route path="/token/:token/:target" component={TokenPage}/>
-          <AuthenticatedRoute exact={true} path="/create-game" component={CreateGamePage}/>
+          <AuthenticatedRoute exact={true} path="/lobby/create" component={LobbyCreatePage}/>
           <AuthenticatedRoute exact={true} path="/lobby/:id" component={LobbyPage}/>
         </Switch>
       </ConnectedRouter>

@@ -1,6 +1,9 @@
 import {socket} from './Client';
 
-export function createGame(properties, callback) {
-  console.log('create game');
-  socket.emit('game:create', properties, callback);
+export function createLobby(callback) {
+  socket.emit('lobby:create', callback);
+}
+
+export function getLobby(id, callback) {
+  socket.emit('lobby:get', id, callback);
 }

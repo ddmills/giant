@@ -4,29 +4,37 @@ import {
   get as getGameContext,
   getAll as getAllGameContexts
 } from '../../../repositories/GameContextRepository';
-import {log, json} from '../../../utilities/Logger';
 
 export function create(request, response) {
-  log('CREATE GAME');
+  const gameContext = createGameContext(request.session.userId);
 
-  json(request.user);
-  // const context = createGameContext(request.session.userId);
-  // saveGameContext(context);
-
-  // response.json(context);
-  response.json({ hello: 'world' });
+  saveGameContext(gameContext, (error) => {
+    if (error) {
+      response.status(500).json(error);
+    } else {
+      response.json(gameContext);
+    }
+  });
 }
 
 export function get(request, response) {
-  const context = getGameContext(request.params.id);
-
-  if (context) {
-    response.json(context);
-  } else {
-    response.status(404).json();
-  }
+  getGameContext(request.params.id, (error, gameContext) => {
+    if (error) {
+      response.status(500).json(error);
+    } else if (!gameContext) {
+      response.status(404);
+    } else {
+      response.json(gameContext);
+    }
+  });
 }
 
 export function getAll(request, response) {
-  response.json(getAllGameContexts());
+  getAllGameContexts((error, gameContexts) => {
+    if (error) {
+      response.status(500).json(error);
+    } else {
+      response.json(gameContexts);
+    }
+  });
 }

@@ -10,11 +10,24 @@ const renderIndicator = (size) => {
   );
 }
 
-export default ({show, size, container}) => {
+const renderText = (text) => {
+  if (!text) {
+    return;
+  }
+
+  return (
+    <p class="loading-indicator-text">
+      {text}
+    </p>
+  );
+}
+
+export default ({show, size, text, container}) => {
   if (container) {
     return (
       <div class="loading-indicator-container">
         {renderIndicator(size)}
+        {renderText(text)}
       </div>
     );
   }

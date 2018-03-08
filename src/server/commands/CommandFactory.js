@@ -3,7 +3,6 @@ import {create as createPurchaseBlueprintCommand} from './factories/PurchaseBlue
 import {create as createPurchaseHeroCommand} from './factories/PurchaseHeroCommandFactory';
 import {create as createEndTurnCommand} from './factories/EndTurnCommandFactory';
 import {get as getGameContext} from '../repositories/GameContextRepository';
-import {warn} from '../utilities/Logger';
 
 const commandTypeMap = {
   [END_TURN]: createEndTurnCommand,
@@ -11,21 +10,21 @@ const commandTypeMap = {
   [PURCHASE_HERO]: createPurchaseHeroCommand,
 }
 
-export function create(gameContextId, playerId, commandType, parameters = {}) {
-  const gameContext = getGameContext(gameContextId);
+export function create(gameContextId, playerId, commandType, parameters = {}, callback) {
+  getGameContext(gameContextId, (error, gameContext) => {
+    if (!gameContext) {
+      callback(`Invalid game context id (${gameContextId})`);
+      return;
+    }
 
-  if (!gameContext) {
-    warn(`Invalid game context id (${gameContextId})`);
-    return;
-  }
+    const player = gameContext.getPlayer(playerId);
+    const command = commandTypeMap[commandType](gameContext, player, parameters);
 
-  const player = gameContext.getPlayer(playerId);
+    if (!command) {
+      callback(`Couldn't parse command`);
+      return;
+    }
 
-  const command = commandTypeMap[commandType](gameContext, player, parameters);
-
-  if (!command) {
-    warn(`Couldn't parse command`);
-  }
-
-  return command;
+    callback(undefined, command);
+  });
 };

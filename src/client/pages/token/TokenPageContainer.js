@@ -1,9 +1,8 @@
-import preact from 'preact';
 import {connect} from 'preact-redux';
+import {store} from '../../store/Store';
 import TokenPage from './TokenPage';
 import SignIn from '../../store/actions/SignInAction';
-import {store} from '../../store/Store';
-import {replace as GoToLocation} from 'react-router-redux';
+import RedirectToLocation from '../../store/actions/router/RedirectToLocationAction';
 
 const mapStateToProps = (state, props) => {
   const targetUri = props.match.params.target ? decodeURIComponent(props.match.params.target) : '/';
@@ -20,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
       store.dispatch(SignIn(token));
     },
     redirect: (uri) => {
-      store.dispatch(GoToLocation(uri));
+      store.dispatch(RedirectToLocation(uri));
     }
   };
 };

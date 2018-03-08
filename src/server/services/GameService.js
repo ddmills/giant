@@ -12,12 +12,3 @@ export function createGame(user, properties, callback) {
     callback(undefined, game);
   });
 }
-
-export function joinGame(user, gameContextId, callback) {
-  const game = getGameContext(gameContextId);
-
-  // game.addPlayer(user);
-  // saveGameContext(game);
-
-  callback(game);
-}

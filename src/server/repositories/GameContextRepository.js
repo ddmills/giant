@@ -9,13 +9,13 @@ export function save(gameContext, callback) {
 
   gameContexts[gameContext.id] = gameContext;
 
-  callback(gameContext);
+  callback(undefined, gameContext);
 }
 
-export function get(gameContextId) {
-  return gameContexts[gameContextId];
+export function get(gameContextId, callback) {
+  callback(undefined, gameContexts[gameContextId]);
 }
 
-export function getAll() {
-  return Object.values(gameContexts);
+export function getAll(callback) {
+  callback(undefined, Object.values(gameContexts));
 }

@@ -1,4 +1,4 @@
-import {push as GoToLocation} from 'react-router-redux';
+import GoToLocation from '../../store/actions/router/GoToLocationAction';
 import {disconnect} from '../../network/Client';
 import Unauthenticate from './UnauthenticateAction';
 

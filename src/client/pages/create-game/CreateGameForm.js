@@ -7,9 +7,9 @@ export default class CreateGameForm extends Component {
     formData: {
       name: 'The game instance name',
       description: 'The game instance description',
-      turnDuration: 60,
-      numberOfPlayers: 2,
-      isPublic: true,
+      turnDuration: 30,
+      maxNumberOfPlayers: 2,
+      isPublic: false,
     }
   }
 
@@ -105,12 +105,12 @@ export default class CreateGameForm extends Component {
         </label>
 
         <label class="form-group">
-          <span class="form-label">Number of players</span>
+          <span class="form-label">Maximum number of players</span>
           <Select
             class="form-control"
             options={[2, 3, 4, 5]}
-            value={this.state.formData.numberOfPlayers}
-            onChange={this.linkState('formData.numberOfPlayers')}
+            value={this.state.formData.maxNumberOfPlayers}
+            onChange={this.linkState('formData.maxNumberOfPlayers')}
           />
         </label>
 

@@ -21,6 +21,14 @@
 
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+  }
+
+  &-text {
+    margin: 8px;
+    color: #a6aeb5;
+    font-weight: 600;
+    opacity: .5;
   }
 
   &-tile {

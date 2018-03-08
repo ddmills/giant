@@ -1,9 +1,11 @@
 import config from 'config';
 import SocketIO from 'socket.io';
 import {authorize as authorizeSocket} from 'socketio-jwt';
-import {log} from './utilities/Logger';
+import {log, json} from './utilities/Logger';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
+import {create as createLobby, get as getLobby} from './services/LobbyService';
+import {get as getAccount} from './repositories/AccountRepository';
 
 export const listen = (server) => {
   const io = SocketIO(server);
@@ -20,12 +22,19 @@ export const listen = (server) => {
       fn();
     });
 
-    socket.on('game:create', (properties, fn) => {
-      log('[game:create]');
-      createGame(socket.decoded_token, properties, (error, game) => {
-        socket.join(`game-${game.id}`);
+    socket.on('lobby:create', (fn) => {
+      log('[lobby:create]');
+      createLobby(socket.decoded_token.id, (error, lobby) => {
+        json(lobby);
+        fn(lobby);
+      });
+    });
 
-        fn(error, game);
+    socket.on('lobby:get', (lobbyId, fn) => {
+      log('[lobby:get]');
+      getLobby(lobbyId, (error, lobby) => {
+        json(lobby);
+        fn(lobby);
       });
     });
 

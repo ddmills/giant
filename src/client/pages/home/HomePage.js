@@ -10,7 +10,7 @@ function renderAuthenticationLinks(authenticated) {
         <Link class="btn" to="/sign-out">
           Sign out
         </Link>,
-        <Link class="btn btn--primary" to="/create-game">
+        <Link class="btn btn--primary" to="/lobby/create">
           Create game
         </Link>
     ];
@@ -26,7 +26,7 @@ function renderAuthenticationLinks(authenticated) {
 export default ({authenticated}) => {
   return (
     <BasicPage>
-      <Subheader description="This is a subheader component">Welcome to game</Subheader>
+      <Subheader description="This is a subheader component">Welcome to Giant</Subheader>
       <div class="pull-right">
         {renderAuthenticationLinks(authenticated)}
       </div>
