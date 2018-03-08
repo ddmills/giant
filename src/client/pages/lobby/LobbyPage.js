@@ -2,6 +2,7 @@ import {h, Component} from 'preact';
 import BasicPage from '../layout/BasicPage';
 import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
+import PlayerList from './PlayerList';
 
 export default class LobbyPage extends Component {
   componentWillMount() {
@@ -10,23 +11,31 @@ export default class LobbyPage extends Component {
     }
   }
 
-  renderContent() {
-    if (!this.props.isLobbyLoaded) {
-      return <LoadingIndicator text="Loading lobby&hellip;" container/>
+  render({isLobbyLoaded, lobby, startGame, user}) {
+    if (!isLobbyLoaded) {
+      return (
+        <BasicPage>
+          <LoadingIndicator text="Loading lobby…" container/>
+        </BasicPage>
+      );
     }
 
-    return ([
-      <Subheader description={this.props.lobby.name}>
-        Lobby
-      </Subheader>,
-      <pre class="code">{JSON.stringify(this.props.lobby, null, 2)}</pre>
-    ]);
-  }
-
-  render({isLobbyLoaded, lobby}) {
     return (
       <BasicPage>
-        {this.renderContent()}
+        <Subheader description={lobby.name}>
+          Lobby
+        </Subheader>
+        <PlayerList
+          players={lobby.players}
+          ownerId={lobby.ownerId}
+          userId={user.id}
+        />
+        <button
+          class="btn btn--primary pull-right"
+          onClick={startGame}
+        >
+          Start game
+        </button>
       </BasicPage>
     );
   }

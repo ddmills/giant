@@ -6,7 +6,7 @@ export default class Account extends Model {
       id: null,
       steamId: null,
       name: '',
-      displayname: '',
+      displayName: '',
       avatar: '',
       steamUrl: '',
     }

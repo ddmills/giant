@@ -23,7 +23,7 @@ export function get(steamId, callback) {
       id: steamUser.steamid,
       steamId: steamUser.steamid,
       name: steamUser.realname,
-      displayname: steamUser.personaname,
+      displayName: steamUser.personaname,
       avatar: steamUser.avatar,
       steamUrl: steamUser.profileurl,
     }));

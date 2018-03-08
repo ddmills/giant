@@ -4,7 +4,7 @@ import './avatar.scss';
 export default ({user, className}) => {
   return (
       <img
-        class={`avatar ${className}`}
+        class={`avatar ${className ? className : ''}`}
         src={user.avatar}
         alt={user.displayName}
         title={user.displayName}

@@ -16,7 +16,7 @@ export default class SignInPage extends Component {
     if (authenticated) {
       return <Redirect to='/'/>;
     } else {
-      return <LoadingIndicator container/>;
+      return <LoadingIndicator container text="Redirecting to Steam…"/>;
     }
   }
 }

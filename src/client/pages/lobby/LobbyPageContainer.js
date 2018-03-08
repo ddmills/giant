@@ -5,7 +5,7 @@ import FetchLobby from '../../store/actions/lobby/FetchLobbyAction';
 
 const mapStateToProps = (state, props) => {
   return {
-    user: state.user,
+    user: state.auth.user,
     id: props.match.params.id,
     lobby: state.lobby,
     isLobbyLoaded: state.lobby && state.lobby.id === props.match.params.id,

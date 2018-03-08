@@ -1,0 +1,15 @@
+.player-list {
+  display: block;
+  margin: 12px 0;
+
+  &-item {
+    display: block;
+    padding: 12px 0;
+
+    &-name {
+      font-weight: 600;
+      margin: 0 12px;
+      vertical-align: top;
+    }
+  }
+}
