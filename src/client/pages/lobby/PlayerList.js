@@ -1,46 +1,36 @@
 import {h} from 'preact';
 import './player-list.scss';
 import Avatar from '../../components/avatar/Avatar';
-
-function renderKickButton(id, isOwner, isUser, onKick) {
-  if (isOwner && !isUser) {
-    return (
-      <button class="btn btn--danger pull-right" onClick={() => onKick(id)}>
-        Kick
-      </button>
-    );
-  }
-}
+import BotImage from '../../images/bot-avatar.png';
 
 function renderLeaveButton(isOwner, isUser, onLeave) {
-  if (isOwner && isUser) {
+  if (isUser) {
     return (
-      <button class="btn btn--danger pull-right" onClick={() => onLeave()}>
+      <button class="btn btn--danger pull-right" onClick={onLeave}>
         Leave
       </button>
     );
   }
 }
 
-function renderPlayer(player, userId, ownerId, onKick, onLeave) {
+function renderPlayer(player, userId, ownerId, onLeave) {
   const isOwner = player.id === ownerId;
   const isUser = player.id === userId;
 
   return (
     <li class="player-list-item">
-      <Avatar user={player}/>
+      <Avatar avatarUrl={player.avatar} displayName={player.displayName}/>
       <span class="player-list-item-name">
-        {player.displayName}
+        {player.displayName} {isOwner ? ' *' : ''}
       </span>
       {renderLeaveButton(isOwner, isUser, onLeave)}
-      {renderKickButton(player.id, isOwner, isUser, onKick)}
     </li>
   );
 }
 
-function renderPlayers(players, userId, ownerId, onKick, onLeave) {
+function renderPlayers(players, userId, ownerId, onLeave) {
   return players.map((player) => {
-    return renderPlayer(player, userId, ownerId, onKick, onLeave);
+    return renderPlayer(player, userId, ownerId, onLeave);
   });
 }
 
@@ -48,7 +38,8 @@ function renderAddBot(userId, ownerId) {
   if (ownerId === userId) {
     return (
       <li class="player-list-item">
-        <button class="btn btn--info pull-right">
+        <Avatar avatarUrl={BotImage} displayName="Bot boy"/>
+        <button class="btn btn--info">
           Add Bot
         </button>
       </li>
@@ -56,10 +47,10 @@ function renderAddBot(userId, ownerId) {
   }
 }
 
-export default ({ownerId, userId, players, onKick, onLeave}) => {
+export default ({ownerId, userId, players, onLeave}) => {
   return (
     <ul class="player-list">
-      {renderPlayers(players, userId, ownerId, onKick, onLeave)}
+      {renderPlayers(players, userId, ownerId, onLeave)}
       {renderAddBot(userId, ownerId)}
     </ul>
   );

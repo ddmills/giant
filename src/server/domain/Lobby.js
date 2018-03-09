@@ -13,4 +13,24 @@ export default class Lobby extends Model {
       players: [],
     }
   }
+
+  addPlayer(newPlayer) {
+    if (!this.players.some((player) => player.id === newPlayer.id)) {
+      this.players.push(newPlayer);
+    }
+  }
+
+  removePlayerById(playerId) {
+    this.players = this.players.filter((player) => player.id !== playerId);
+
+    if (playerId === this.ownerId) {
+      if (!this.isEmpty) {
+        this.ownerId = this.players[0].id;
+      }
+    }
+  }
+
+  get isEmpty() {
+    return this.players.length <= 0;
+  }
 }

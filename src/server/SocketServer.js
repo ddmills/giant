@@ -4,7 +4,12 @@ import {authorize as authorizeSocket} from 'socketio-jwt';
 import {log, json} from './utilities/Logger';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
-import {create as createLobby, get as getLobby} from './services/LobbyService';
+import {
+  create as createLobby,
+  get as getLobby,
+  leave as leaveLobby,
+  join as joinLobby
+} from './services/LobbyService';
 import {get as getAccount} from './repositories/AccountRepository';
 
 export const listen = (server) => {
@@ -25,6 +30,11 @@ export const listen = (server) => {
     socket.on('lobby:create', (fn) => {
       log('[lobby:create]');
       createLobby(socket.decoded_token.id, (error, lobby) => {
+        const room = `lobby-${lobby.id}`;
+
+        socket.join(room);
+        io.to(room).emit('lobby:update', lobby);
+
         json(lobby);
         fn(lobby);
       });
@@ -35,6 +45,28 @@ export const listen = (server) => {
       getLobby(lobbyId, (error, lobby) => {
         json(lobby);
         fn(lobby);
+      });
+    });
+
+    socket.on('lobby:join', (lobbyId, fn) => {
+      log('[lobby:join]');
+      joinLobby(socket.decoded_token.id, lobbyId, (error, lobby) => {
+        const room = `lobby-${lobby.id}`;
+
+        socket.join(room);
+        io.to(room).emit('lobby:update', lobby);
+      });
+    });
+
+    socket.on('lobby:leave', (lobbyId, fn) => {
+      log('[lobby:leave]');
+      leaveLobby(socket.decoded_token.id, lobbyId, (error, lobby) => {
+        const room = `lobby-${lobby.id}`;
+
+        console.log('player left', lobby);
+
+        socket.leave(room);
+        io.to(room).emit('lobby:update', lobby);
       });
     });
 

@@ -28,6 +28,8 @@ export default (state = defaults, action) => {
         latency: action.latency,
       };
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };

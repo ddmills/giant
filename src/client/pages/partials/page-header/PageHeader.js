@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 function renderUser(user) {
   if (user) {
     return (
-      <Avatar user={user}/>
+      <Avatar avatarUrl={user.avatar} displayName={user.displayName}/>
     );
   } else {
     return (

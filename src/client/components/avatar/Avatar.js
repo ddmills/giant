@@ -1,13 +1,13 @@
 import {h} from 'preact';
 import './avatar.scss';
 
-export default ({user, className}) => {
+export default ({avatarUrl, displayName, className}) => {
   return (
       <img
         class={`avatar ${className ? className : ''}`}
-        src={user.avatar}
-        alt={user.displayName}
-        title={user.displayName}
+        src={avatarUrl}
+        alt={displayName}
+        title={displayName}
       />
   );
 }

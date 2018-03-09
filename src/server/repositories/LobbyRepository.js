@@ -12,6 +12,12 @@ export function save(lobby, callback) {
   callback(undefined, lobby);
 }
 
+export function remove(lobbyId, callback) {
+  delete lobbies[lobbyId];
+
+  callback(undefined);
+}
+
 export function get(lobbyId, callback) {
   callback(undefined, lobbies[lobbyId]);
 }

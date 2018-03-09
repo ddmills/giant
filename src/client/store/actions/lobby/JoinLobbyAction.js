@@ -1,11 +1,11 @@
 import {LOBBY_LOADED} from '../ActionTypes';
-import {getLobby} from '../../../network/Api';
+import {joinLobby} from '../../../network/Api';
 
 export default (lobbyId) => {
   return (dispatch) => {
-    getLobby(lobbyId, (lobby) => {
+    joinLobby(lobbyId, (lobby) => {
       dispatch({
-        type: LOBBY_LOADED,
+        type: LOBBY_PLAYER_JOINED,
         lobby
       });
     })

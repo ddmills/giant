@@ -3,6 +3,7 @@ import ServerLatency from '../store/actions/server/ServerLatencyAction';
 import ServerConnected from '../store/actions/server/ServerConnectedAction';
 import ServerDisconnected from '../store/actions/server/ServerDisconnectedAction';
 import Unauthenticate from '../store/actions/UnauthenticateAction';
+import LobbyUpdate from '../store/actions/lobby/LobbyUpdateAction';
 import SignIn from '../store/actions/SignInAction';
 import {createSocket, refreshSocketToken} from './Socket';
 import {isExpired} from '../utilities/Token';
@@ -45,6 +46,10 @@ export const connect = (token) => {
     listenLatency();
     listenRefresh();
     store.dispatch(ServerConnected());
+  });
+
+  socket.on('lobby:update', (lobby) => {
+    store.dispatch(LobbyUpdate(lobby));
   });
 
   socket.on('error', (error) => {

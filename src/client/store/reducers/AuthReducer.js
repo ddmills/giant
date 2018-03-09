@@ -3,7 +3,7 @@ import {
   SIGN_OUT,
 } from '../actions/ActionTypes';
 
-export default (state = [], action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case SIGN_IN:
       return {
@@ -18,6 +18,8 @@ export default (state = [], action) => {
         token: undefined,
       };
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };

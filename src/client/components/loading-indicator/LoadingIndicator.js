@@ -23,7 +23,6 @@ const renderText = (text) => {
 }
 
 export default ({show, size, text, container}) => {
-  console.log(text);
   if (container) {
     return (
       <div class="loading-indicator-container">
