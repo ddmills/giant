@@ -4,5 +4,6 @@ export const SERVER_LATENCY = 'SERVER_LATENCY';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const LOBBY_LOADED = 'LOBBY_LOADED';
+export const LOBBY_LOADED_ERROR = 'LOBBY_LOADED_ERROR';
 export const LOBBY_PLAYER_JOINED = 'LOBBY_PLAYER_JOINED';
 export const LOBBY_PLAYER_LEFT = 'LOBBY_PLAYER_LEFT';

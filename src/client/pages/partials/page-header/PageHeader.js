@@ -4,6 +4,7 @@ import Avatar from '../../../components/avatar/Avatar';
 import './page-header.scss';
 import SteamIcon from '../../../components/icons/SteamIcon';
 import {Link} from 'react-router-dom';
+import LobbySummary from '../../../components/lobby-summary/LobbySummaryContainer';
 
 function renderUser(user) {
   if (user) {
@@ -24,7 +25,8 @@ export default ({user}) => {
   return (
     <header class="page-header">
       <div class="container">
-        <span class="pull-right">
+        <span class="page-header-actions">
+          <LobbySummary/>
           {renderUser(user)}
         </span>
         <Link to="/">

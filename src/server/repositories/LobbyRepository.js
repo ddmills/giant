@@ -25,3 +25,11 @@ export function get(lobbyId, callback) {
 export function getAll(callback) {
   callback(undefined, Object.values(lobbies));
 }
+
+export function getForUser(userId, callback) {
+  const lobby = Object.values(lobbies).find((lobby) => {
+    return lobby.players.some((player) => player.id === userId)
+  });
+
+  callback(undefined, lobby);
+}

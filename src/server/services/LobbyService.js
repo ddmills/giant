@@ -1,8 +1,10 @@
 import {create as createLobby} from '../domain/factories/LobbyFactory';
 import {get as getAccount} from '../repositories/AccountRepository';
+import {create as createException} from '../services/ExceptionService';
 import {
   save as saveLobby,
   get as getLobby,
+  getForUser as getLobbyForUser,
   remove as deleteLobby,
 } from '../repositories/LobbyRepository';
 
@@ -33,14 +35,18 @@ export function leave(userId, lobbyId, callback) {
       return;
     }
 
-    lobby.removePlayerById(userId);
-
-    if (lobby.isEmpty) {
-      deleteLobby(lobby.id, callback);
-    } else {
-      saveLobby(lobby, callback);
-    }
+    removePlayer(userId, lobby, callback);
   });
+}
+
+export function removePlayer(userId, lobby, callback) {
+  lobby.removePlayerById(userId);
+
+  if (lobby.isEmpty) {
+    deleteLobby(lobby.id, callback);
+  } else {
+    saveLobby(lobby, callback);
+  }
 }
 
 export function create(userId, callback) {
@@ -62,5 +68,21 @@ export function create(userId, callback) {
 }
 
 export function get(lobbyId, callback) {
-  getLobby(lobbyId, callback);
+  getLobby(lobbyId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createException('Lobby not found', 404));
+      return;
+    }
+
+    callback(undefined, lobby);
+  });
+}
+
+export function getForUserId(userId, callback) {
+  getLobbyForUser(userId, callback);
 }

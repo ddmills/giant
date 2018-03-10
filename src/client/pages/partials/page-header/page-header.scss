@@ -11,4 +11,17 @@
     margin-top: 7px;
     float: left;
   }
+
+  &-actions {
+    float: right;
+
+    & > .lobby-summary {
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    & > .avatar {
+      float: right;
+    }
+  }
 }

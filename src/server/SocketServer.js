@@ -4,13 +4,9 @@ import {authorize as authorizeSocket} from 'socketio-jwt';
 import {log, json} from './utilities/Logger';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
-import {
-  create as createLobby,
-  get as getLobby,
-  leave as leaveLobby,
-  join as joinLobby
-} from './services/LobbyService';
+import * as LobbyService from './services/LobbyService';
 import {get as getAccount} from './repositories/AccountRepository';
+import * as SocketRepository from './repositories/SocketRepository';
 
 export const listen = (server) => {
   const io = SocketIO(server);
@@ -20,65 +16,59 @@ export const listen = (server) => {
     handshake: true,
   }));
 
-  io.on('connection', (socket) => {
+  io.on('connection', (client) => {
     log('[connection]');
 
-    socket.on('latency', (fn) => {
-      fn();
+    const user = client.decoded_token;
+
+    SocketRepository.save(client.id, user.id, () => {
+      SocketRepository.getAllForUser(user.id, (error, ids) => {
+        console.log(user.name, ...ids);
+      });
     });
 
-    socket.on('lobby:create', (fn) => {
+    client.on('latency', (fn) => fn());
+
+    client.on('lobby:create', (fn) => {
       log('[lobby:create]');
-      createLobby(socket.decoded_token.id, (error, lobby) => {
+      LobbyService.create(user.id, (error, lobby) => {
         const room = `lobby-${lobby.id}`;
 
-        socket.join(room);
+        client.join(room);
         io.to(room).emit('lobby:update', lobby);
 
-        json(lobby);
         fn(lobby);
       });
     });
 
-    socket.on('lobby:get', (lobbyId, fn) => {
-      log('[lobby:get]');
-      getLobby(lobbyId, (error, lobby) => {
-        json(lobby);
-        fn(lobby);
+    client.on('lobby:get', (lobbyId, fn) => {
+      log('[lobby:get]', client.id);
+      LobbyService.get(lobbyId, (error, lobby) => {
+        fn(error, lobby);
       });
     });
 
-    socket.on('lobby:join', (lobbyId, fn) => {
+    client.on('lobby:join', (lobbyId, fn) => {
       log('[lobby:join]');
-      joinLobby(socket.decoded_token.id, lobbyId, (error, lobby) => {
+      LobbyService.join(user.id, lobbyId, (error, lobby) => {
         const room = `lobby-${lobby.id}`;
 
-        socket.join(room);
+        client.join(room);
         io.to(room).emit('lobby:update', lobby);
       });
     });
 
-    socket.on('lobby:leave', (lobbyId, fn) => {
+    client.on('lobby:leave', (lobbyId, fn) => {
       log('[lobby:leave]');
-      leaveLobby(socket.decoded_token.id, lobbyId, (error, lobby) => {
-        const room = `lobby-${lobby.id}`;
+      LobbyService.leave(user.id, lobbyId, (error, lobby) => {
+        const room = `lobby-${lobbyId}`;
 
-        console.log('player left', lobby);
-
-        socket.leave(room);
         io.to(room).emit('lobby:update', lobby);
+        client.leave(room);
       });
     });
 
-    socket.on('game:join', (id, fn) => {
-      log('[game:join]');
-      joinGame(socket.decoded_token, id, (error, game) => {
-        socket.join(`game-${game.id}`);
-        fn();
-      });
-    });
-
-    socket.on('token', (token, fn) => {
+    client.on('token', (token, fn) => {
       refreshToken(token, (newToken) => {
         fn({
           token: newToken
@@ -86,9 +76,30 @@ export const listen = (server) => {
       });
     });
 
-    socket.on('disconnect', () => {
+    client.on('disconnecting', () => {
+      log('[disconnecting]');
+      SocketRepository.remove(client.id, () => {
+        SocketRepository.getAllForUser(user.id, (error, socketIds) => {
+          if (socketIds.length > 0) {
+            return;
+          }
+
+          LobbyService.getForUserId(user.id, (error, lobby) => {
+            if (error || !lobby) {
+              return;
+            }
+
+            LobbyService.removePlayer(user.id, lobby, (error) => {
+              io.to(`lobby-${lobby.id}`).emit('lobby:update', lobby);
+            });
+          });
+        });
+      });
+    });
+
+    client.on('disconnect', () => {
       log('[disconnect]');
-      socket.emit('disconnected');
+      client.emit('disconnected');
     });
   });
 

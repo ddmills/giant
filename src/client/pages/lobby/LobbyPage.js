@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import {Link} from 'react-router-dom';
 import BasicPage from '../layout/BasicPage';
 import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
@@ -12,7 +13,7 @@ export default class LobbyPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.isLobbyLoaded && !newProps.isLobbyFull && !newProps.isCurrentUserPlayer) {
+    if (newProps.isLobbyLoaded && !newProps.isCurrentUserPlayer && !newProps.isLobbyFull) {
       this.props.joinLobby(this.props.lobbyId);
     }
   }
@@ -40,7 +41,24 @@ export default class LobbyPage extends Component {
     }
   }
 
-  render({isLobbyLoaded, lobbyId, lobby, user, isCurrentUserPlayer}) {
+  render({error, isLobbyLoaded, lobbyId, lobby, user, isCurrentUserPlayer}) {
+    if (error) {
+      return (
+        <BasicPage>
+          <Subheader description={error.message}>
+            {error.status}
+          </Subheader>
+          <p class="code">
+            {error.id}
+          </p>
+          <br/>
+          <Link class="btn btn--primary" to="/lobby/create">
+            Create game
+          </Link>
+        </BasicPage>
+      );
+    }
+
     if (!isLobbyLoaded && !isCurrentUserPlayer) {
       return (
         <BasicPage>
