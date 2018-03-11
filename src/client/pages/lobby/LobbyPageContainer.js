@@ -1,13 +1,17 @@
 import {connect} from 'preact-redux';
 import LobbyPage from './LobbyPage';
-import {loadLobby, joinLobby, leaveLobby} from '../../network/Api';
+import {loadLobby, joinLobby, leaveLobby, addBot} from '../../network/Api';
 import GoToLocation from '../../store/actions/router/GoToLocationAction';
 
 const mapStateToProps = (state, props) => {
+  const lobby = state.lobby.current;
+  const user = state.auth.user;
+
   return {
-    user: state.auth.user,
+    user,
     error: state.lobby.error,
-    lobby: state.lobby.current,
+    isOwner: lobby && lobby.ownerId === user.id,
+    lobby,
     lobbyId: props.match.params.id,
   };
 };
@@ -18,6 +22,8 @@ const mapDispatchToProps = (dispatch) => {
     loadLobby,
     joinLobby,
     leaveLobby,
+    addBot,
+    startGame: () => console.log('start game...'),
   };
 };
 

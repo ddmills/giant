@@ -6,7 +6,7 @@ export default ({children, error}) => {
   return (
     <BasicPage>
       <Subheader description={error.message}>
-        {error.status}
+        {error.code}
       </Subheader>
       <pre class="code">
         {JSON.stringify(error, null, 2)}

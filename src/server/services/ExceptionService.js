@@ -3,11 +3,12 @@ import {save as saveException} from '../repositories/ExceptionRepository';
 import Exception from '../domain/Exception';
 import {error} from '../utilities/Logger';
 
-export function create(message, status = 500) {
+export function create(message, code = 500, fatal = true) {
   const exception = Exception.create({
     id: uuid(),
     message,
-    status,
+    code,
+    fatal,
   });
 
   error(exception);

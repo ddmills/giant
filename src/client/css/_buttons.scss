@@ -61,4 +61,10 @@
     border-color: $btn-danger-border-col;
     color: $btn-danger-font-col;
   }
+
+  &--default {
+    background-color: $btn-default-background-col;
+    border-color: $btn-default-border-col;
+    color: $btn-default-font-col;
+  }
 }

@@ -25,7 +25,7 @@ export const listen = (server) => {
     io.to(`lobby-${lobbyId}`).emit(...args);
   }
 
-  function userJoinRoom(userId, room, callback) {
+  function userJoinRoom(userId, room, callback = () => {}) {
     SocketRepository.getAllForUser(userId, (error, ids) => {
       if (error) {
         callback(error);
@@ -39,7 +39,7 @@ export const listen = (server) => {
     });
   }
 
-  function userLeaveRoom(userId, room, callback) {
+  function userLeaveRoom(userId, room, callback = () => {}) {
     SocketRepository.getAllForUser(userId, (error, ids) => {
       if (error) {
         callback(error);
@@ -65,6 +65,13 @@ export const listen = (server) => {
     const userRoom = `user-${user.id}`;
 
     client.join(userRoom);
+
+    LobbyService.getForUserId(user.id, (error, lobby) => {
+      if (lobby) {
+        client.join(`lobby-${lobby.id}`);
+        client.emit('lobby:update', lobby);
+      }
+    });
 
     SocketRepository.save(client.id, user.id, () => {
       SocketRepository.getAllForUser(user.id, (error, ids) => {
@@ -115,6 +122,18 @@ export const listen = (server) => {
         userJoinRoom(user.id, room, (error) => {
           emitToLobby(lobby.id, 'lobby:update', lobby);
         });
+      });
+    });
+
+    client.on('lobby:add-bot', () => {
+      log('[lobby:add-bot]');
+      LobbyService.addBot(user.id, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+          return;
+        }
+
+        emitToLobby(lobby.id, 'lobby:update', lobby);
       });
     });
 

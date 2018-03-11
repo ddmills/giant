@@ -1,0 +1,14 @@
+@import './variables';
+
+.alert {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-weight: 700;
+
+  &--danger {
+    background-color: #b75050;
+    border-color: #ffffff;
+    color: #fbfbfb;
+  }
+}

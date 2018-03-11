@@ -5,7 +5,8 @@ export default class Exception extends Model {
     return {
       id: null,
       message: 'An error occurred',
-      status: 500,
+      code: 500,
+      fatal: true,
     }
   }
 }

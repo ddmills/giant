@@ -8,16 +8,19 @@ export default class Lobby extends Model {
       name: '',
       description: '',
       turnDuration: 30,
-      maxNumberOfPlayers: 2,
+      maxNumberOfPlayers: 3,
       isPublic: false,
       players: [],
     }
   }
 
   addPlayer(newPlayer) {
-    if (!this.players.some((player) => player.id === newPlayer.id)) {
+    if (!this.isFull && !this.players.some((player) => player.id === newPlayer.id)) {
       this.players.push(newPlayer);
+      return true;
     }
+
+    return false;
   }
 
   removePlayerById(playerId) {
@@ -28,6 +31,10 @@ export default class Lobby extends Model {
         this.ownerId = this.players[0].id;
       }
     }
+  }
+
+  get isFull() {
+    return this.players.length >= this.maxNumberOfPlayers;
   }
 
   get isEmpty() {

@@ -19,3 +19,7 @@ export function joinLobby(lobbyId) {
 export function leaveLobby() {
   socket.emit('lobby:leave');
 }
+
+export function addBot() {
+  socket.emit('lobby:add-bot');
+}
