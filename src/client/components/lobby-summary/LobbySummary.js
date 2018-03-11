@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import './lobby-summary.scss';
 
 export default ({lobby}) => {
-  console.log(lobby);
   if (!lobby) {
     return null;
   }

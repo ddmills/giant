@@ -1,17 +1,21 @@
 import {socket} from './Client';
 
-export function createLobby(callback) {
-  socket.emit('lobby:create', callback);
+export function signOut() {
+  socket.emit('auth:sign-out');
 }
 
-export function getLobby(lobbyId, callback) {
+export function createLobby() {
+  socket.emit('lobby:create');
+}
+
+export function loadLobby(lobbyId, callback) {
   socket.emit('lobby:get', lobbyId, callback);
 }
 
-export function joinLobby(lobbyId, callback) {
-  socket.emit('lobby:join', lobbyId, callback);
+export function joinLobby(lobbyId) {
+  socket.emit('lobby:join', lobbyId);
 }
 
-export function leaveLobby(lobbyId, callback) {
-  socket.emit('lobby:leave', lobbyId, callback);
+export function leaveLobby() {
+  socket.emit('lobby:leave');
 }

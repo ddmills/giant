@@ -1,10 +1,10 @@
 import {
   LOBBY_LOADED,
-  LOBBY_PLAYER_LEFT,
-  LOBBY_LOADED_ERROR,
+  LOBBY_LEAVE,
+  LOBBY_ERROR,
 } from '../actions/ActionTypes';
 
-export default (state = undefined, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case LOBBY_LOADED:
       return {
@@ -12,12 +12,12 @@ export default (state = undefined, action) => {
         current: action.lobby,
         error: undefined,
       };
-    case LOBBY_LOADED_ERROR:
+    case LOBBY_ERROR:
       return {
         ...state,
         error: action.error,
       };
-    case LOBBY_PLAYER_LEFT:
+    case LOBBY_LEAVE:
       return {
         ...state,
         current: undefined,

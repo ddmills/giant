@@ -4,8 +4,22 @@ import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 
 export default class LobbyPage extends Component {
+  redirectToLobby(lobby) {
+    this.props.redirect(`/lobby/${lobby.id}`);
+  }
+
   componentWillMount() {
-    this.props.createLobby(this.props.onLobbyCreated);
+    if (this.props.lobby) {
+      this.redirectToLobby(this.props.lobby);
+    } else {
+      this.props.createLobby();
+    }
+  }
+
+  componentWillReceiveProps({lobby}) {
+    if (lobby) {
+      this.redirectToLobby(lobby);
+    }
   }
 
   render() {

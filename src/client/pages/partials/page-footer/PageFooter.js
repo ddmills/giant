@@ -1,14 +1,14 @@
 import {h} from 'preact';
-import ConnectionStatus from '../../../components/connection-status/ConnectionStatusContainer';
+import {Link} from 'react-router-dom';
 import './page-footer.scss';
 
 export default ({displayName, signOut}) => {
   return (
     <footer class="page-footer">
       <div class="container">
-        <button class="pull-right btn btn--sm" onClick={signOut}>
+        <Link to="/sign-out" class="pull-right btn btn--sm">
           Sign out
-        </button>
+        </Link>
       </div>
     </footer>
   );

@@ -1,13 +1,7 @@
-import {LOBBY_PLAYER_LEFT} from '../ActionTypes';
-import {leaveLobby} from '../../../network/Api';
+import {LOBBY_LEAVE} from '../ActionTypes';
 
 export default (lobbyId) => {
-  return (dispatch) => {
-    leaveLobby(lobbyId, (lobby) => {
-      dispatch({
-        type: LOBBY_PLAYER_LEFT,
-        lobby,
-      });
-    })
+  return {
+    type: LOBBY_LEAVE,
   };
 }

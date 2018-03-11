@@ -1,9 +1,13 @@
 import {h, Component} from 'preact';
-import SignOutAction from '../../store/actions/SignOutAction';
-import {store} from '../../store/Store';
+import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
+import {signOut} from '../../network/Api';
 
 export default class SignOutPage extends Component {
   componentWillMount() {
-    store.dispatch(SignOutAction());
+    signOut();
+  }
+
+  render() {
+    return <LoadingIndicator text="Signing out…" container/>
   }
 }
