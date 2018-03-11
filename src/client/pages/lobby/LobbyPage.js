@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 import {Link} from 'react-router-dom';
 import BasicPage from '../layout/BasicPage';
+import ErrorPage from '../layout/ErrorPage';
 import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import PlayerList from './PlayerList';
@@ -20,7 +21,9 @@ export default class LobbyPage extends Component {
 
   render({error, lobbyId, user, lobby}) {
     if (error) {
-      return <h2>{error}</h2>
+      return (
+        <ErrorPage error={error}/>
+      );
     }
 
     if (!lobby) {

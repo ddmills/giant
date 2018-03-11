@@ -2,7 +2,7 @@ import {h} from 'preact';
 import {Link} from 'react-router-dom';
 import './page-footer.scss';
 
-export default ({displayName, signOut}) => {
+export default () => {
   return (
     <footer class="page-footer">
       <div class="container">

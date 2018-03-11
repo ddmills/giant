@@ -10,15 +10,32 @@ export function join(userId, lobbyId, callback) {
       return;
     }
 
-    LobbyRepository.get(lobbyId, (error, lobby) => {
+    LobbyRepository.getForUser(userId, (error, lobby) => {
       if (error) {
         callback(error);
         return;
       }
 
-      lobby.addPlayer(account);
+      if (lobby) {
+        callback(createException('Already in a lobby', 409));
+        return;
+      }
 
-      LobbyRepository.save(lobby, callback);
+      LobbyRepository.get(lobbyId, (error, lobby) => {
+        if (error) {
+          callback(error);
+          return;
+        }
+
+        if (!lobby) {
+          callback(createException('Lobby not found', 404));
+          return;
+        }
+
+        lobby.addPlayer(account);
+
+        LobbyRepository.save(lobby, callback);
+      });
     });
   });
 }

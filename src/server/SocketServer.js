@@ -78,6 +78,7 @@ export const listen = (server) => {
       log('[lobby:create]');
       LobbyService.create(user.id, (error, lobby) => {
         if (error) {
+          client.emit('lobby:error', error);
           return;
         }
 
@@ -92,6 +93,11 @@ export const listen = (server) => {
     client.on('lobby:get', (lobbyId, fn) => {
       log('[lobby:get]', client.id);
       LobbyService.get(lobbyId, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+          return;
+        }
+
         emitToLobby(lobby.id, 'lobby:update', lobby);
       });
     });
@@ -100,6 +106,7 @@ export const listen = (server) => {
       log('[lobby:join]');
       LobbyService.join(user.id, lobbyId, (error, lobby) => {
         if (error) {
+          client.emit('lobby:error', error);
           return;
         }
 
@@ -115,6 +122,7 @@ export const listen = (server) => {
       log('[lobby:leave]');
       LobbyService.leave(user.id, (error, lobby) => {
         if (error) {
+          client.emit('lobby:error', error);
           return;
         }
 

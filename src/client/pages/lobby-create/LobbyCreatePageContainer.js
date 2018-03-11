@@ -5,6 +5,7 @@ import {createLobby} from '../../network/Api';
 
 const mapStateToProps = (state) => {
   return {
+    error: state.lobby.error,
     lobby: state.lobby.current,
   };
 };

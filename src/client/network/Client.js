@@ -3,9 +3,10 @@ import ServerLatency from '../store/actions/server/ServerLatencyAction';
 import ServerConnected from '../store/actions/server/ServerConnectedAction';
 import ServerDisconnected from '../store/actions/server/ServerDisconnectedAction';
 import Unauthenticate from '../store/actions/UnauthenticateAction';
-import SignOutAction from '../store/actions/SignOutAction';
+import SignOut from '../store/actions/SignOutAction';
 import LobbyUpdate from '../store/actions/lobby/LobbyUpdateAction';
 import LeaveLobby from '../store/actions/lobby/LeaveLobbyAction';
+import LobbyError from '../store/actions/lobby/LobbyErrorAction';
 import SignIn from '../store/actions/SignInAction';
 import {createSocket, refreshSocketToken} from './Socket';
 import {isExpired} from '../utilities/Token';
@@ -59,7 +60,11 @@ export const connect = (token) => {
   });
 
   socket.on('auth:sign-out', () => {
-    store.dispatch(SignOutAction());
+    store.dispatch(SignOut());
+  });
+
+  socket.on('lobby:error', (error) => {
+    store.dispatch(LobbyError(error));
   });
 
   socket.on('error', (error) => {

@@ -13,6 +13,7 @@ export default (state = {}, action) => {
         error: undefined,
       };
     case LOBBY_ERROR:
+      console.log('LOBBY ERROR', action.error);
       return {
         ...state,
         error: action.error,
