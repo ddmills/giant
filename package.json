@@ -4,11 +4,13 @@
   "main": "dist/server/index.js",
   "scripts": {
     "start": "node dist/server/index.js",
-    "watch": "concurrently \"npm run client:watch\" \"npm run server:watch\" \"nodemon -w dist/server\"",
+    "watch": "concurrently \"npm run client:watch\" \"npm run server:watch\" \"nodemon -w dist/server\" \"npm run data:watch\"",
     "server:watch": "nodemon --exec \"npm run server:build\" -w src/server",
     "client:watch": "parcel src/client/index.html -d dist/client --public-url /client --no-cache",
     "client:build": "parcel build src/client/index.html -d dist/client --public-url /client",
     "server:build": "babel src/server -d dist/server -s",
+    "data:build": "cpx \"./src/data/**/*\" \"./dist/data\" --clean -v",
+    "data:watch": "cpx \"./src/data/**/*\" \"./dist/data\" -w -v",
     "build": "npm run client:build && npm run server:build"
   },
   "dependencies": {
@@ -44,6 +46,7 @@
     "babel-preset-preact": "^1.1.0",
     "babel-preset-stage-3": "^6.24.1",
     "concurrently": "^3.5.1",
+    "cpx": "^1.5.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.15.1",
     "parcel-bundler": "../parcel"
