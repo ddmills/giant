@@ -25,11 +25,6 @@ export function join(userId, lobbyId, callback) {
           callback(undefined, lobby);
           return;
         }
-
-        if (lobby.isFull) {
-          callback(createException('Lobby is full', 403));
-          return;
-        }
       }
 
       LobbyRepository.get(lobbyId, (error, lobby) => {
@@ -40,6 +35,16 @@ export function join(userId, lobbyId, callback) {
 
         if (!lobby) {
           callback(createException('Lobby not found', 404));
+          return;
+        }
+
+        if (lobby.isFull) {
+          callback(createException('Lobby is full', 403));
+          return;
+        }
+
+        if (lobby.isDisbanded) {
+          callback(createException('Lobby is disbanded', 404));
           return;
         }
 
@@ -64,6 +69,10 @@ export function leave(userId, callback) {
     }
 
     lobby.removePlayerById(userId);
+
+    if (lobby.ownerId === userId) {
+      lobby.isDisbanded = true;
+    }
 
     LobbyRepository.save(lobby, callback);
   });

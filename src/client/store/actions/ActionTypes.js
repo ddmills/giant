@@ -5,4 +5,5 @@ export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const LOBBY_LOADED = 'LOBBY_LOADED';
 export const LOBBY_ERROR = 'LOBBY_ERROR';
+export const LOBBY_CLEAR_ERROR = 'LOBBY_CLEAR_ERROR';
 export const LOBBY_LEAVE = 'LOBBY_LEAVE';

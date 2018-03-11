@@ -10,6 +10,8 @@ export default class LobbyPage extends Component {
   }
 
   componentWillMount() {
+    this.props.clearError();
+
     if (this.props.lobby) {
       this.redirectToLobby(this.props.lobby);
     } else {

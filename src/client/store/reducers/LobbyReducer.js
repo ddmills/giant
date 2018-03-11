@@ -2,6 +2,7 @@ import {
   LOBBY_LOADED,
   LOBBY_LEAVE,
   LOBBY_ERROR,
+  LOBBY_CLEAR_ERROR,
 } from '../actions/ActionTypes';
 
 export default (state = {}, action) => {
@@ -16,6 +17,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case LOBBY_CLEAR_ERROR:
+      return {
+        ...state,
+        error: undefined,
       };
     case LOBBY_LEAVE:
       return {

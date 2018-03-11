@@ -9,14 +9,22 @@ import PlayerList from './PlayerList';
 
 export default class LobbyPage extends Component {
   componentWillMount() {
+    this.props.clearError();
+
     if (!this.props.lobby) {
       this.props.joinLobby(this.props.lobbyId);
+    } else if (this.props.lobby.id !== this.props.lobbyId) {
+      this.props.redirect(`/lobby/${this.props.lobby.id}`);
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.lobby && !newProps.lobby) {
-      newProps.redirect('/');
+    if (this.props.lobby) {
+      if (!newProps.lobby) {
+        newProps.redirect('/');
+      } else if (newProps.lobby.id !== newProps.lobbyId) {
+        newProps.redirect(`/lobby/${newProps.lobby.id}`);
+      }
     }
   }
 
@@ -57,6 +65,34 @@ export default class LobbyPage extends Component {
     );
   }
 
+  renderContent() {
+    if (this.props.lobby.isDisbanded || (this.props.error && this.props.error.fatal)) {
+      return;
+    }
+
+    return ([
+      <pre class="code">
+        {JSON.stringify(this.props.lobby, null, 2)}
+      </pre>,
+      <span class="pull-right">
+        {this.renderActions()}
+      </span>
+    ]);
+  }
+
+  renderDisbandedMessage() {
+    if (this.props.lobby.isDisbanded) {
+      return ([
+        <Alert type="danger">
+          This lobby has been abandoned…
+        </Alert>,
+        <button onClick={this.props.leaveLobby} class="btn btn--danger">
+          Leave lobby
+        </button>
+      ]);
+    }
+  }
+
   render({error, lobbyId, user, lobby}) {
     if (error && error.fatal) {
       return (
@@ -75,12 +111,8 @@ export default class LobbyPage extends Component {
     return (
       <BasicPage>
         {this.renderNonFatalError(error)}
-        <pre class="code">
-          {JSON.stringify(lobby, null, 2)}
-        </pre>
-        <span class="pull-right">
-          {this.renderActions()}
-        </span>
+        {this.renderDisbandedMessage()}
+        {this.renderContent()}
       </BasicPage>
     );
   }

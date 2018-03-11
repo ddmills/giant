@@ -1,7 +1,7 @@
 import config from 'config';
 import SocketIO from 'socket.io';
 import {authorize as authorizeSocket} from 'socketio-jwt';
-import {log, json} from './utilities/Logger';
+import {log, json, info} from './utilities/Logger';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
 import * as LobbyService from './services/LobbyService';
@@ -75,7 +75,7 @@ export const listen = (server) => {
 
     SocketRepository.save(client.id, user.id, () => {
       SocketRepository.getAllForUser(user.id, (error, ids) => {
-        console.log(`${user.name} has ${ids.length} sessions`);
+        info(`${user.name} has ${ids.length} sessions`);
       });
     });
 

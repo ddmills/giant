@@ -10,13 +10,21 @@ export default class Lobby extends Model {
       turnDuration: 30,
       maxNumberOfPlayers: 3,
       isPublic: false,
+      isDisbanded: false,
       players: [],
     }
+  }
+
+  get nonBotPlayers() {
+    return this.players.filter((player) => !player.isBot);
   }
 
   addPlayer(newPlayer) {
     if (!this.isFull && !this.players.some((player) => player.id === newPlayer.id)) {
       this.players.push(newPlayer);
+      if (!this.ownerId) {
+        this.ownerId = newPlayer.id;
+      }
       return true;
     }
 
@@ -25,12 +33,6 @@ export default class Lobby extends Model {
 
   removePlayerById(playerId) {
     this.players = this.players.filter((player) => player.id !== playerId);
-
-    if (playerId === this.ownerId) {
-      if (!this.isEmpty) {
-        this.ownerId = this.players[0].id;
-      }
-    }
   }
 
   get isFull() {

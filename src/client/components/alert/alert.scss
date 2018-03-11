@@ -5,10 +5,11 @@
   padding: 12px;
   margin-bottom: 12px;
   font-weight: 700;
+  border-radius: 3px;
 
   &--danger {
     background-color: #b75050;
-    border-color: #ffffff;
+    border-color: #651919;
     color: #fbfbfb;
   }
 }
