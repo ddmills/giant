@@ -11,7 +11,7 @@ export function create(message, code = 500, fatal = true) {
     fatal,
   });
 
-  error(exception);
+  error(`${code}${fatal ? ' (FATAL)' : ''} ${message}`);
 
   return exception;
 }

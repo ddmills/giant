@@ -23,11 +23,14 @@ export default class LobbyBrowsePage extends Component {
   }
 
   renderLobbyList() {
-    return (
+    return ([
       <ul>
         {this.renderLobbies(this.props.lobbies)}
-      </ul>
-    );
+      </ul>,
+      <button class="btn" onClick={this.props.getLobbies}>
+        Refresh
+      </button>
+    ]);
   }
 
   renderLoading() {
@@ -39,7 +42,10 @@ export default class LobbyBrowsePage extends Component {
       <p>No games found</p>,
       <Link to="/lobby/create" class="btn btn--primary">
         Create one
-      </Link>
+      </Link>,
+      <button class="btn" onClick={this.props.getLobbies}>
+        Refresh
+      </button>
     ]);
   }
 
