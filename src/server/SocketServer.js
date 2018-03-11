@@ -97,7 +97,7 @@ export const listen = (server) => {
       });
     });
 
-    client.on('lobby:get', (lobbyId, fn) => {
+    client.on('lobby:get', (lobbyId) => {
       log('[lobby:get]', client.id);
       LobbyService.get(lobbyId, (error, lobby) => {
         if (error) {
@@ -106,6 +106,18 @@ export const listen = (server) => {
         }
 
         emitToLobby(lobby.id, 'lobby:update', lobby);
+      });
+    });
+
+    client.on('lobby:index', () => {
+      log('[lobby:index]');
+      LobbyService.getAllPublic((error, lobbies) => {
+        if (error) {
+          client.emit('lobby:error', error);
+          return;
+        }
+
+        client.emit('lobby:index', lobbies);
       });
     });
 

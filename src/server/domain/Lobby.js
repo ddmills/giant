@@ -9,7 +9,7 @@ export default class Lobby extends Model {
       description: '',
       turnDuration: 30,
       maxNumberOfPlayers: 3,
-      isPublic: false,
+      isPublic: true,
       isDisbanded: false,
       players: [],
     }

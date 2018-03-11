@@ -8,8 +8,12 @@ export function createLobby() {
   socket.emit('lobby:create');
 }
 
-export function loadLobby(lobbyId, callback) {
-  socket.emit('lobby:get', lobbyId, callback);
+export function loadLobby(lobbyId) {
+  socket.emit('lobby:get', lobbyId);
+}
+
+export function getLobbies() {
+  socket.emit('lobby:index');
 }
 
 export function joinLobby(lobbyId) {

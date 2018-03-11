@@ -1,5 +1,6 @@
 import {
   LOBBY_LOADED,
+  LOBBY_INDEX,
   LOBBY_LEAVE,
   LOBBY_ERROR,
   LOBBY_CLEAR_ERROR,
@@ -12,6 +13,11 @@ export default (state = {}, action) => {
         ...state,
         current: action.lobby,
         error: undefined,
+      };
+    case LOBBY_INDEX:
+      return {
+        ...state,
+        collection: action.lobbyCollection,
       };
     case LOBBY_ERROR:
       return {

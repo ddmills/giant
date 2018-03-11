@@ -158,6 +158,21 @@ export function get(lobbyId, callback) {
   });
 }
 
+export function getAllPublic(callback) {
+  LobbyRepository.getAll((error, lobbies) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    const publicLobbies = lobbies
+      .filter((lobby) => lobby.isPublic)
+      .filter((lobby) => !lobby.isDisbanded);
+
+    callback(undefined, publicLobbies);
+  });
+}
+
 export function getForUserId(userId, callback) {
   LobbyRepository.getForUser(userId, callback);
 }

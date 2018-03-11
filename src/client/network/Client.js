@@ -5,6 +5,7 @@ import ServerDisconnected from '../store/actions/server/ServerDisconnectedAction
 import Unauthenticate from '../store/actions/UnauthenticateAction';
 import SignOut from '../store/actions/SignOutAction';
 import LobbyUpdate from '../store/actions/lobby/LobbyUpdateAction';
+import LobbiesLoaded from '../store/actions/lobby/LobbiesLoadedAction';
 import LeaveLobby from '../store/actions/lobby/LeaveLobbyAction';
 import LobbyError from '../store/actions/lobby/LobbyErrorAction';
 import SignIn from '../store/actions/SignInAction';
@@ -53,6 +54,10 @@ export const connect = (token) => {
 
   socket.on('lobby:update', (lobby) => {
     store.dispatch(LobbyUpdate(lobby));
+  });
+
+  socket.on('lobby:index', (lobbies) => {
+    store.dispatch(LobbiesLoaded(lobbies));
   });
 
   socket.on('lobby:leave', () => {
