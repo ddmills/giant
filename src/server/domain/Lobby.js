@@ -1,4 +1,10 @@
 import Model from './Model';
+import {create as createHeroDeck} from './factories/HeroDeckFactory';
+import {create as createBlueprintDeck} from './factories/BuildingDeckFactory';
+import {create as createStarterDeck} from './factories/StarterDeckFactory';
+import Registry from './Registry';
+import Deck from './Deck';
+import Player from './Player';
 
 export default class Lobby extends Model {
   static get defaults() {
@@ -13,7 +19,16 @@ export default class Lobby extends Model {
       isDisbanded: false,
       isStarted: false,
       isFinished: false,
+      context: null,
       players: [],
+      cardRegistry: Registry.create(),
+      heroDeck: Deck.create(),
+      heroRow: Deck.create(),
+      blueprintDeck: Deck.create(),
+      blueprintRow: Deck.create(),
+      cardRegistry: Registry.create(),
+      currentTurn: 0,
+      playerTurnOrder: [],
     }
   }
 
@@ -51,5 +66,15 @@ export default class Lobby extends Model {
 
   start() {
     this.isStarted = true;
+    this.heroDeck = createHeroDeck();
+    this.blueprintDeck = createBlueprintDeck();
+
+    this.players.forEach((player) => {
+      player.deck = createStarterDeck();
+      player.deck.forEach((card) => this.cardRegistry.register(card.id, card));
+    });
+
+    this.heroDeck.forEach((card) => this.cardRegistry.register(card.id, card));
+    this.blueprintDeck.forEach((card) => this.cardRegistry.register(card.id, card));
   }
 }

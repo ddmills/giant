@@ -1,8 +1,9 @@
 import {create as createLobby} from '../domain/factories/LobbyFactory';
 import {get as getAccount} from '../repositories/AccountRepository';
 import {create as createException} from '../services/ExceptionService';
+import {create as createPlayer} from '../domain/factories/PlayerFactory';
+import {create as createBot} from '../domain/factories/BotFactory';
 import * as LobbyRepository from '../repositories/LobbyRepository';
-import Bot from '../domain/Bot';
 
 export function join(userId, lobbyId, callback) {
   getAccount(userId, (error, account) => {
@@ -52,6 +53,9 @@ export function join(userId, lobbyId, callback) {
           callback(createException('Lobby has already started', 405));
           return;
         }
+
+
+        const player = createPlayer(account);
 
         lobby.addPlayer(account);
 
@@ -152,7 +156,10 @@ export function addBot(userId, callback) {
       return;
     }
 
-    lobby.addPlayer(Bot.create());
+    const bot = createBot();
+    const player = createPlayer(bot);
+
+    lobby.addPlayer(player);
 
     LobbyRepository.save(lobby, callback);
   });
@@ -176,14 +183,13 @@ export function create(userId, callback) {
         return;
       }
 
-      createLobby(account, (error, lobby) => {
-        if (error) {
-          callback(error);
-          return;
-        }
+      const lobby = createLobby(`${account.displayName}'s game`);
+      const player = createPlayer(account);
 
-        LobbyRepository.save(lobby, callback);
-      });
+      lobby.addPlayer(player);
+      lobby.ownerId = account.id;
+
+      LobbyRepository.save(lobby, callback);
     });
   });
 }

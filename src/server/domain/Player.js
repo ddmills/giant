@@ -5,7 +5,6 @@ export default class Player extends Model {
   static get defaults() {
     return {
       id: -1,
-      name: 'no name',
       spentValue: 0,
       hand: Deck.create(),
       discardDeck: Deck.create(),

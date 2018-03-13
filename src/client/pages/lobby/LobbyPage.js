@@ -15,6 +15,8 @@ export default class LobbyPage extends Component {
       this.props.joinLobby();
     } else if (this.props.lobby.id !== this.props.lobbyId) {
       this.props.redirect(`/lobby/${this.props.lobby.id}`);
+    } else if (this.props.lobby.isStarted) {
+      //this.props.redirect(`/game/${this.props.lobbyId}`);
     } else {
       this.props.loadLobby();
     }
@@ -27,6 +29,10 @@ export default class LobbyPage extends Component {
       } else if (newProps.lobby.id !== newProps.lobbyId) {
         newProps.redirect(`/lobby/${newProps.lobby.id}`);
       }
+    }
+
+    if (newProps.lobby && newProps.lobby.isStarted) {
+      //newProps.redirect(`/game/${newProps.lobbyId}`);
     }
   }
 
