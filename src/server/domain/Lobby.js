@@ -61,7 +61,7 @@ export default class Lobby extends Model {
   }
 
   removePlayerById(playerId) {
-    this.players = this.players.filter((player) => player.id !== playerId);
+    this.players = this.players.filter((player) => player.account.id !== playerId);
   }
 
   start() {

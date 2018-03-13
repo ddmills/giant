@@ -54,10 +54,9 @@ export function join(userId, lobbyId, callback) {
           return;
         }
 
-
         const player = createPlayer(account);
 
-        lobby.addPlayer(account);
+        lobby.addPlayer(player);
 
         LobbyRepository.save(lobby, callback);
       });
