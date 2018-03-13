@@ -6,6 +6,8 @@
   padding-left: 15px;
   padding-right: 15px;
 
+  flex: 1 1 auto;
+
   @include clearfix();
 
   @include size(sm) {
@@ -18,6 +20,10 @@
 
   @include size(lg) {
     width: 1012px;
+  }
+
+  &--full {
+    width: 100%;
   }
 
   &--mini {

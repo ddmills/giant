@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import BasicPage from '../layout/BasicPage';
+import BasicLayout from '../layout/BasicLayout';
 import {Link} from 'react-router-dom';
 import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
@@ -63,10 +63,10 @@ export default class LobbyBrowsePage extends Component {
 
   render({lobbies}) {
     return (
-      <BasicPage>
+      <BasicLayout>
         <Subheader>Browse games</Subheader>
         {this.renderContent()}
-      </BasicPage>
+      </BasicLayout>
     );
   }
 };

@@ -1,4 +1,4 @@
-.basic-page {
+.page {
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -9,6 +9,4 @@
   margin-top: 40px;
   margin-bottom: 40px;
   min-height: 300px;
-
-  flex: 1 1 auto;
 }

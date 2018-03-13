@@ -1,6 +1,6 @@
 import {h, Component} from 'preact';
 import {Link} from 'react-router-dom';
-import BasicPage from '../layout/BasicPage';
+import BasicLayout from '../layout/BasicLayout';
 import ErrorPage from '../layout/ErrorPage';
 import Subheader from '../../components/subheader/Subheader';
 import Alert from '../../components/alert/Alert';
@@ -12,9 +12,11 @@ export default class LobbyPage extends Component {
     this.props.clearError();
 
     if (!this.props.lobby) {
-      this.props.joinLobby(this.props.lobbyId);
+      this.props.joinLobby();
     } else if (this.props.lobby.id !== this.props.lobbyId) {
       this.props.redirect(`/lobby/${this.props.lobby.id}`);
+    } else {
+      this.props.loadLobby();
     }
   }
 
@@ -44,7 +46,7 @@ export default class LobbyPage extends Component {
         </button>
       );
       actions.push(
-        <button disabled onClick={this.props.startGame} class="btn btn--primary">
+        <button onClick={this.props.startLobby} class="btn btn--primary">
           Start game
         </button>
       );
@@ -102,18 +104,18 @@ export default class LobbyPage extends Component {
 
     if (!lobby) {
       return (
-        <BasicPage>
+        <BasicLayout>
           <LoadingIndicator text="Loading lobby…" container/>
-        </BasicPage>
+        </BasicLayout>
       );
     }
 
     return (
-      <BasicPage>
+      <BasicLayout>
         {this.renderNonFatalError(error)}
         {this.renderDisbandedMessage()}
         {this.renderContent()}
-      </BasicPage>
+      </BasicLayout>
     );
   }
 };

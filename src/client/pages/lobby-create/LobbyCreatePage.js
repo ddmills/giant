@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import BasicPage from '../layout/BasicPage';
+import BasicLayout from '../layout/BasicLayout';
 import ErrorPage from '../layout/ErrorPage';
 import Subheader from '../../components/subheader/Subheader';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
@@ -33,9 +33,9 @@ export default class LobbyPage extends Component {
     }
 
     return (
-      <BasicPage>
+      <BasicLayout>
         <LoadingIndicator container text="Creating lobby…"/>
-      </BasicPage>
+      </BasicLayout>
     );
   }
 };

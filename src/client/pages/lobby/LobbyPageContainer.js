@@ -1,6 +1,12 @@
 import {connect} from 'preact-redux';
 import LobbyPage from './LobbyPage';
-import {loadLobby, joinLobby, leaveLobby, addBot} from '../../network/Api';
+import {
+  loadLobby,
+  joinLobby,
+  leaveLobby,
+  addBot,
+  startLobby,
+} from '../../network/Api';
 import GoToLocation from '../../store/actions/router/GoToLocationAction';
 import ClearLobbyError from '../../store/actions/lobby/ClearLobbyErrorAction';
 
@@ -18,15 +24,17 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, props) => {
+  const lobbyId = props.match.params.id;
+
   return {
     redirect: (uri) => dispatch(GoToLocation(uri)),
     clearError: () => dispatch(ClearLobbyError()),
-    loadLobby,
-    joinLobby,
+    loadLobby: () => loadLobby(lobbyId),
+    joinLobby: () => joinLobby(lobbyId),
     leaveLobby,
     addBot,
-    startGame: () => console.log('start game...'),
+    startLobby,
   };
 };
 

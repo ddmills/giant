@@ -1,10 +1,10 @@
 import {h} from 'preact';
-import BasicPage from './BasicPage';
+import BasicLayout from './BasicLayout';
 import Subheader from '../../components/subheader/Subheader';
 
 export default ({children, error}) => {
   return (
-    <BasicPage>
+    <BasicLayout>
       <Subheader description={error.message}>
         {error.code}
       </Subheader>
@@ -12,6 +12,6 @@ export default ({children, error}) => {
         {JSON.stringify(error, null, 2)}
       </pre>
       {children}
-    </BasicPage>
+    </BasicLayout>
   );
 }

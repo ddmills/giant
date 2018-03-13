@@ -39,12 +39,17 @@ export function join(userId, lobbyId, callback) {
         }
 
         if (lobby.isFull) {
-          callback(createException('Lobby is full', 403));
+          callback(createException('Lobby is full', 405));
           return;
         }
 
         if (lobby.isDisbanded) {
-          callback(createException('Lobby is disbanded', 404));
+          callback(createException('Lobby is disbanded', 410));
+          return;
+        }
+
+        if (lobby.isStarted) {
+          callback(createException('Lobby has already started', 405));
           return;
         }
 
@@ -53,6 +58,44 @@ export function join(userId, lobbyId, callback) {
         LobbyRepository.save(lobby, callback);
       });
     });
+  });
+}
+
+export function start(userId, callback) {
+  LobbyRepository.getForUser(userId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createException('Lobby not found', 404));
+      return;
+    }
+
+    if (lobby.isDisbanded) {
+      callback(createException('Lobby is disbanded', 410));
+      return;
+    }
+
+    if (lobby.isStarted) {
+      callback(createException('Lobby has already started', 405, false));
+      return;
+    }
+
+    if (lobby.numberOfPlayers < 2) {
+      callback(createException('Not enough players', 405, false));
+      return;
+    }
+
+    if (lobby.ownerId !== userId) {
+      callback(createException('User does not have permission to start the lobby', 403));
+      return;
+    }
+
+    lobby.start();
+
+    LobbyRepository.save(lobby, callback);
   });
 }
 
@@ -68,18 +111,16 @@ export function leave(userId, callback) {
       return;
     }
 
-    lobby.removePlayerById(userId);
-
-    if (lobby.ownerId === userId) {
-      lobby.isDisbanded = true;
-    }
-
-    LobbyRepository.save(lobby, callback);
+    removePlayer(userId, lobby, callback);
   });
 }
 
 export function removePlayer(userId, lobby, callback) {
   lobby.removePlayerById(userId);
+
+  if (lobby.ownerId === userId) {
+    lobby.isDisbanded = true;
+  }
 
   LobbyRepository.save(lobby, callback);
 }
@@ -103,6 +144,11 @@ export function addBot(userId, callback) {
 
     if (lobby.isFull) {
       callback(createException('Lobby is full', 403, false));
+      return;
+    }
+
+    if (lobby.isStarted) {
+      callback(createException('Lobby has already started', 405));
       return;
     }
 

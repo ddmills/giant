@@ -69,8 +69,9 @@ export const listen = (server) => {
     LobbyService.getForUserId(user.id, (error, lobby) => {
       if (lobby) {
         client.join(`lobby-${lobby.id}`);
-        client.emit('lobby:update', lobby);
       }
+
+      client.emit('lobby:update', lobby);
     });
 
     SocketRepository.save(client.id, user.id, () => {
@@ -164,6 +165,18 @@ export const listen = (server) => {
           emitToUser(user.id, 'lobby:leave');
           emitToLobby(lobby.id, 'lobby:update', lobby);
         });
+      });
+    });
+
+    client.on('lobby:start', () => {
+      log('[lobby:start]');
+      LobbyService.start(user.id, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+          return;
+        }
+
+        emitToLobby(lobby.id, 'lobby:update', lobby);
       });
     });
 

@@ -11,6 +11,8 @@ export default class Lobby extends Model {
       maxNumberOfPlayers: 3,
       isPublic: true,
       isDisbanded: false,
+      isStarted: false,
+      isFinished: false,
       players: [],
     }
   }
@@ -19,8 +21,20 @@ export default class Lobby extends Model {
     return this.players.filter((player) => !player.isBot);
   }
 
+  get numberOfPlayers() {
+    return this.players.length;
+  }
+
+  get isFull() {
+    return this.players.length >= this.maxNumberOfPlayers;
+  }
+
+  get isEmpty() {
+    return this.players.length <= 0;
+  }
+
   addPlayer(newPlayer) {
-    if (!this.isFull && !this.players.some((player) => player.id === newPlayer.id)) {
+    if (!this.isStarted && !this.isFull && !this.players.some((player) => player.id === newPlayer.id)) {
       this.players.push(newPlayer);
       if (!this.ownerId) {
         this.ownerId = newPlayer.id;
@@ -35,11 +49,7 @@ export default class Lobby extends Model {
     this.players = this.players.filter((player) => player.id !== playerId);
   }
 
-  get isFull() {
-    return this.players.length >= this.maxNumberOfPlayers;
-  }
-
-  get isEmpty() {
-    return this.players.length <= 0;
+  start() {
+    this.isStarted = true;
   }
 }

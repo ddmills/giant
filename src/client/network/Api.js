@@ -27,3 +27,11 @@ export function leaveLobby() {
 export function addBot() {
   socket.emit('lobby:add-bot');
 }
+
+export function startLobby() {
+  socket.emit('lobby:start');
+}
+
+export function loadGame(gameId) {
+  socket.emit('game:get', gameId);
+}

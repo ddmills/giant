@@ -8,7 +8,7 @@ export default ({children, size}) => {
   const className = `page-content container ${size ? `container--${size}` : ''}`;
 
   return (
-    <div class="basic-page">
+    <div class="page">
       <SuperHeader/>
       <PageHeader/>
       <div class={className}>

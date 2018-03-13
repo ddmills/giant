@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import BasicPage from '../layout/BasicPage';
+import BasicLayout from '../layout/BasicLayout';
 import {Link, Redirect, Route} from 'react-router-dom';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 
