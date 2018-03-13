@@ -21,6 +21,7 @@ export default class Lobby extends Model {
       isFinished: false,
       context: null,
       players: [],
+      startTime: null,
       cardRegistry: Registry.create(),
       heroDeck: Deck.create(),
       heroRow: Deck.create(),
@@ -66,6 +67,7 @@ export default class Lobby extends Model {
 
   start() {
     this.isStarted = true;
+    this.startTime = Date.now();
     this.heroDeck = createHeroDeck();
     this.blueprintDeck = createBlueprintDeck();
 
