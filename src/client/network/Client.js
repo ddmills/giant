@@ -47,7 +47,7 @@ export const connect = (token) => {
   });
 
   socket.on('connect', () => {
-    listenLatency();
+    // listenLatency();
     listenRefresh();
     store.dispatch(ServerConnected());
   });

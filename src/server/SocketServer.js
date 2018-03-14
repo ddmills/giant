@@ -172,13 +172,26 @@ export const listen = (server) => {
 
     client.on('lobby:start', () => {
       log('[lobby:start]');
-      LobbyService.start(user.id, (error, lobby) => {
+
+      LobbyService.setup(user.id, (error, lobby) => {
         if (error) {
           client.emit('lobby:error', error);
           return;
         }
 
         emitToLobby(lobby.id, 'lobby:update', lobby);
+
+        setTimeout(() => {
+          LobbyService.start(lobby.id, (error, lobby) => {
+            console.log('START');
+            if (error) {
+              emitToLobby(lobby.id, 'lobby:error', error);
+              return;
+            }
+
+            emitToLobby(lobby.id, 'lobby:update', lobby);
+          });
+        }, lobby.countDownTime * 1000);
       });
     });
 

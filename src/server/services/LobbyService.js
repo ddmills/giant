@@ -64,7 +64,7 @@ export function join(userId, lobbyId, callback) {
   });
 }
 
-export function start(userId, callback) {
+export function setup(userId, callback) {
   LobbyRepository.getForUser(userId, (error, lobby) => {
     if (error) {
       callback(error);
@@ -96,7 +96,36 @@ export function start(userId, callback) {
       return;
     }
 
-    lobby.start();
+    lobby.setup();
+
+    LobbyRepository.save(lobby, callback);
+  });
+}
+
+
+export function start(lobbyId, callback) {
+  LobbyRepository.get(lobbyId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createException('Lobby not found', 404));
+      return;
+    }
+
+    if (lobby.isDisbanded) {
+      callback(createException('Lobby is disbanded', 410));
+      return;
+    }
+
+    if (!lobby.isStarted) {
+      callback(createException(`Lobby hasn't started yet`, 405, false));
+      return;
+    }
+
+    lobby.setup();
 
     LobbyRepository.save(lobby, callback);
   });
