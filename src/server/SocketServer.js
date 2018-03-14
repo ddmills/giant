@@ -2,11 +2,11 @@ import config from 'config';
 import SocketIO from 'socket.io';
 import {authorize as authorizeSocket} from 'socketio-jwt';
 import {log, json, info} from './utilities/Logger';
+import {create as createException} from './services/ExceptionService';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
 import * as LobbyService from './services/LobbyService';
 import {get as getAccount} from './repositories/AccountRepository';
-import * as SocketRepository from './repositories/SocketRepository';
 
 export const listen = (server) => {
   const io = SocketIO(server);
@@ -15,6 +15,10 @@ export const listen = (server) => {
     const ns = io.of('/');
 
     return ns.connected[socketId];
+  }
+
+  function getSocketIdsForUser(userId, callback) {
+    io.in(`user-${userId}`).clients(callback);
   }
 
   function emitToUser(userId, ...args) {
@@ -26,7 +30,7 @@ export const listen = (server) => {
   }
 
   function userJoinRoom(userId, room, callback = () => {}) {
-    SocketRepository.getAllForUser(userId, (error, ids) => {
+    getSocketIdsForUser(userId, (error, ids) => {
       if (error) {
         callback(error);
         return;
@@ -40,7 +44,7 @@ export const listen = (server) => {
   }
 
   function userLeaveRoom(userId, room, callback = () => {}) {
-    SocketRepository.getAllForUser(userId, (error, ids) => {
+    getSocketIdsForUser(userId, (error, ids) => {
       if (error) {
         callback(error);
         return;
@@ -74,10 +78,8 @@ export const listen = (server) => {
       client.emit('lobby:update', lobby);
     });
 
-    SocketRepository.save(client.id, user.id, () => {
-      SocketRepository.getAllForUser(user.id, (error, ids) => {
-        info(`${user.name} has ${ids.length} sessions`);
-      });
+    getSocketIdsForUser(user.id, (error, ids) => {
+      info(`${user.name} has ${ids.length} sessions`);
     });
 
     client.on('latency', (fn) => fn());
@@ -99,7 +101,7 @@ export const listen = (server) => {
     });
 
     client.on('lobby:get', (lobbyId) => {
-      log('[lobby:get]', client.id);
+      log('[lobby:get]');
       LobbyService.get(lobbyId, (error, lobby) => {
         if (error) {
           client.emit('lobby:error', error);
@@ -195,21 +197,54 @@ export const listen = (server) => {
 
     client.on('disconnecting', () => {
       log('[disconnecting]');
-      SocketRepository.remove(client.id, () => {
-        SocketRepository.getAllForUser(user.id, (error, socketIds) => {
-          if (socketIds.length > 0) {
+      getSocketIdsForUser(user.id, (error, socketIds) => {
+        if (error) {
+          createException(error, 500);
+          return;
+        }
+
+        if (socketIds.length > 1) {
+          return;
+        }
+
+        LobbyService.getForUserId(user.id, (error, lobby) => {
+          if (error) {
+            createException(error, 500);
             return;
           }
 
-          LobbyService.getForUserId(user.id, (error, lobby) => {
-            if (error || !lobby) {
-              return;
-            }
+          if (!lobby) {
+            return;
+          }
 
-            LobbyService.removePlayer(user.id, lobby, (error) => {
-              emitToLobby(lobby.id, 'lobby:update', lobby);
+          setTimeout(() => {
+            getSocketIdsForUser(user.id, (error, clients) => {
+              if (error) {
+                createException(error, 500);
+                return;
+              }
+
+              if (clients.length > 0) {
+                return;
+              }
+
+              LobbyService.leave(user.id, (error, lobby) => {
+                if (error) {
+                  client.emit('lobby:error', error);
+                  return;
+                }
+
+                userLeaveRoom(user.id, `lobby-${lobby.id}`, (error) => {
+                  if (error) {
+                    return;
+                  }
+
+                  emitToUser(user.id, 'lobby:leave');
+                  emitToLobby(lobby.id, 'lobby:update', lobby);
+                });
+              });
             });
-          });
+          }, 20000);
         });
       });
     });

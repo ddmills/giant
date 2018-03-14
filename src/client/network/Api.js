@@ -8,7 +8,7 @@ export function createLobby() {
   socket.emit('lobby:create');
 }
 
-export function loadLobby(lobbyId) {
+export function getLobby(lobbyId) {
   socket.emit('lobby:get', lobbyId);
 }
 
@@ -30,8 +30,4 @@ export function addBot() {
 
 export function startLobby() {
   socket.emit('lobby:start');
-}
-
-export function loadGame(gameId) {
-  socket.emit('game:get', gameId);
 }

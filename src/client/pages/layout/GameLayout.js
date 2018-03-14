@@ -6,7 +6,7 @@ import './basic-page.scss';
 
 export default ({children, size}) => {
   return (
-    <div class="page">
+    <div class="page page--full">
       <SuperHeader/>
       <div class='container container--full'>
         {children}

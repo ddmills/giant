@@ -16,9 +16,9 @@ export default class LobbyPage extends Component {
     } else if (this.props.lobby.id !== this.props.lobbyId) {
       this.props.redirect(`/lobby/${this.props.lobby.id}`);
     } else if (this.props.lobby.isStarted) {
-      //this.props.redirect(`/game/${this.props.lobbyId}`);
+      this.props.redirect(`/game/${this.props.lobbyId}`);
     } else {
-      this.props.loadLobby();
+      this.props.getLobby();
     }
   }
 
@@ -32,7 +32,7 @@ export default class LobbyPage extends Component {
     }
 
     if (newProps.lobby && newProps.lobby.isStarted) {
-      //newProps.redirect(`/game/${newProps.lobbyId}`);
+      newProps.redirect(`/game/${newProps.lobbyId}`);
     }
   }
 
@@ -74,7 +74,7 @@ export default class LobbyPage extends Component {
   }
 
   renderContent() {
-    if (this.props.lobby.isDisbanded || (this.props.error && this.props.error.fatal)) {
+    if (this.props.lobby.isDisbanded || this.props.fatalError) {
       return;
     }
 
@@ -101,10 +101,10 @@ export default class LobbyPage extends Component {
     }
   }
 
-  render({error, lobbyId, user, lobby}) {
-    if (error && error.fatal) {
+  render({error, fatalError, lobbyId, user, lobby}) {
+    if (fatalError) {
       return (
-        <ErrorPage error={error}/>
+        <ErrorPage error={fatalError}/>
       );
     }
 

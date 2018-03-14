@@ -1,7 +1,7 @@
 import {connect} from 'preact-redux';
 import LobbyPage from './LobbyPage';
 import {
-  loadLobby,
+  getLobby,
   joinLobby,
   leaveLobby,
   addBot,
@@ -14,10 +14,12 @@ const mapStateToProps = (state, props) => {
   const lobbyId = props.match.params.id;
   const lobby = state.lobby.current;
   const user = state.auth.user;
+  const error = state.lobby.error;
 
   return {
     user,
-    error: state.lobby.error,
+    error: error && error.fatal ? undefined : error,
+    fatalError: error && error.fatal ? error : undefined,
     isOwner: lobby && lobby.ownerId === user.id,
     lobby,
     lobbyId,
@@ -30,7 +32,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     redirect: (uri) => dispatch(GoToLocation(uri)),
     clearError: () => dispatch(ClearLobbyError()),
-    loadLobby: () => loadLobby(lobbyId),
+    getLobby: () => getLobby(lobbyId),
     joinLobby: () => joinLobby(lobbyId),
     leaveLobby,
     addBot,
