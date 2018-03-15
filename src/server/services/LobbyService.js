@@ -1,6 +1,6 @@
 import {create as createLobby} from '../domain/factories/LobbyFactory';
 import {get as getAccount} from '../repositories/AccountRepository';
-import {create as createException} from '../services/ExceptionService';
+import {create as createException, createFatal as createFatalException} from '../services/ExceptionService';
 import {create as createPlayer} from '../domain/factories/PlayerFactory';
 import {create as createBot} from '../domain/factories/BotFactory';
 import * as LobbyRepository from '../repositories/LobbyRepository';
@@ -20,7 +20,7 @@ export function join(userId, lobbyId, callback) {
 
       if (lobby) {
         if (lobby.id !== lobbyId) {
-          callback(createException('Already in a different lobby', 409, false));
+          callback(createException('Already in a different lobby', 409));
           return;
         } else {
           callback(undefined, lobby);
@@ -35,22 +35,22 @@ export function join(userId, lobbyId, callback) {
         }
 
         if (!lobby) {
-          callback(createException('Lobby not found', 404));
+          callback(createFatalException('Lobby not found', 404));
           return;
         }
 
         if (lobby.isFull) {
-          callback(createException('Lobby is full', 405));
+          callback(createFatalException('Lobby is full', 405));
           return;
         }
 
         if (lobby.isDisbanded) {
-          callback(createException('Lobby is disbanded', 410));
+          callback(createFatalException('Lobby is disbanded', 410));
           return;
         }
 
         if (lobby.isStarted) {
-          callback(createException('Lobby has already started', 405));
+          callback(createFatalException('Lobby has already started', 405));
           return;
         }
 
@@ -72,27 +72,27 @@ export function setup(userId, callback) {
     }
 
     if (!lobby) {
-      callback(createException('Lobby not found', 404));
+      callback(createFatalException('Lobby not found', 404));
       return;
     }
 
     if (lobby.isDisbanded) {
-      callback(createException('Lobby is disbanded', 410));
+      callback(createFatalException('Lobby is disbanded', 410));
       return;
     }
 
     if (lobby.isStarted) {
-      callback(createException('Lobby has already started', 405, false));
+      callback(createException('Lobby has already started', 405));
       return;
     }
 
     if (lobby.numberOfPlayers < 2) {
-      callback(createException('Not enough players', 405, false));
+      callback(createException('Not enough players', 405));
       return;
     }
 
     if (lobby.ownerId !== userId) {
-      callback(createException('User does not have permission to start the lobby', 403));
+      callback(createFatalException('User does not have permission to start the lobby', 403));
       return;
     }
 
@@ -111,17 +111,17 @@ export function start(lobbyId, callback) {
     }
 
     if (!lobby) {
-      callback(createException('Lobby not found', 404));
+      callback(createFatalException('Lobby not found', 404));
       return;
     }
 
     if (lobby.isDisbanded) {
-      callback(createException('Lobby is disbanded', 410));
+      callback(createFatalException('Lobby is disbanded', 410));
       return;
     }
 
     if (!lobby.isStarted) {
-      callback(createException(`Lobby hasn't started yet`, 405, false));
+      callback(createException(`Lobby hasn't started yet`, 405));
       return;
     }
 
@@ -139,11 +139,34 @@ export function leave(userId, callback) {
     }
 
     if (!lobby) {
-      callback(createException('Lobby not found', 404));
+      callback(createFatalException('Lobby not found', 404));
       return;
     }
 
     removePlayer(userId, lobby, callback);
+  });
+}
+
+export function endTurn(userId, callback) {
+  LobbyRepository.getForUser(userId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createFatalException('Lobby not found', 404));
+      return;
+    }
+
+    if (lobby.currentPlayer.account.id !== userId) {
+      callback(createException('Cannot end someone elses turn', 403));
+      return;
+    }
+
+    lobby.endTurn();
+
+    LobbyRepository.save(lobby, callback);
   });
 }
 
@@ -165,17 +188,17 @@ export function addBot(userId, callback) {
     }
 
     if (!lobby) {
-      callback(createException('Lobby not found', 404));
+      callback(createFatalException('Lobby not found', 404));
       return;
     }
 
     if (lobby.ownerId !== userId) {
-      callback(createException('Must be the owner of the lobby to add a bot', 401, false));
+      callback(createException('Must be the owner of the lobby to add a bot', 401));
       return;
     }
 
     if (lobby.isFull) {
-      callback(createException('Lobby is full', 403, false));
+      callback(createException('Lobby is full', 403));
       return;
     }
 
@@ -201,7 +224,7 @@ export function create(userId, callback) {
     }
 
     if (lobby) {
-      callback(createException('Already in a lobby', 409));
+      callback(createFatalException('Already in a lobby', 409));
       return;
     }
 
@@ -230,7 +253,7 @@ export function get(lobbyId, callback) {
     }
 
     if (!lobby) {
-      callback(createException('Lobby not found', 404));
+      callback(createFatalException('Lobby not found', 404));
       return;
     }
 

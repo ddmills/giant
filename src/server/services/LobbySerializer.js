@@ -11,6 +11,7 @@ export function serializeForEverone(lobby) {
     isDisbanded: lobby.isDisbanded,
     isStarted: lobby.isStarted,
     isFinished: lobby.isFinished,
+    isCountdownOver: lobby.isCountdownOver,
     startTime: lobby.startTime,
     heroRow: lobby.heroRow,
     blueprintRow: lobby.blueprintRow,

@@ -187,6 +187,18 @@ export const listen = (server) => {
       });
     });
 
+    client.on('lobby:end-turn', () => {
+      log('[lobby:end-turn]');
+      LobbyService.endTurn(user.id, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+          return;
+        }
+
+        sendLobbyUpdate(lobby);
+      });
+    });
+
     client.on('lobby:start', () => {
       log('[lobby:start]');
 
@@ -210,7 +222,7 @@ export const listen = (server) => {
 
             sendLobbyUpdate(lobby);
           });
-        }, lobby.countDownTime * 1000);
+        }, lobby.countDownTime);
       });
     });
 

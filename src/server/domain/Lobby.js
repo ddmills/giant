@@ -1,11 +1,11 @@
 import Model from './Model';
+import Registry from './Registry';
+import Player from './Player';
+import Deck from './Deck';
+import {shuffle} from '../utilities/Random';
 import {create as createHeroDeck} from './factories/HeroDeckFactory';
 import {create as createBlueprintDeck} from './factories/BuildingDeckFactory';
 import {create as createStarterDeck} from './factories/StarterDeckFactory';
-import {shuffle} from '../utilities/Random';
-import Registry from './Registry';
-import Deck from './Deck';
-import Player from './Player';
 
 export default class Lobby extends Model {
   static get defaults() {
@@ -14,15 +14,16 @@ export default class Lobby extends Model {
       ownerId: -1,
       name: '',
       description: '',
-      turnDuration: 30,
       maxNumberOfPlayers: 3,
-      countDownTime: 10,
       isPublic: true,
       isDisbanded: false,
       isStarted: false,
       isFinished: false,
       players: [],
+      turnDuration: 30000,
+      countDownDuration: 10000,
       startTime: null,
+      previousTurnTime: null,
       cardRegistry: Registry.create(),
       heroDeck: Deck.create(),
       heroRow: Deck.create(),
@@ -84,32 +85,33 @@ export default class Lobby extends Model {
 
   setup() {
     this.isStarted = true;
-    this.startTime = Date.now();
     this.heroDeck = createHeroDeck();
     this.blueprintDeck = createBlueprintDeck();
 
     this.players.forEach((player) => {
       player.deck = createStarterDeck();
       player.deck.forEach((card) => this.cardRegistry.register(card.id, card));
+      player.deck.shuffle();
+      player.draw(5);
     });
 
     this.heroDeck.forEach((card) => this.cardRegistry.register(card.id, card));
     this.blueprintDeck.forEach((card) => this.cardRegistry.register(card.id, card));
 
     this.heroDeck.shuffle();
-    this.blueprintDeck.shuffle()
-    this.players.forEach((player) => player.deck.shuffle());
-  }
-
-  start() {
+    this.blueprintDeck.shuffle();
     this.heroRow.drawFrom(this.heroDeck, 5);
     this.blueprintRow.drawFrom(this.blueprintDeck, 5);
 
-    this.players.forEach((player) => player.draw(5));
     this.playerTurnOrder = shuffle(this.players.map((player) => player.id));
   }
 
+  start() {
+    this.startTime = Date.now();
+  }
+
   endTurn() {
+    this.previousTurnTime = Date.now();
     this.currentPlayer.onEndTurn();
     this.blueprintRow.drawFrom(this.blueprintDeck, 5 - this.blueprintRow.count);
     this.heroRow.drawFrom(this.heroDeck, 5 - this.heroRow.count);

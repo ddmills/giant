@@ -21,6 +21,10 @@ export default class GamePage extends Component {
   }
 
   tick() {
+    if (!this.props.lobby) {
+      return;
+    }
+
     const time = Date.now() - this.props.lobby.startTime;
 
     this.setState({
@@ -43,9 +47,22 @@ export default class GamePage extends Component {
       return <LoadingIndicator container text="Loading game…"/>;
     }
 
-    return (
-      <h2>Game {Math.round(this.state.time / 1000)} s</h2>
-    );
+    const currentPlayer = this.props.lobby.players.find((player) => player.id === this.props.lobby.currentPlayerId);
+    const selfPlayer = this.props.lobby.players.find((player) => player.account.id === this.props.user.id);
+
+    return ([
+      <h2>Game {Math.round(this.state.time / 1000)} s</h2>,
+      <button onClick={this.props.leaveLobby} class="btn btn--danger">
+        Leave
+      </button>,
+      <button onClick={this.props.endTurn} class="btn btn--primary">
+        End turn
+      </button>,
+      <p>Current turn: {currentPlayer.account.displayName}</p>,
+      <pre class="code">
+        {JSON.stringify(selfPlayer, null, 2)}
+      </pre>,
+    ]);
   }
 
   render({error, fatalError}) {
@@ -54,8 +71,6 @@ export default class GamePage extends Component {
         <ErrorPage error={fatalError}/>
       );
     }
-
-    console.log(this.props.lobby);
 
     return (
       <GameLayout>

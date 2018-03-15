@@ -1,6 +1,6 @@
 import {connect} from 'preact-redux';
 import GamePage from './GamePage';
-import {getLobby} from '../../network/Api';
+import {getLobby, leaveLobby, endTurn} from '../../network/Api';
 
 const mapStateToProps = (state, props) => {
   const lobbyId = props.match.params.id;
@@ -10,6 +10,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     user,
+    player: lobby && lobby.players.find((player) => player.account === user.id),
     lobbyId,
     error: error && error.fatal ? undefined : error,
     fatalError: error && error.fatal ? error : undefined,
@@ -22,6 +23,8 @@ const mapDispatchToProps = (dispatch, props) => {
 
   return {
     getLobby: () => getLobby(lobbyId),
+    endTurn,
+    leaveLobby,
   };
 };
 

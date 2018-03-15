@@ -24,6 +24,10 @@ export function leaveLobby() {
   socket.emit('lobby:leave');
 }
 
+export function endTurn() {
+  socket.emit('lobby:end-turn');
+}
+
 export function addBot() {
   socket.emit('lobby:add-bot');
 }
