@@ -2,6 +2,7 @@ import Model from './Model';
 import {create as createHeroDeck} from './factories/HeroDeckFactory';
 import {create as createBlueprintDeck} from './factories/BuildingDeckFactory';
 import {create as createStarterDeck} from './factories/StarterDeckFactory';
+import {shuffle} from '../utilities/Random';
 import Registry from './Registry';
 import Deck from './Deck';
 import Player from './Player';
@@ -20,7 +21,6 @@ export default class Lobby extends Model {
       isDisbanded: false,
       isStarted: false,
       isFinished: false,
-      context: null,
       players: [],
       startTime: null,
       cardRegistry: Registry.create(),
@@ -51,7 +51,7 @@ export default class Lobby extends Model {
   }
 
   get elapsedTime() {
-    return this.isStarted ? Date.now() - startTime : 0;
+    return this.isStarted ? Date.now() - this.startTime : 0;
   }
 
   get currentPlayerId() {
@@ -62,8 +62,12 @@ export default class Lobby extends Model {
     return this.getPlayer(this.currentPlayerId);
   }
 
+  getPlayer(playerId) {
+    return this.players.find((player) => player.id === playerId);
+  }
+
   addPlayer(newPlayer) {
-    if (!this.isStarted && !this.isFull && !this.players.some((player) => player.id === newPlayer.id)) {
+    if (!this.isStarted && !this.isFull && !this.getPlayer(newPlayer.id)) {
       this.players.push(newPlayer);
       if (!this.ownerId) {
         this.ownerId = newPlayer.id;

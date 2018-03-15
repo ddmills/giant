@@ -6,6 +6,7 @@ import {create as createException} from './services/ExceptionService';
 import {refreshToken} from './utilities/Token';
 import {createGame, joinGame} from './services/GameService';
 import * as LobbyService from './services/LobbyService';
+import * as LobbySerializer from './services/LobbySerializer';
 import {get as getAccount} from './repositories/AccountRepository';
 
 export const listen = (server) => {
@@ -27,6 +28,22 @@ export const listen = (server) => {
 
   function emitToLobby(lobbyId, ...args) {
     io.to(`lobby-${lobbyId}`).emit(...args);
+  }
+
+  function sendLobbyUpdateForUser(userId, lobby) {
+    const lobbyData = LobbySerializer.serializeForUser(userId, lobby);
+
+    emitToUser(userId, 'lobby:update', lobbyData);
+  }
+
+  function sendLobbyUpdate(lobby) {
+    lobby.players.forEach((player) => {
+      if (player.account.isBot) {
+        return;
+      }
+
+      sendLobbyUpdateForUser(player.account.id, lobby);
+    });
   }
 
   function userJoinRoom(userId, room, callback = () => {}) {
@@ -75,7 +92,7 @@ export const listen = (server) => {
         client.join(`lobby-${lobby.id}`);
       }
 
-      client.emit('lobby:update', lobby);
+      sendLobbyUpdateForUser(user.id, lobby);
     });
 
     getSocketIdsForUser(user.id, (error, ids) => {
@@ -95,7 +112,7 @@ export const listen = (server) => {
         const room = `lobby-${lobby.id}`;
 
         userJoinRoom(user.id, room, (error) => {
-          emitToLobby(lobby.id, 'lobby:update', lobby);
+          sendLobbyUpdate(lobby);
         });
       });
     });
@@ -108,7 +125,7 @@ export const listen = (server) => {
           return;
         }
 
-        emitToLobby(lobby.id, 'lobby:update', lobby);
+        sendLobbyUpdate(lobby);
       });
     });
 
@@ -135,7 +152,7 @@ export const listen = (server) => {
         const room = `lobby-${lobby.id}`;
 
         userJoinRoom(user.id, room, (error) => {
-          emitToLobby(lobby.id, 'lobby:update', lobby);
+          sendLobbyUpdate(lobby);
         });
       });
     });
@@ -148,7 +165,7 @@ export const listen = (server) => {
           return;
         }
 
-        emitToLobby(lobby.id, 'lobby:update', lobby);
+        sendLobbyUpdate(lobby);
       });
     });
 
@@ -165,7 +182,7 @@ export const listen = (server) => {
             return;
           }
           emitToUser(user.id, 'lobby:leave');
-          emitToLobby(lobby.id, 'lobby:update', lobby);
+          sendLobbyUpdate(lobby);
         });
       });
     });
@@ -179,17 +196,19 @@ export const listen = (server) => {
           return;
         }
 
-        emitToLobby(lobby.id, 'lobby:update', lobby);
+        sendLobbyUpdate(lobby);
+
+        info('Game setup');
 
         setTimeout(() => {
           LobbyService.start(lobby.id, (error, lobby) => {
-            console.log('START');
+            info('Game starting');
             if (error) {
               emitToLobby(lobby.id, 'lobby:error', error);
               return;
             }
 
-            emitToLobby(lobby.id, 'lobby:update', lobby);
+            sendLobbyUpdate(lobby);
           });
         }, lobby.countDownTime * 1000);
       });
@@ -253,7 +272,7 @@ export const listen = (server) => {
                   }
 
                   emitToUser(user.id, 'lobby:leave');
-                  emitToLobby(lobby.id, 'lobby:update', lobby);
+                  sendLobbyUpdate(lobby);
                 });
               });
             });

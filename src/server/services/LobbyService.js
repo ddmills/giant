@@ -125,7 +125,7 @@ export function start(lobbyId, callback) {
       return;
     }
 
-    lobby.setup();
+    lobby.start();
 
     LobbyRepository.save(lobby, callback);
   });

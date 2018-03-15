@@ -55,7 +55,7 @@ export default class GamePage extends Component {
       );
     }
 
-    // console.log(this.props);
+    console.log(this.props.lobby);
 
     return (
       <GameLayout>
