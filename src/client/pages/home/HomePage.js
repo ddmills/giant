@@ -15,7 +15,7 @@ function renderAuthenticationLinks(authenticated) {
         </Link>,
         <Link class="btn btn--primary" to="/lobbies">
           Browse games
-        </Link>
+        </Link>,
     ];
   }
 

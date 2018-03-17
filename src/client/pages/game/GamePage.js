@@ -58,6 +58,9 @@ export default class GamePage extends Component {
       <button onClick={this.props.endTurn} class="btn btn--primary">
         End turn
       </button>,
+      <button onClick={this.props.latency} class="btn btn--primary">
+        Ping
+      </button>,
       <p>Current turn: {currentPlayer.account.displayName}</p>,
       <pre class="code">
         {JSON.stringify(selfPlayer, null, 2)}

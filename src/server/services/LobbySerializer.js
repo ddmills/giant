@@ -1,4 +1,8 @@
-export function serializeForEverone(lobby) {
+export function serializeForUser(userId, lobby) {
+  if (!lobby) {
+    return lobby;
+  }
+
   const data = {
     id: lobby.id,
     name: lobby.name,
@@ -19,23 +23,6 @@ export function serializeForEverone(lobby) {
     elapsedTime: lobby.elapsedTime,
     currentPlayerId: lobby.currentPlayerId,
   };
-
-  data.players = lobby.players.map((player) => {
-    return {
-      id: player.id,
-      account: player.account,
-    };
-  });
-
-  return data;
-}
-
-export function serializeForUser(userId, lobby) {
-  if (!lobby) {
-    return lobby;
-  }
-
-  const data = serializeForEverone(lobby);
 
   data.players = lobby.players.map((player) => {
     const base = {

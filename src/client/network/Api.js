@@ -4,6 +4,12 @@ export function signOut() {
   socket.emit('auth:sign-out');
 }
 
+export function latency(fn) {
+  const start = Date.now();
+
+  socket.emit('latency', () => fn(Date.now() - start));
+}
+
 export function createLobby() {
   socket.emit('lobby:create');
 }
