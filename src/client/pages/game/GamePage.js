@@ -2,6 +2,9 @@ import {h, Component} from 'preact';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import GameLayout from '../layout/GameLayout';
 import ErrorPage from '../layout/ErrorPage';
+import Hand from './Hand';
+import BlueprintRow from './BlueprintRow';
+import Card from '../../components/card/Card';
 
 export default class GamePage extends Component {
   state = {
@@ -62,9 +65,8 @@ export default class GamePage extends Component {
         Ping
       </button>,
       <p>Current turn: {currentPlayer.account.displayName}</p>,
-      <pre class="code">
-        {JSON.stringify(selfPlayer, null, 2)}
-      </pre>,
+      <BlueprintRow cards={this.props.lobby.blueprintRow.cards}/>,
+      <Hand cards={selfPlayer.hand.cards}/>
     ]);
   }
 

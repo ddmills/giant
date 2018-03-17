@@ -1,0 +1,51 @@
+$spread: 50deg;
+
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+
+.hand {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  width: 60%;
+  max-width: 600px;
+  bottom: 300px;
+  transform: translateX(-50%);
+  left: 50%;
+
+  & > li {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+
+    @for $i from 2 through 24 {
+      &:first-child:nth-last-child(#{$i}),
+      &:first-child:nth-last-child(#{$i}) ~ li {
+        $rot: $spread / ($i - 1);
+        $cent: ($i - 1) / 2;
+        @for $j from 1 through $i {
+          &:nth-child(#{$j}) > .card {
+            $dist: (($j - 1) - $cent) * (8 / $i);
+            $r: $rot * $dist * (2 / $i);
+            $y: pow(abs($dist), 2) + 0%;
+            transform: translateX(-50%) rotateZ($r) translateY($y);
+
+            &:hover {
+              transform: translateX(-50%) rotateZ($r) translateY(-26%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
