@@ -14,7 +14,7 @@ export default class Player extends Model {
   }
 
   get totalValue() {
-    const handValue = this.hand.reduce((total, card) => total + card.value, 0);
+    const handValue = this.hand.reduce((total, card) => total + card.currentValue, 0);
     const buildingValue = this.buildingDeck.reduce((total, card) => total + card.currentValue, 0);
 
     return handValue + buildingValue;
@@ -45,7 +45,8 @@ export default class Player extends Model {
 
   purchaseHero(card) {
     this.spentValue += card.cost;
-    this.discardDeck.add(card);
+    card.disable();
+    this.hand.add(card);
   }
 
   purchaseBlueprint(card) {
@@ -59,9 +60,10 @@ export default class Player extends Model {
   }
 
   onEndTurn() {
-    this.discardHand();
     this.spentValue = 0;
     this.buildingDeck.forEach((card) => card.enable());
+    this.hand.forEach((card) => card.enable());
+    this.discardHand();
     this.draw(5);
   }
 }

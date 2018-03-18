@@ -199,6 +199,28 @@ export const listen = (server) => {
       });
     });
 
+    client.on('lobby:buy-blueprint', (cardId) => {
+      log('[lobby:buy-blueprint]', cardId);
+      LobbyService.buyBlueprint(user.id, cardId, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+        }
+
+        sendLobbyUpdate(lobby);
+      });
+    });
+
+    client.on('lobby:buy-hero', (cardId) => {
+      log('[lobby:buy-hero]', cardId);
+      LobbyService.buyHero(user.id, cardId, (error, lobby) => {
+        if (error) {
+          client.emit('lobby:error', error);
+        }
+
+        sendLobbyUpdate(lobby);
+      });
+    });
+
     client.on('lobby:start', () => {
       log('[lobby:start]');
 

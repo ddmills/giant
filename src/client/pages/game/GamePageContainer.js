@@ -1,6 +1,6 @@
 import {connect} from 'preact-redux';
 import GamePage from './GamePage';
-import {getLobby, leaveLobby, endTurn, latency} from '../../network/Api';
+import {getLobby, leaveLobby, endTurn, latency, buyBlueprint, buyHero} from '../../network/Api';
 
 const mapStateToProps = (state, props) => {
   const lobbyId = props.match.params.id;
@@ -23,6 +23,8 @@ const mapDispatchToProps = (dispatch, props) => {
 
   return {
     getLobby: () => getLobby(lobbyId),
+    buyBlueprint,
+    buyHero,
     endTurn,
     leaveLobby,
     latency: () => latency((delay) => console.log(`${delay} ms`)),

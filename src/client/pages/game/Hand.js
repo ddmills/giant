@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import Card from '../../components/card/Card';
 import './hand.scss';
 

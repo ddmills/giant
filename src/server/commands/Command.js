@@ -3,6 +3,6 @@ export default class Command {
     return true;
   }
 
-  execute() {
+  perform() {
   }
 }

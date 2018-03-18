@@ -67,6 +67,14 @@ export default class Lobby extends Model {
     return this.players.find((player) => player.id === playerId);
   }
 
+  getPlayerByAccountId(accountId) {
+    return this.players.find((player) => player.account.id === accountId);
+  }
+
+  getCard(cardId) {
+    return this.cardRegistry.get(cardId);
+  }
+
   addPlayer(newPlayer) {
     if (!this.isStarted && !this.isFull && !this.getPlayer(newPlayer.id)) {
       this.players.push(newPlayer);
@@ -79,8 +87,12 @@ export default class Lobby extends Model {
     return false;
   }
 
-  removePlayerById(playerId) {
-    this.players = this.players.filter((player) => player.account.id !== playerId);
+  removePlayerByAccountId(accountId) {
+    this.players = this.players.filter((player) => player.account.id !== accountId);
+  }
+
+  isPlayersTurn(playerId) {
+    return this.currentPlayerId === playerId;
   }
 
   setup() {

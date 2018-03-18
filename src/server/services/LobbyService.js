@@ -3,6 +3,8 @@ import {get as getAccount} from '../repositories/AccountRepository';
 import {create as createException, createFatal as createFatalException} from '../services/ExceptionService';
 import {create as createPlayer} from '../domain/factories/PlayerFactory';
 import {create as createBot} from '../domain/factories/BotFactory';
+import PurchaseBlueprintCommand from '../commands/PurchaseBlueprintCommand';
+import PurchaseHeroCommand from '../commands/PurchaseHeroCommand';
 import * as LobbyRepository from '../repositories/LobbyRepository';
 
 export function join(userId, lobbyId, callback) {
@@ -170,8 +172,62 @@ export function endTurn(userId, callback) {
   });
 }
 
+export function buyBlueprint(userId, cardId, callback) {
+  LobbyRepository.getForUser(userId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createFatalException('Lobby not found', 404));
+      return;
+    }
+
+    const card = lobby.getCard(cardId);
+    const player = lobby.getPlayerByAccountId(userId);
+    const command = PurchaseBlueprintCommand.create(lobby, player, card);
+
+    if (!command.authorize()) {
+      callback(createException('Unauthorized action', 403), lobby);
+      return;
+    }
+
+    command.perform();
+
+    LobbyRepository.save(lobby, callback);
+  });
+}
+
+export function buyHero(userId, cardId, callback) {
+  LobbyRepository.getForUser(userId, (error, lobby) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+
+    if (!lobby) {
+      callback(createFatalException('Lobby not found', 404));
+      return;
+    }
+
+    const card = lobby.getCard(cardId);
+    const player = lobby.getPlayerByAccountId(userId);
+    const command = PurchaseHeroCommand.create(lobby, player, card);
+
+    if (!command.authorize()) {
+      callback(createException('Unauthorized action', 403), lobby);
+      return;
+    }
+
+    command.perform();
+
+    LobbyRepository.save(lobby, callback);
+  });
+}
+
 export function removePlayer(userId, lobby, callback) {
-  lobby.removePlayerById(userId);
+  lobby.removePlayerByAccountId(userId);
 
   if (lobby.ownerId === userId) {
     lobby.isDisbanded = true;

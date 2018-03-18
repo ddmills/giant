@@ -15,9 +15,30 @@ function renderAttribute(attribute, value) {
   );
 }
 
-export default ({name, description, value, cost, defense, attack}) => {
+function renderCost(cost) {
+  if (cost === 0) {
+    return;
+  }
+
   return (
-    <section class="card">
+    <span class="card-cost">
+      {cost}
+    </span>
+  );
+}
+
+function renderDisableCurtain(isEnabled) {
+  if (isEnabled) {
+    return;
+  }
+
+  return <div class="card-curtain"/>;
+}
+
+export default ({name, description, value, cost, defense, attack, isEnabled}) => {
+  return (
+    <section class='card'>
+      {renderDisableCurtain(isEnabled)}
       <div class="card-background">
         <img src={`https://placeimg.com/24${defense}/32${value}/nature`}/>
       </div>
@@ -26,15 +47,11 @@ export default ({name, description, value, cost, defense, attack}) => {
           {renderAttribute('defense', defense)}
           {renderAttribute('value', value)}
           {renderAttribute('attack', attack)}
-          <span class="card-cost">
-            {cost}
-          </span>
+          {renderCost(cost)}
         </div>
-        <footer class="card-footer">
-          <h1 class="card-header">
-            {name}
-          </h1>
-        </footer>
+        <h1 class="card-header">
+          {name}
+        </h1>
       </div>
     </section>
   );

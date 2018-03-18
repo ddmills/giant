@@ -10,16 +10,20 @@ export default class Card extends Model {
       value: 0,
       attack: 0,
       defense: 0,
-      enabled: false,
+      isEnabled: true,
       description: 'no description',
     }
   }
 
   enable() {
-    this.enabled = true;
+    this.isEnabled = true;
   }
 
-  disabled() {
-    this.enabled = false;
+  disable() {
+    this.isEnabled = false;
+  }
+
+  get currentValue() {
+    return this.isEnabled ? this.value : 0;
   }
 }

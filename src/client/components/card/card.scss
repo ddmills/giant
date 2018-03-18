@@ -1,6 +1,8 @@
 $ratio: 3.5 / 2.4;
 
 .card {
+  $this: &;
+
   position: relative;
   display: inline-block;
   width: 240px;
@@ -15,10 +17,9 @@ $ratio: 3.5 / 2.4;
   border-radius: 12px;
 
   max-width: 240px;
-  max-height: 240 * $ratio;
+  max-height: 240px * $ratio;
   width: 20vw;
   height: 20vw * $ratio;
-  left: 50%;
   overflow: hidden;
 
   cursor: pointer;
@@ -71,14 +72,25 @@ $ratio: 3.5 / 2.4;
   }
 
   &-header {
+    position: absolute;
+    bottom: 32px;
+    width: 100%;
     font-size: 1.3rem;
     text-shadow: 2px 1px 4px #2e363e;
-    background-color: rgba(154, 44, 44, 0.58);;
+    background-color: rgba(45, 10, 10, 0.58);
     padding: 8px;
   }
 
   &-description {
     padding: 8px;
+  }
+
+  &-cost {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+    color: #fff;
   }
 
   &-content {
@@ -91,6 +103,16 @@ $ratio: 3.5 / 2.4;
     top: 0;
     z-index: 2;
     background-color: rgba(42, 44, 45, 0.29);
+  }
+
+  &-curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 4;
+    background-color: rgba(109, 36, 36, 0.71);
   }
 
   &-background {

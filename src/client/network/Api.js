@@ -34,6 +34,14 @@ export function endTurn() {
   socket.emit('lobby:end-turn');
 }
 
+export function buyBlueprint(cardId) {
+  socket.emit('lobby:buy-blueprint', cardId);
+}
+
+export function buyHero(cardId) {
+  socket.emit('lobby:buy-hero', cardId);
+}
+
 export function addBot() {
   socket.emit('lobby:add-bot');
 }

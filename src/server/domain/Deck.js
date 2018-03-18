@@ -22,6 +22,14 @@ export default class Deck extends Model {
     return this;
   }
 
+  remove(card) {
+    const index = this.cards.indexOf(card);
+
+    if (index >= 0) {
+      this.cards.splice(index, 1);
+    }
+  }
+
   includes(card) {
     return this.cards.includes(card);
   }

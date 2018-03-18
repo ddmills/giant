@@ -12,6 +12,7 @@ export function create(overrides = {}) {
     value: die(),
     description: pick(['hello world', 'this is description', 'lorem ipsum']),
     attack: die(),
+    isEnabled: true,
     ...overrides,
   });
 }

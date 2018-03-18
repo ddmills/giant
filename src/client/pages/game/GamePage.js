@@ -3,7 +3,7 @@ import LoadingIndicator from '../../components/loading-indicator/LoadingIndicato
 import GameLayout from '../layout/GameLayout';
 import ErrorPage from '../layout/ErrorPage';
 import Hand from './Hand';
-import BlueprintRow from './BlueprintRow';
+import CardRow from './CardRow';
 import Card from '../../components/card/Card';
 
 export default class GamePage extends Component {
@@ -65,7 +65,8 @@ export default class GamePage extends Component {
         Ping
       </button>,
       <p>Current turn: {currentPlayer.account.displayName}</p>,
-      <BlueprintRow cards={this.props.lobby.blueprintRow.cards}/>,
+      <CardRow cards={this.props.lobby.blueprintRow.cards} buyCard={this.props.buyBlueprint}/>,
+      <CardRow cards={this.props.lobby.heroRow.cards} buyCard={this.props.buyHero}/>,
       <Hand cards={selfPlayer.hand.cards}/>
     ]);
   }
