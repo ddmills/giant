@@ -1,14 +1,11 @@
 import {h} from 'preact';
-import Card from '../../components/card/Card';
+import DraggableCard from '../../components/card/DraggableCard';
 import './card-row.scss';
 
 function renderCard(card, buyCard) {
   return (
     <li>
-      <Card {...card}/>
-      <button class='btn' onClick={() => buyCard(card.id)}>
-        Purchase (-{card.cost})
-      </button>
+      <DraggableCard {...card} onDrop={() => buyCard(card.id)}/>
     </li>
   );
 }

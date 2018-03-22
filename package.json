@@ -31,6 +31,8 @@
     "preact-compat": "^3.18.0",
     "preact-redux": "^2.0.3",
     "random-js": "^1.0.8",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
@@ -50,7 +52,7 @@
     "cpx": "^1.5.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.15.1",
-    "parcel-bundler": "../parcel",
+    "parcel-bundler": "file:../parcel",
     "rimraf": "^2.6.2"
   },
   "alias": {

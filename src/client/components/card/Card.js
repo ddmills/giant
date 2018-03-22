@@ -35,12 +35,14 @@ function renderDisableCurtain(isEnabled) {
   return <div class="card-curtain"/>;
 }
 
-export default ({name, description, value, cost, defense, attack, isEnabled}) => {
+export default ({name, description, value, cost, defense, attack, isEnabled, isDragging}) => {
+  const className = isDragging ? 'card card--dragging' : 'card';
+
   return (
-    <section class='card'>
+    <section class={className}>
       {renderDisableCurtain(isEnabled)}
       <div class="card-background">
-        <img src={`https://placeimg.com/24${defense}/32${value}/nature`}/>
+        <img src={`https://placeimg.com/24${defense}/32${value}`}/>
       </div>
       <div class="card-content">
         <div class="card-attributes">
@@ -49,9 +51,9 @@ export default ({name, description, value, cost, defense, attack, isEnabled}) =>
           {renderAttribute('attack', attack)}
           {renderCost(cost)}
         </div>
-        <h1 class="card-header">
+        {/* <span class="card-header">
           {name}
-        </h1>
+        </span> */}
       </div>
     </section>
   );

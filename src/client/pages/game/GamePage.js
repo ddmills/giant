@@ -5,6 +5,9 @@ import ErrorPage from '../layout/ErrorPage';
 import Hand from './Hand';
 import CardRow from './CardRow';
 import Card from '../../components/card/Card';
+import {DragDropContextProvider} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend'
+import DragLayer from '../../components/drag-layer/DragLayer';
 
 export default class GamePage extends Component {
   state = {
@@ -53,22 +56,25 @@ export default class GamePage extends Component {
     const currentPlayer = this.props.lobby.players.find((player) => player.id === this.props.lobby.currentPlayerId);
     const selfPlayer = this.props.lobby.players.find((player) => player.account.id === this.props.user.id);
 
-    return ([
-      <h2>Game {Math.round(this.state.time / 1000)} s</h2>,
-      <button onClick={this.props.leaveLobby} class="btn btn--danger">
-        Leave
-      </button>,
-      <button onClick={this.props.endTurn} class="btn btn--primary">
-        End turn
-      </button>,
-      <button onClick={this.props.latency} class="btn btn--primary">
-        Ping
-      </button>,
-      <p>Current turn: {currentPlayer.account.displayName}</p>,
-      <CardRow cards={this.props.lobby.blueprintRow.cards} buyCard={this.props.buyBlueprint}/>,
-      <CardRow cards={this.props.lobby.heroRow.cards} buyCard={this.props.buyHero}/>,
-      <Hand cards={selfPlayer.hand.cards}/>
-    ]);
+    return (
+        <div>
+          <DragLayer/>
+          <h2>Game {Math.round(this.state.time / 1000)} s</h2>
+          <button onClick={this.props.leaveLobby} class="btn btn--danger">
+            Leave
+          </button>
+          <button onClick={this.props.endTurn} class="btn btn--primary">
+            End turn
+          </button>
+          <button onClick={this.props.latency} class="btn btn--primary">
+            Ping
+          </button>
+          <p>Current turn: {currentPlayer.account.displayName}</p>
+          <CardRow cards={this.props.lobby.blueprintRow.cards} buyCard={this.props.buyBlueprint}/>
+          <CardRow cards={this.props.lobby.heroRow.cards} buyCard={this.props.buyHero}/>
+          <Hand cards={selfPlayer.hand.cards}/>
+        </div>
+    );
   }
 
   render({error, fatalError}) {
@@ -80,7 +86,9 @@ export default class GamePage extends Component {
 
     return (
       <GameLayout>
-        {this.renderContent()}
+        <DragDropContextProvider backend={HTML5Backend}>
+          {this.renderContent()}
+        </DragDropContextProvider>
       </GameLayout>
     );
   }

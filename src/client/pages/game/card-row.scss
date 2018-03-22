@@ -1,4 +1,18 @@
 .card-row {
   display: flex;
   width: 100%;
+  justify-content: space-between;
+
+  & > li {
+    flex: 0;
+    position: relative;
+
+    // & > .btn {
+    //   position: absolute;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    //   z-index: 2;
+    //   bottom: 0;
+    // }
+  }
 }

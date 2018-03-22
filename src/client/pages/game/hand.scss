@@ -19,7 +19,7 @@ $spread: 50deg;
   width: 60%;
   min-width: 240px;
   max-width: 600px;
-  bottom: 300px;
+  bottom: 20vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
@@ -41,11 +41,10 @@ $spread: 50deg;
         $cent: ($i - 1) / 2;
         @for $j from 1 through $i {
           &:nth-child(#{$j}) > .card {
-            $dist: (($j - 1) - $cent) * (8 / $i);
+            $dist: (($j - 1) - $cent) * (9 / $i);
             $r: $rot * $dist * (2 / $i);
-            $y: pow(abs($dist), 2) + 0%;
-
-            transform: translateX(-50%) rotateZ($r) translateY($y) perspective(300px) rotateX(-5deg);
+            $y: pow(abs($dist) + 1.2, 2) + 0%;
+            transform: translateX(-50%) rotateZ($r) translateY($y) perspective(300px) rotateX(-15deg);
 
             &:hover {
               transform: translateX(-50%) rotateZ($r) translateY(-26%) perspective(300px) rotateX(0deg);

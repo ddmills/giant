@@ -33,6 +33,11 @@
     border-color: $secondary;
   }
 
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
   &--sm {
     font-size: .7rem;
     padding: 2px;

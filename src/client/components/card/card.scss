@@ -1,37 +1,52 @@
-$ratio: 3.5 / 2.4;
+$ratio: 3.5 / 2.5;
 
 .card {
   $this: &;
 
   position: relative;
   display: inline-block;
-  width: 240px;
-  height: 320px;
+  width: 130px;
+  height: 130px * $ratio;
   color: #fff;
+
   box-shadow:
-    5px 5px 8px 2px rgba(42, 29, 47, 0.36),
-    4px 6px 3px 1px rgba(42, 29, 47, 0.36);
+    0 2px 2px 0 rgba(0,0,0,0.14),
+    0 1px 5px 0 rgba(0,0,0,0.12),
+    0 3px 1px -2px rgba(0,0,0,0.2);
+
+  &--dragging {
+    box-shadow:
+      0 8px 10px 1px rgba(0,0,0,0.14),
+      0 3px 14px 2px rgba(0,0,0,0.12),
+      0 5px 5px -3px rgba(0,0,0,0.3);
+  }
 
   background-color: #000;
-  border: 2px solid #130210;
-  border-radius: 12px;
+  // border: 1px solid #5a5a5a;
+  border-radius: 5%;
 
-  max-width: 240px;
-  max-height: 240px * $ratio;
+  max-width: 130px;
+  max-height: 130px * $ratio;
   width: 20vw;
   height: 20vw * $ratio;
   overflow: hidden;
 
   cursor: pointer;
-  cursor: -webkit-grab;
 
-  transition: transform .15s ease-in-out;
+  &--draggable {
+    cursor: -webkit-grab;
+  }
+
+  transition:
+    transform .15s ease-in-out,
+    box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
 
   &-attributes {
     position: relative;
     display: flex;
     flex-wrap: nowrap;
     padding: 4px;
+    background-color: rgba(214, 214, 214, 0.361);
   }
 
   &-attribute {
@@ -39,46 +54,49 @@ $ratio: 3.5 / 2.4;
     align-items: center;
     justify-content: center;
     margin-right: 4px;
-    font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
-    border-radius: 100%;
+    // font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
+    border-radius: 50%;
     border: 4px solid transparent;
     color: rgb(255, 255, 255);
-    width: 40px;
-    height: 40px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.445);
-    box-shadow:
-      0px 0px 5px #011419,
-      2px 2px 4px rgba(255, 255, 255, 0.452) inset;
+    width: 32px;
+    height: 32px;
+    // text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.445);
+    // box-shadow:
+    //   0px 0px 5px #011419,
+    //   2px 2px 4px rgba(255, 255, 255, 0.452) inset;
     font-size: 125%;
     font-weight: 700;
 
     &--value {
-      background-color: goldenrod;
-      border-color: rgb(160, 120, 19);
-      color: rgb(90, 70, 18);
+      background-color: rgb(253, 183, 6);
+      border-color: rgb(170, 134, 14);
+      // color: rgb(90, 70, 18);
     }
 
     &--attack {
       background-color: tomato;
       border-color: rgb(202, 75, 53);
-      color: rgb(124, 44, 30);
+      // color: rgb(124, 44, 30);
     }
 
     &--defense {
-      background-color: slategray;
+      background-color: rgb(101, 122, 143);
       border-color: rgb(52, 67, 82);
-      color: rgb(16, 39, 63);
+      // color: rgb(16, 39, 63);
     }
   }
 
   &-header {
     position: absolute;
-    bottom: 32px;
+    bottom: 0;
     width: 100%;
-    font-size: 1.3rem;
-    text-shadow: 2px 1px 4px #2e363e;
-    background-color: rgba(45, 10, 10, 0.58);
-    padding: 8px;
+    font-size: .7rem;
+    // text-shadow: 2px 1px 4px #2e363e;
+    background-color: rgba(214, 214, 214, 0.361);
+    color: #fff;
+    text-align: center;
+    padding: 4px;
+    text-transform: capitalize;
   }
 
   &-description {
@@ -102,7 +120,7 @@ $ratio: 3.5 / 2.4;
     bottom: 0;
     top: 0;
     z-index: 2;
-    background-color: rgba(42, 44, 45, 0.29);
+    // background-color: rgba(42, 44, 45, 0.29);
   }
 
   &-curtain {
@@ -112,7 +130,7 @@ $ratio: 3.5 / 2.4;
     top: 0;
     bottom: 0;
     z-index: 4;
-    background-color: rgba(109, 36, 36, 0.71);
+    background-color: rgba(181, 43, 43, 0.29);
   }
 
   &-background {
