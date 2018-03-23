@@ -1,4 +1,5 @@
 import {h} from 'preact';
+import CardAttribute from '../card-attribute/CardAttribute';
 import './card.scss';
 
 function renderAttribute(attribute, value) {
@@ -7,11 +8,7 @@ function renderAttribute(attribute, value) {
   }
 
   return (
-    <span class={`card-attribute card-attribute--${attribute}`} alt={attribute}>
-      <span class='card-attribute-value'>
-        {value}
-      </span>
-    </span>
+    <CardAttribute type={attribute} value={value}/>
   );
 }
 
@@ -51,9 +48,9 @@ export default ({name, description, value, cost, defense, attack, isEnabled, isD
           {renderAttribute('attack', attack)}
           {renderCost(cost)}
         </div>
-        {/* <span class="card-header">
+        <span class="card-header">
           {name}
-        </span> */}
+        </span>
       </div>
     </section>
   );
