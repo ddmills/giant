@@ -12,8 +12,6 @@ const cardSource = {
     const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
 
-    console.log('endDrag', props, item, dropResult);
-
     if (dropResult) {
       props.onDrop();
     }

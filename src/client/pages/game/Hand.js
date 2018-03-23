@@ -3,32 +3,57 @@ import {DropTarget} from 'react-dnd'
 import Card from '../../components/card/Card';
 import './hand.scss';
 
-function renderCard(card) {
-  return (
-    <li>
-      <Card {...card}/>
-    </li>
-  );
+function disable(card) {
+  return {
+    ...card,
+    isEnabled: false,
+  };
 }
 
-const Hand =({cards, connectDropTarget, isOver, canDrop, dropItem}) => {
-  if (isOver && canDrop) {
-    cards = [...cards, {
-      ...dropItem,
-      isEnabled: false,
-    }];
+class Hand extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: props.cards,
+    };
   }
 
-  return connectDropTarget(
-    <ul class='hand'>
-      {cards.map(renderCard)}
-    </ul>
-  );
+  renderCard(card) {
+    return (
+      <li>
+        <Card {...card}/>
+      </li>
+    );
+  }
+
+  componentWillReceiveProps({dropResult, dropItem, cards}) {
+    if (dropResult && !this.props.dropResult) {
+      this.setState({
+        cards: [...this.state.cards, disable(dropItem)]
+      });
+    } else if (!(this.props.dropItem && !dropItem)) {
+      this.setState({
+        cards
+      });
+    }
+  }
+
+  render ({connectDropTarget, isOver, canDrop, dropItem}) {
+    const cards = [...this.state.cards];
+
+    if (isOver && canDrop) {
+      cards.push(disable(dropItem));
+    }
+
+    return connectDropTarget(
+      <ul class='hand'>
+        {cards.map(this.renderCard)}
+      </ul>
+    );
+  }
 }
 
-const cardTarget = {
-
-};
+const cardTarget = {};
 
 function collect(connect, monitor) {
   return {
@@ -36,6 +61,7 @@ function collect(connect, monitor) {
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop(),
     dropItem: monitor.getItem(),
+    dropResult: monitor.getDropResult(),
   }
 }
 

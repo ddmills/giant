@@ -33,9 +33,9 @@ export default class GamePage extends Component {
 
     const time = Date.now() - this.props.lobby.startTime;
 
-    this.setState({
-      time
-    });
+    // this.setState({
+    //   time
+    // });
   }
 
   componentWillReceiveProps(newProps) {
@@ -46,7 +46,11 @@ export default class GamePage extends Component {
 
   renderContent() {
     if (this.props.error) {
-      return <p>error</p>;
+      return (
+        <pre class="code">
+          {JSON.stringify(this.props.error, null, 2)}
+        </pre>
+      );
     }
 
     if (!this.props.lobby) {
@@ -59,7 +63,7 @@ export default class GamePage extends Component {
     return (
         <div>
           <DragLayer/>
-          <h2>Game {Math.round(this.state.time / 1000)} s</h2>
+          <h2>{Math.round(this.state.time / 1000)} s</h2>
           <button onClick={this.props.leaveLobby} class="btn btn--danger">
             Leave
           </button>
