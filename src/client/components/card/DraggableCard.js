@@ -3,6 +3,12 @@ import {DragSource} from 'react-dnd';
 import {getEmptyImage} from 'react-dnd-html5-backend';
 import Card from './Card';
 
+function getStyles(isDragging) {
+  return {
+    opacity: isDragging ? 0 : 1,
+  };
+}
+
 const cardSource = {
   beginDrag(props) {
     return props;
@@ -20,6 +26,7 @@ const cardSource = {
 
 function collect(connect, monitor) {
   return {
+    isDragging: monitor.isDragging(),
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
   };
@@ -35,9 +42,9 @@ class DraggableCard extends Component {
     );
   }
 
-  render({connectDragSource, onDrop, ...card}) {
+  render({connectDragSource, isDragging, onDrop, ...card}) {
     return connectDragSource(
-      <div>
+      <div style={getStyles(isDragging)}>
         <Card {...card}/>
       </div>
     );

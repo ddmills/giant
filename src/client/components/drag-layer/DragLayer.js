@@ -11,11 +11,10 @@ function getItemStyles({isDragging, isOverTarget, initialOffset, currentOffset})
   }
 
   const {x, y} = currentOffset;
-  const transform = `translate(${x}px, ${y + 20}px) rotateZ(5deg)`;
+  const transform = `translate(${x}px, ${y + 35}px) rotateZ(5deg)`;
 
   return {
     transform,
-    transition: 'none',
   };
 }
 
