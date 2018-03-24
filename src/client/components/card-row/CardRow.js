@@ -4,16 +4,16 @@ import './card-row.scss';
 
 function renderCard(card, buyCard) {
   return (
-    <li>
+    <div class="card-container">
       <DraggableCard {...card} onDrop={() => buyCard(card.id)}/>
-    </li>
+    </div>
   );
 }
 
 export default ({cards, buyCard}) => {
   return (
-    <ul class="card-row">
+    <div class="card-row">
       {cards.map((card) => renderCard(card, buyCard))}
-    </ul>
+    </div>
   );
 }

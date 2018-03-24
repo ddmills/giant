@@ -1,9 +1,10 @@
 import {h, Component} from 'preact';
 import {DragLayer} from 'react-dnd'
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import Card from '../card/Card';
 import './drag-layer.scss';
 
-function getItemStyles({isDragging, isOverTarget, initialOffset, currentOffset}) {
+function getItemStyles({isOverTarget, initialOffset, currentOffset}) {
   if (isOverTarget || !initialOffset || !currentOffset) {
     return {
       display: 'none',
@@ -11,7 +12,7 @@ function getItemStyles({isDragging, isOverTarget, initialOffset, currentOffset})
   }
 
   const {x, y} = currentOffset;
-  const transform = `translate(${x}px, ${y + 35}px) rotateZ(5deg)`;
+  const transform = `translate(${x}px, ${y}px)`;
 
   return {
     transform,
@@ -20,20 +21,24 @@ function getItemStyles({isDragging, isOverTarget, initialOffset, currentOffset})
 
 class CardDragLayer extends Component {
   renderItem(itemType, item) {
+    if (!item) {
+      return;
+    }
+
     return (
-      <Card {...item} isDragging/>
+      <Card {...item}/>
     );
   }
 
   render({item, itemType, isDragging, isOverTarget, initialOffset, currentOffset}) {
-    if (!isDragging) {
-      return null;
-    }
-
     return (
       <div class='drag-layer'>
-        <div style={getItemStyles({isDragging, isOverTarget, initialOffset, currentOffset})}>
-          {this.renderItem(itemType, item)}
+        <div style={getItemStyles({isOverTarget, initialOffset, currentOffset})}>
+          <CSSTransition in={isDragging} classNames="card-container--floating" timeout={5}>
+            <div class="card-container card-container--floating">
+              {this.renderItem(itemType, item)}
+            </div>
+          </CSSTransition>
         </div>
       </div>
     );

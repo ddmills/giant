@@ -36,10 +36,10 @@ export default ({name, description, value, cost, defense, attack, isEnabled, isD
   const className = isDragging ? 'card card--dragging' : 'card';
 
   return (
-    <section class={className}>
+    <section class="card">
       {renderDisableCurtain(isEnabled)}
       <div class="card-background">
-        <img src={`https://placeimg.com/24${defense}/32${value}`}/>
+        <img src={`https://placeimg.com/24${name.length % 10}/32${value}`}/>
       </div>
       <div class="card-content">
         <div class="card-attributes">
