@@ -1,5 +1,5 @@
 import {h} from 'preact';
-import DraggableCard from '../../components/card/DraggableCard';
+import DraggableCard from '../card/DraggableCard';
 import './card-row.scss';
 
 function renderCard(card, buyCard) {

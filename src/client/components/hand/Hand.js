@@ -1,6 +1,6 @@
 import {h, Component} from 'preact';
 import {DropTarget} from 'react-dnd'
-import Card from '../../components/card/Card';
+import Card from '../card/Card';
 import './hand.scss';
 
 function disable(card) {

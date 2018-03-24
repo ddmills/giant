@@ -1,13 +1,13 @@
 import {h, Component} from 'preact';
+import {DragDropContextProvider} from 'react-dnd';
+
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import GameLayout from '../layout/GameLayout';
 import ErrorPage from '../layout/ErrorPage';
-import Hand from './Hand';
-import CardRow from './CardRow';
-import Card from '../../components/card/Card';
-import {DragDropContextProvider} from 'react-dnd';
+import CardRow from '../../components/card-row/CardRow';
 import HTML5Backend from 'react-dnd-html5-backend'
 import DragLayer from '../../components/drag-layer/DragLayer';
+import PlayerDrawer from '../../components/player-drawer/PlayerDrawer';
 
 export default class GamePage extends Component {
   state = {
@@ -76,7 +76,7 @@ export default class GamePage extends Component {
           <p>Current turn: {currentPlayer.account.displayName}</p>
           <CardRow cards={this.props.lobby.blueprintRow.cards} buyCard={this.props.buyBlueprint}/>
           <CardRow cards={this.props.lobby.heroRow.cards} buyCard={this.props.buyHero}/>
-          <Hand cards={selfPlayer.hand.cards}/>
+          <PlayerDrawer player={selfPlayer}/>
         </div>
     );
   }
