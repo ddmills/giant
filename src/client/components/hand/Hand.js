@@ -1,5 +1,6 @@
 import {h, Component} from 'preact';
 import {DropTarget} from 'react-dnd'
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import Card from '../card/Card';
 import './hand.scss';
 
@@ -20,9 +21,11 @@ class Hand extends Component {
 
   renderCard(card) {
     return (
-      <li>
-        <Card {...card}/>
-      </li>
+      <div class="hand-slot">
+        <div class="hand-slot-extender">
+          <Card {...card}/>
+        </div>
+      </div>
     );
   }
 
@@ -46,9 +49,9 @@ class Hand extends Component {
     }
 
     return connectDropTarget(
-      <ul class='hand'>
+      <div class='hand'>
         {cards.map(this.renderCard)}
-      </ul>
+      </div>
     );
   }
 }

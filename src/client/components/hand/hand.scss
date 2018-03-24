@@ -1,4 +1,5 @@
-$spread: 50deg;
+$spread: 60deg;
+$radius: 540px;
 
 @function pow($number, $exponent) {
   $value: 1;
@@ -13,42 +14,44 @@ $spread: 50deg;
 }
 
 .hand {
-  display: flex;
-  justify-content: space-around;
   position: absolute;
-  width: 60%;
-  min-width: 240px;
-  max-width: 600px;
-  bottom: 20vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
+  bottom: 0;
 
-  .card {
+  &-slot {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: -$radius / 2;
+    transform: translateX(-50%);
     left: 50%;
-  }
+    transition: transform .2s cubic-bezier(0.1, 0.65, 0.58, 1.02);
 
-  & > li {
-    display: inline-block;
-    position: relative;
-    width: 0;
-    height: 0;
+    &-extender {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      height: $radius;
+      bottom: 0;
+      padding-top: 50px;
 
-    @for $i from 2 through 24 {
+      transition: transform 120ms cubic-bezier(0.42, 0.48, 0.53, 1.29);
+
+      &:hover {
+        transform: translate(-50%, -60px);
+      }
+    }
+
+    @for $i from 2 through 12 {
       &:first-child:nth-last-child(#{$i}),
-      &:first-child:nth-last-child(#{$i}) ~ li {
-        $rot: ($i * 10deg) / ($i - 1);
-        $cent: ($i - 1) / 2;
+      &:first-child:nth-last-child(#{$i}) ~ .hand-slot {
         @for $j from 1 through $i {
-          &:nth-child(#{$j}) > .card {
-            $dist: (($j - 1) - $cent) * (9 / $i);
-            $r: $rot * $dist * (2 / $i);
-            $y: pow(abs($dist) + 1.2, 2) + 0%;
-            transform: translateX(-50%) rotateZ($r) translateY($y) perspective(300px) rotateX(-15deg);
-
-            &:hover {
-              transform: translateX(-50%) rotateZ($r) translateY(-26%) perspective(300px) rotateX(0deg);
-            }
+          &:nth-child(#{$j}) {
+            $offset: $spread / $i;
+            $r: $offset * ($j) - ($spread / 2) - ($offset / 2);
+            transform: translateX(-50%) rotateZ($r);
           }
         }
       }

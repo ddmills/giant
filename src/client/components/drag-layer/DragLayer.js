@@ -1,6 +1,6 @@
 import {h, Component} from 'preact';
 import {DragLayer} from 'react-dnd'
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import {CSSTransition} from 'react-transition-group';
 import Card from '../card/Card';
 import './drag-layer.scss';
 
