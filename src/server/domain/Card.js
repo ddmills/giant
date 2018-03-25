@@ -9,6 +9,7 @@ export default class Card extends Model {
       cost: 0,
       value: 0,
       attack: 0,
+      points: 0,
       defense: 0,
       isEnabled: true,
       description: 'no description',

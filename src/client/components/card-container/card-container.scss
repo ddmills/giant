@@ -1,0 +1,47 @@
+$ratio: 3.5 / 2.5;
+
+.card-container {
+  display: inline-block;
+
+  width: 130px;
+  height: 130px * $ratio;
+
+  border-radius: 5%;
+  overflow: hidden;
+  cursor: pointer;
+
+  transition:
+    box-shadow 100ms ease-in-out,
+    transform 100ms ease-in-out;
+  border-radius: 5%;
+  overflow: hidden;
+
+  box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
+  transform: translate(0px, 0px);
+
+  &--floating {
+    // transform: translate(-13px, -13px) perspective(300px) rotateX(-10deg);
+    transform: translate(-13px, -13px) perspective(300px);
+    box-shadow:
+      13px 13px 2px 0 rgba(0,0,0,.14),
+      13px 13px 14px 0px rgba(0,0,0,.12),
+      13px 13px 1px 0px rgba(0,0,0,.2);
+  }
+}
+
+.card-container--floating-enter {
+  box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
+  transform: translate(0px, 0px);
+}
+
+.card-container--floating-enter-active {
+  box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
+  transform: translate(0px, 0px);
+}
+
+.card-container--floating-exit {
+}
+
+.card-container--floating-exit-active {
+  // box-shadow: 0px 0px 0px 0 rgba(0,0,0,0),
+}

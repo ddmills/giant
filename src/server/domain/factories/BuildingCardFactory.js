@@ -33,9 +33,10 @@ export function create(overrides = {}) {
     instanceId: uuid(),
     name: pick(names),
     cost: die(),
-    value: die(),
+    value: die() - 1,
+    points: die() - 1,
     description: pick(['hello world, this is description', 'lorem ipsum']),
-    defense: die(),
+    defense: die() - 1,
     disabled: true,
     ...overrides,
   });

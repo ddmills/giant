@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import {DragLayer} from 'react-dnd'
-import {CSSTransition} from 'react-transition-group';
 import Card from '../card/Card';
+import CardContainer from '../card-container/CardContainer';
 import './drag-layer.scss';
 
 function getItemStyles({isOverTarget, initialOffset, currentOffset}) {
@@ -34,11 +34,9 @@ class CardDragLayer extends Component {
     return (
       <div class='drag-layer'>
         <div style={getItemStyles({isOverTarget, initialOffset, currentOffset})}>
-          <CSSTransition in={isDragging} classNames="card-container--floating" timeout={5}>
-            <div class="card-container card-container--floating">
-              {this.renderItem(itemType, item)}
-            </div>
-          </CSSTransition>
+          <CardContainer isFloating={isDragging}>
+            {this.renderItem(itemType, item)}
+          </CardContainer>
         </div>
       </div>
     );

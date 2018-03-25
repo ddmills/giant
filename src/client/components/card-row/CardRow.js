@@ -1,12 +1,13 @@
 import {h} from 'preact';
 import DraggableCard from '../card/DraggableCard';
+import CardContainer from '../card-container/CardContainer';
 import './card-row.scss';
 
 function renderCard(card, buyCard) {
   return (
-    <div class="card-container">
+    <CardContainer>
       <DraggableCard {...card} onDrop={() => buyCard(card.id)}/>
-    </div>
+    </CardContainer>
   );
 }
 

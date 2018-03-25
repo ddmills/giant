@@ -6,6 +6,8 @@ import Card from './Card';
 function getStyles(isDragging) {
   return {
     opacity: isDragging ? 0 : 1,
+    width: '100%',
+    height: '100%',
   };
 }
 
@@ -19,7 +21,7 @@ const cardSource = {
     const dropResult = monitor.getDropResult();
 
     if (dropResult) {
-      props.onDrop();
+      props.onDrop(dropResult);
     }
   },
 };

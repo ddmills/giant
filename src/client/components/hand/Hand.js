@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 import {DropTarget} from 'react-dnd'
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import CardContainer from '../card-container/CardContainer';
 import Card from '../card/Card';
 import './hand.scss';
 
@@ -23,7 +24,9 @@ class Hand extends Component {
     return (
       <div class="hand-slot">
         <div class="hand-slot-extender">
-          <Card {...card}/>
+          <CardContainer>
+            <Card {...card}/>
+          </CardContainer>
         </div>
       </div>
     );
