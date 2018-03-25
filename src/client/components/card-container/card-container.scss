@@ -6,37 +6,37 @@ $ratio: 3.5 / 2.5;
   width: 130px;
   height: 130px * $ratio;
 
-  border-radius: 5%;
-  overflow: hidden;
+  border-radius: 12px;
   cursor: pointer;
 
   transition:
-    box-shadow 100ms ease-in-out,
-    transform 100ms ease-in-out;
-  border-radius: 5%;
-  overflow: hidden;
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
-  transform: translate(0px, 0px);
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+  &--empty {
+    transition: none;
+    box-shadow: none;
+  }
 
   &--floating {
-    // transform: translate(-13px, -13px) perspective(300px) rotateX(-10deg);
-    transform: translate(-13px, -13px) perspective(300px);
     box-shadow:
-      13px 13px 2px 0 rgba(0,0,0,.14),
-      13px 13px 14px 0px rgba(0,0,0,.12),
-      13px 13px 1px 0px rgba(0,0,0,.2);
+      0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+      0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+      0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   }
 }
 
 .card-container--floating-enter {
   box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
-  transform: translate(0px, 0px);
 }
 
 .card-container--floating-enter-active {
   box-shadow: 0px 0px 0px 0 rgba(0,0,0,0);
-  transform: translate(0px, 0px);
 }
 
 .card-container--floating-exit {

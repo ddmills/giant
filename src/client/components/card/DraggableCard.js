@@ -13,6 +13,7 @@ function getStyles(isDragging) {
 
 const cardSource = {
   beginDrag(props) {
+    props.onDrag();
     return props;
   },
 
@@ -22,6 +23,8 @@ const cardSource = {
 
     if (dropResult) {
       props.onDrop(dropResult);
+    } else {
+      props.onAbandonDrop();
     }
   },
 };
@@ -44,7 +47,7 @@ class DraggableCard extends Component {
     );
   }
 
-  render({connectDragSource, isDragging, onDrop, ...card}) {
+  render({connectDragSource, isDragging, onDrag, onDrop, ...card}) {
     return connectDragSource(
       <div style={getStyles(isDragging)}>
         <Card {...card}/>
