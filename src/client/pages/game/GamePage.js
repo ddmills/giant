@@ -4,12 +4,10 @@ import {DragDropContextProvider} from 'react-dnd';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import GameLayout from '../layout/GameLayout';
 import ErrorPage from '../layout/ErrorPage';
-import CardRow from '../../components/card-row/CardRow';
-import BlueprintRow from '../../components/blueprint-row/BlueprintRow';
-import HeroRow from '../../components/hero-row/HeroRow';
 import HTML5Backend from 'react-dnd-html5-backend'
 import DragLayer from '../../components/drag-layer/DragLayer';
 import PlayerDrawer from '../../components/player-drawer/PlayerDrawer';
+import StoreDrawer from '../../components/store-drawer/StoreDrawer';
 
 export default class GamePage extends Component {
   state = {
@@ -75,14 +73,14 @@ export default class GamePage extends Component {
           <button onClick={this.props.latency} class="btn btn--primary">
             Ping
           </button>
-          <p>Current turn: {currentPlayer.account.displayName}</p>
-          <BlueprintRow
-            cards={this.props.lobby.blueprintRow.cards}
-            buyBlueprint={this.props.buyBlueprint}
-          />
-          <HeroRow
-            cards={this.props.lobby.heroRow.cards}
+          <p>
+            Current turn: {currentPlayer.account.displayName}
+          </p>
+          <StoreDrawer
+            blueprintRow={this.props.lobby.blueprintRow}
+            heroRow={this.props.lobby.heroRow}
             buyHero={this.props.buyHero}
+            buyBlueprint={this.props.buyBlueprint}
           />
           <PlayerDrawer
             player={selfPlayer}
