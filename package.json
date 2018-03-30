@@ -12,7 +12,8 @@
     "data:build": "cpx \"./src/data/**/*\" \"./dist/data\" --clean -v",
     "data:watch": "cpx \"./src/data/**/*\" \"./dist/data\" -w -v",
     "build": "npm run clean && npm run client:build && npm run data:build && npm run server:build",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "axios": "^0.18.0",
