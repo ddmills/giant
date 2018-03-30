@@ -3,9 +3,9 @@ require('dotenv').config();
 module.exports = {
   env: process.env.NODE_ENV || 'production',
   server: {
-    host: '127.0.0.1',
+    host: process.env.HOST || '127.0.0.1',
     port: process.env.PORT || 8080,
-    protocol: 'http'
+    protocol: process.env.PROTOCOL || 'http'
   },
   jwt: {
     secret: process.env.JWT_SECRET,
