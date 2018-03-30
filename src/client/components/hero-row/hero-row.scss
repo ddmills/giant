@@ -1,0 +1,10 @@
+.hero-row {
+  display: flex;
+  position: relative;
+  padding: 6px;
+  margin: 6px;
+
+  & > .card-container {
+    margin: 6px;
+  }
+}

@@ -40,7 +40,9 @@
     text-align: left;
     text-transform: capitalize;
     color: #fff;
-    text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.45);
+    text-shadow:
+      0 0 7px rgba(0, 0, 0, 0.8),
+      0 0 1px rgba(0, 0, 0, 0.19);
   }
 
   &-cost {
@@ -99,11 +101,30 @@
     height: 100%;
     border-radius: 12px;
     overflow: hidden;
+    background-color: #fff;
 
     & > img {
       height: 100%;
       vertical-align: top;
       margin: 0;
+      opacity: 0.65;
+      filter: saturate(75%);
     }
+  }
+
+  &--value &-background{
+    background-color: #fdb706;
+  }
+
+  &--points &-background{
+    background-color: #73a72c;
+  }
+
+  &--attack &-background{
+    background-color: #9c2727;
+  }
+
+  &--defense &-background{
+    background-color: #657a8f;
   }
 }

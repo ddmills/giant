@@ -8,7 +8,7 @@ export default ({children, size}) => {
   return (
     <div class="page page--full">
       <SuperHeader/>
-      <div class='container container--full'>
+      <div class='container container--full play-area'>
         {children}
       </div>
     </div>

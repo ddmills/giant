@@ -32,11 +32,17 @@ function renderDisableCurtain(isEnabled) {
   return <div class="card-curtain"/>;
 }
 
+function getClass(value, defense, attack, points) {
+  return Object.entries({value, defense, attack, points}).reduce((largest, current) => {
+    return current[1]  > largest[1] ? current : largest;
+  }, ['basic', 0])[0];
+}
+
 export default ({name, description, value, cost, defense, attack, points, isEnabled, isDragging}) => {
-  const className = isDragging ? 'card card--dragging' : 'card';
+  const className = `card card--${getClass(value, defense, attack, points)}`;
 
   return (
-    <section class="card">
+    <section class={className}>
       {renderDisableCurtain(isEnabled)}
       <div class="card-background">
         <img src={`https://placeimg.com/24${name.length % 10}/32${value}`}/>

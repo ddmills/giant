@@ -5,6 +5,8 @@ import LoadingIndicator from '../../components/loading-indicator/LoadingIndicato
 import GameLayout from '../layout/GameLayout';
 import ErrorPage from '../layout/ErrorPage';
 import CardRow from '../../components/card-row/CardRow';
+import BlueprintRow from '../../components/blueprint-row/BlueprintRow';
+import HeroRow from '../../components/hero-row/HeroRow';
 import HTML5Backend from 'react-dnd-html5-backend'
 import DragLayer from '../../components/drag-layer/DragLayer';
 import PlayerDrawer from '../../components/player-drawer/PlayerDrawer';
@@ -74,9 +76,17 @@ export default class GamePage extends Component {
             Ping
           </button>
           <p>Current turn: {currentPlayer.account.displayName}</p>
-          <CardRow cards={this.props.lobby.blueprintRow.cards} buyCard={this.props.buyBlueprint}/>
-          <CardRow cards={this.props.lobby.heroRow.cards} buyCard={this.props.buyHero}/>
-          <PlayerDrawer player={selfPlayer}/>
+          <BlueprintRow
+            cards={this.props.lobby.blueprintRow.cards}
+            buyBlueprint={this.props.buyBlueprint}
+          />
+          <HeroRow
+            cards={this.props.lobby.heroRow.cards}
+            buyHero={this.props.buyHero}
+          />
+          <PlayerDrawer
+            player={selfPlayer}
+          />
         </div>
     );
   }

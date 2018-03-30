@@ -1,9 +1,9 @@
 import {h, Component} from 'preact';
-import DraggableCard from '../card/DraggableCard';
+import './blueprint-row.scss';
 import CardContainer from '../card-container/CardContainer';
-import './card-row.scss';
+import DraggableCard from '../card/DraggableCard';
 
-export default class CardRow extends Component {
+export default class BlueprintRow extends Component {
   state = {
     cards: []
   }
@@ -43,7 +43,7 @@ export default class CardRow extends Component {
       <CardContainer isEmpty={card.hidden}>
         <DraggableCard
           {...card}
-          onDrop={() => this.props.buyCard(card.id)}
+          onDrop={() => this.props.buyBlueprint(card.id)}
           onDrag={() => this.hideCard(card.id)}
           onAbandonDrop={() => this.showCard(card.id)}
         />
@@ -53,7 +53,7 @@ export default class CardRow extends Component {
 
   render() {
     return (
-      <div class="card-row">
+      <div class="blueprint-row">
         {this.state.cards.map((card) => this.renderCard(card))}
       </div>
     );
