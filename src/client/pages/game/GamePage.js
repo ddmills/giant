@@ -8,6 +8,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import DragLayer from '../../components/drag-layer/DragLayer';
 import PlayerDrawer from '../../components/player-drawer/PlayerDrawer';
 import StoreDrawer from '../../components/store-drawer/StoreDrawer';
+import EnemyArea from '../../components/enemy-area/EnemyArea';
 
 export default class GamePage extends Component {
   state = {
@@ -44,6 +45,10 @@ export default class GamePage extends Component {
     }
   }
 
+  renderEnemyPlayers(enemies) {
+    return enemies
+  }
+
   renderContent() {
     if (this.props.error) {
       return (
@@ -59,6 +64,7 @@ export default class GamePage extends Component {
 
     const currentPlayer = this.props.lobby.players.find((player) => player.id === this.props.lobby.currentPlayerId);
     const selfPlayer = this.props.lobby.players.find((player) => player.account.id === this.props.user.id);
+    const enemies = this.props.lobby.players.filter((player) => player.account.id !== this.props.user.id);
 
     return (
         <div>
@@ -76,6 +82,7 @@ export default class GamePage extends Component {
           <p>
             Current turn: {currentPlayer.account.displayName}
           </p>
+          {enemies.map((enemy) => <EnemyArea enemy={enemy}/>)}
           <StoreDrawer
             blueprintRow={this.props.lobby.blueprintRow}
             heroRow={this.props.lobby.heroRow}
